@@ -8189,13 +8189,14 @@ h1, h2, h3, h4, h5,
   margin: 0 auto;
   overflow: hidden;
   border-radius: 5px;
+  width: 100%;
   -webkit-box-shadow: 0px 19px 27px -20px rgba(0, 0, 0, 0.16);
   -moz-box-shadow: 0px 19px 27px -20px rgba(0, 0, 0, 0.16);
   box-shadow: 0px 19px 27px -20px rgba(0, 0, 0, 0.16); }
 
 .wrap-header {
   position: relative;
-  width: 35%;
+  width: 45%;
   z-index: 0; }
   .wrap-header:after {
     position: absolute;
@@ -8210,7 +8211,7 @@ h1, h2, h3, h4, h5,
   @media (max-width: 767.98px) {
     .wrap-header {
       width: 100%;
-      padding: 20px 0; } }
+      padding: 0px 0; } }
 
 #header {
   width: 100%;

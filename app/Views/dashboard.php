@@ -8,7 +8,7 @@
 
     <div class="row g-4">
         <div class="col-3">
-            <div class="card text-white mb-4" style="background-color: #2F4F4F;">
+            <div class="card text-white rounded-4 mb-4" style="background-color: #2F4F4F;">
                 <h5 class="card-header">Next Activity</h5>
                 <div class="card-body">
                     <h1 class="card-title">Januari 2026</h1>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-3">
-            <div class="card text-white mb-4" style="background-color: #6B8E23" ;>
+            <div class="card text-white rounded-4 mb-4" style="background-color: #6B8E23" ;>
                 <h5 class="card-header">SOC Battery</h5>
                 <div class="card-body">
                     <h1 class="card-title">45,5%</h1>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="col-3">
-            <div class="card text-white mb-4" style="background-color: #B8860B" ;>
+            <div class="card rounded-4 text-white mb-4" style="background-color: #B8860B" ;>
                 <h5 class="card-header">Critical Sucad</h5>
                 <div class="card-body">
                     <h1 class="card-title">35 items</h1>
@@ -41,7 +41,7 @@
         </div>
 
         <div class="col-3">
-            <div class="card text-white mb-4" style="background-color: #5A3E36 " ;>
+            <div class="card rounded-4 text-white mb-4" style="background-color: #5A3E36 " ;>
                 <h5 class="card-header">Penembakan</h5>
                 <div class="card-body">
                     <h1 class="card-title">4 kali</h1>
@@ -57,98 +57,100 @@
 
 
         <div class="col-6">
-            <div class="elegant-calencar d-md-flex">
-                <div class="wrap-header d-flex align-items-center img" style="background-image: url(assets/images/bg.jpg);">
-                    <p id="reset">Today</p>
-                    <div id="header" class="p-0">
-                        <!-- <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div> -->
-                        <div class="head-info">
-                            <div class="head-month"></div>
-                            <div class="head-day"></div>
+            <div class="card rounded-4">
+                <div class="elegant-calencar d-md-flex">
+                    <div class="wrap-header px-0 d-flex align-items-center img" style="background-image: url(assets/images/bg.jpg);">
+                        <p id="reset">Today</p>
+                        <div id="header" class="p-0">
+                            <!-- <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div> -->
+                            <div class="head-info">
+                                <div class="head-month"></div>
+                                <div class="head-day"></div>
+                            </div>
+                            <!-- <div class="next-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-right"></i></div> -->
                         </div>
-                        <!-- <div class="next-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-right"></i></div> -->
                     </div>
-                </div>
-                <div class="calendar-wrap">
-                    <div class="w-100 button-wrap">
-                        <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div>
-                        <div class="next-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-right"></i></div>
+                    <div class="calendar-wrap">
+                        <div class="w-100 button-wrap">
+                            <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div>
+                            <div class="next-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-right"></i></div>
+                        </div>
+                        <table id="calendar">
+                            <thead>
+                                <tr>
+                                    <th>Sun</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <table id="calendar">
-                        <thead>
-                            <tr>
-                                <th>Sun</th>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th>Fri</th>
-                                <th>Sat</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
 
         <div class="col-6">
-            <div class="card">
+            <div class="card rounded-4">
                 <div class="card-body">
                     <div>
                         <canvas id="myChart"></canvas>
