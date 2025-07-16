@@ -7,6 +7,15 @@
     <title>Sistem Informasi Testbench - TPO Blackshark</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- calender -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- akhir calendar -->
+
     <style>
         /* Palet Warna Hutan Modern */
         :root {
@@ -327,40 +336,189 @@
 
                 </div>
                 <br>
-                <div class="card p-4">
-                    <h5 class="card-title">Selamat Datang</h5>
-                    <p class="card-text">Ini adalah contoh sidebar dengan submenu menggunakan Bootstrap 5.</p>
-                    <p class="card-text">Klik pada menu "Produk", "Penjualan", atau "Laporan" untuk melihat submenu.</p>
-                </div>
+                <div class="row g-2">
 
-                <h3>Bagian-bagian Konten Lainnya</h3>
-                <div class="row mt-4">
-                    <div class="col-lg-6 mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Ringkasan Penjualan</h5>
-                                <p class="card-text">Grafik penjualan bulanan terbaru Anda.</p>
-                                <a href="#" class="btn btn-sm btn-primary">Lihat Laporan</a>
+
+                    <div class="col-6">
+                        <div class="elegant-calencar d-md-flex">
+                            <div class="wrap-header d-flex align-items-center img" style="background-image: url(assets/images/bg.jpg);">
+                                <p id="reset">Today</p>
+                                <div id="header" class="p-0">
+                                    <!-- <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div> -->
+                                    <div class="head-info">
+                                        <div class="head-month"></div>
+                                        <div class="head-day"></div>
+                                    </div>
+                                    <!-- <div class="next-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-right"></i></div> -->
+                                </div>
+                            </div>
+                            <div class="calendar-wrap">
+                                <div class="w-100 button-wrap">
+                                    <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div>
+                                    <div class="next-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-right"></i></div>
+                                </div>
+                                <table id="calendar">
+                                    <thead>
+                                        <tr>
+                                            <th>Sun</th>
+                                            <th>Mon</th>
+                                            <th>Tue</th>
+                                            <th>Wed</th>
+                                            <th>Thu</th>
+                                            <th>Fri</th>
+                                            <th>Sat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 mb-3">
+
+                    <div class="col-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Produk Terlaris</h5>
-                                <p class="card-text">Daftar produk yang paling banyak diminati pelanggan.</p>
-                                <a href="#" class="btn btn-sm btn-outline-primary">Lihat Produk</a>
+                                <div>
+                                    <canvas id="myChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
-                <p style="height: 600px;"></p>
+
+
             </main>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+    <!-- calendar -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <!-- akhir calendar -->
+
+
+    <!-- grafik -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'], // Labels bulanan
+                datasets: [{
+                        label: 'SOC Baterai', // Label untuk garis pertama
+                        data: [12, 19, 3, 5, 2, 3, 8, 11, 15, 10, 6, 4], // Data untuk garis pertama
+                        borderColor: 'rgb(75, 192, 192)', // Warna garis untuk garis pertama
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Warna latar belakang untuk area di bawah garis pertama
+                        borderWidth: 2, // Ketebalan garis
+                        tension: 0.4 // Membuat garis mulus
+                    },
+                    {
+                        label: 'KWH Baterai', // Label untuk garis kedua
+                        data: [20, 22, 18, 25, 23, 20, 28, 26, 24, 21, 19, 17], // Data contoh untuk garis kedua
+                        borderColor: 'rgb(255, 99, 132)', // Warna garis untuk garis kedua
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)', // Warna latar belakang untuk area di bawah garis kedua
+                        borderWidth: 2,
+                        tension: 0.4 // Membuat garis mulus
+                    }
+                ]
+            },
+            options: {
+
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                tension: 0.4,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: '#333',
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Grafik SOC Battery Bulanan',
+                        color: '#333',
+                        font: {
+                            size: 18
+                        }
+                    }
+                }
+
+            }
+        });
+    </script>
+    <!-- akhir grafik -->
 </body>
 
 </html>
