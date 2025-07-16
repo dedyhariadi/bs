@@ -162,6 +162,7 @@
             background-color: #FFFFFF;
             /* Putih bersih untuk kartu */
             border: 1px solid rgba(0, 0, 0, 0.1);
+            justify-content: space-between;
         }
 
         /* Gaya untuk Tombol */
@@ -279,6 +280,53 @@
                     <h1 class="h2">Dashboard</h1>
                 </div>
 
+                <div class="row g-4">
+                    <div class="col-3">
+                        <div class="card bg-primary text-white mb-4">
+                            <h5 class="card-header">Next Activity</h5>
+                            <div class="card-body">
+                                <h1 class="card-title">Januari 2026</h1>
+                                <p class="card-text">Class E Maintenance.</p>
+                                <a href="#" class="btn btn-outline-warning">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="card bg-success text-white mb-4">
+                            <h5 class="card-header">SOC Battery</h5>
+                            <div class="card-body">
+                                <h1 class="card-title">45,5%</h1>
+                                <p class="card-text">Last updated at 23 Nov 2025.</p>
+                                <a href="#" class="btn btn-outline-warning">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="card bg-warning text-dark mb-4">
+                            <h5 class="card-header">Critical Sucad</h5>
+                            <div class="card-body">
+                                <h1 class="card-title">35 items</h1>
+                                <p class="card-text">dari 205 Sucad.</p>
+                                <a href="#" class="btn btn-outline-primary">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="card bg-danger text-white mb-4">
+                            <h5 class="card-header">Penembakan</h5>
+                            <div class="card-body">
+                                <h1 class="card-title">4 kali</h1>
+                                <p class="card-text">Last Firing at 23 Des 2024.</p>
+                                <a href="#" class="btn btn-outline-secondary">Detail</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
                 <div class="card p-4">
                     <h5 class="card-title">Selamat Datang</h5>
                     <p class="card-text">Ini adalah contoh sidebar dengan submenu menggunakan Bootstrap 5.</p>
