@@ -35,8 +35,21 @@
                  </a>
                  <div class="collapse" id="submenuProdukDesktop">
                      <ul class="nav flex-column">
-                         <li class="nav-item"><a class="nav-link" href="#">Torpedo</a></li>
-                         <li class="nav-item"><a class="nav-link" href="#">Alat Test</a></li>
+                         <li class="nav-item">
+                             <?php
+                                $jenisManual = 'torpedo';
+                                ?>
+                             <?= anchor('home/manual/' . $jenisManual, 'Torpedo', ['class' => 'nav-link']); ?>
+                         </li>
+
+                         <li class="nav-item">
+                             <?php
+                                $jenisManual = 'alattest';
+                                ?>
+                             <?= anchor('home/manual/' . $jenisManual, 'Alat Test', ['class' => 'nav-link']); ?>
+                         </li>
+
+
                      </ul>
                  </div>
              </li>
@@ -55,12 +68,13 @@
              </li>
 
              <li class="nav-item mt-auto"> <a class="nav-link" data-bs-toggle="collapse" href="#submenuAdminDesktop" role="button" aria-expanded="false" aria-controls="submenuAdminDesktop">
-                     <i class="bi bi-person-circle"></i> Admin
+                     <i class="bi bi-person-circle"></i> Others
                      <i class="bi bi-chevron-down ms-auto dropdown-arrow"></i>
                  </a>
                  <div class="collapse" id="submenuAdminDesktop">
                      <ul class="nav flex-column">
-                         <li class="nav-item"><a class="nav-link" href="#">Kelola Pengguna</a></li>
+                         <li class="nav-item"><a class="nav-link" href="#">TPO Countermeasure</a></li>
+                         <li class="nav-item"><a class="nav-link" href="#">Kas Testbench</a></li>
                          <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
                      </ul>
                  </div>

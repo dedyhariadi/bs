@@ -150,6 +150,9 @@
         </div>
 
         <div class="col-6">
+            <?php
+            $tandaGrafik = true; //untuk aktifasi script_tag di template.php
+            ?>
             <div class="card rounded-4">
                 <div class="card-body">
                     <div>

@@ -13,10 +13,11 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <?= link_tag('assets/css/style.css'); ?>
     <!-- akhir calendar -->
 
-    <link rel="stylesheet" href="assets/css/style2.css">
+    <?= link_tag('assets/css/style2.css'); ?>
 
 </head>
 
@@ -26,6 +27,7 @@
 
     <div class="container-fluid">
         <div class="row">
+
             <?= $this->include('layout/sidebar'); ?>
 
             <?= $this->renderSection('content'); ?>
@@ -39,19 +41,26 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 
-    <!-- calendar -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/popper.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/main.js"></script>
+
+    <!-- awal kalender -->
+    <?php
+    echo script_tag('assets/js/jquery.min.js');
+    echo script_tag('assets/js/popper.js');
+    echo script_tag('assets/js/bootstrap.min.js');
+    echo script_tag('assets/js/main.js');
+    ?>
     <!-- akhir calendar -->
 
 
     <!-- grafik -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-    <script src="assets/js/skripku.js"></script>
+    <?php
+
+    echo script_tag('https://cdn.jsdelivr.net/npm/chart.js');
+    echo script_tag('assets/js/skripku.js');
+
+    ?>
 
 
     <!-- akhir grafik -->
