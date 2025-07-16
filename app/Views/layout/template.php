@@ -282,45 +282,45 @@
 
                 <div class="row g-4">
                     <div class="col-3">
-                        <div class="card bg-primary text-white mb-4">
+                        <div class="card text-white mb-4" style="background-color: #2F4F4F;">
                             <h5 class="card-header">Next Activity</h5>
                             <div class="card-body">
                                 <h1 class="card-title">Januari 2026</h1>
                                 <p class="card-text">Class E Maintenance.</p>
-                                <a href="#" class="btn btn-outline-warning">Detail</a>
+                                <a href="#" class="btn btn-outline-light">Detail</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-3">
-                        <div class="card bg-success text-white mb-4">
+                        <div class="card text-white mb-4" style="background-color: #6B8E23" ;>
                             <h5 class="card-header">SOC Battery</h5>
                             <div class="card-body">
                                 <h1 class="card-title">45,5%</h1>
                                 <p class="card-text">Last updated at 23 Nov 2025.</p>
-                                <a href="#" class="btn btn-outline-warning">Detail</a>
+                                <a href="#" class="btn btn-outline-light">Detail</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-3">
-                        <div class="card bg-warning text-dark mb-4">
+                        <div class="card text-white mb-4" style="background-color: #B8860B" ;>
                             <h5 class="card-header">Critical Sucad</h5>
                             <div class="card-body">
                                 <h1 class="card-title">35 items</h1>
                                 <p class="card-text">dari 205 Sucad.</p>
-                                <a href="#" class="btn btn-outline-primary">Detail</a>
+                                <a href="#" class="btn btn-outline-light">Detail</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-3">
-                        <div class="card bg-danger text-white mb-4">
+                        <div class="card text-white mb-4" style="background-color: #5A3E36 " ;>
                             <h5 class="card-header">Penembakan</h5>
                             <div class="card-body">
                                 <h1 class="card-title">4 kali</h1>
                                 <p class="card-text">Last Firing at 23 Des 2024.</p>
-                                <a href="#" class="btn btn-outline-secondary">Detail</a>
+                                <a href="#" class="btn btn-outline-light">Detail</a>
                             </div>
                         </div>
                     </div>
