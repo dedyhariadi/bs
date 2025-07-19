@@ -37,8 +37,6 @@
     </div>
 
 
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 
 
@@ -48,22 +46,20 @@
     echo script_tag('assets/js/popper.js');
     echo script_tag('assets/js/bootstrap.min.js');
     echo script_tag('assets/js/main.js');
-    ?>
-    <!-- akhir calendar -->
+
+    //  akhir calendar 
 
 
-    <!-- grafik -->
 
-
-    <?php
+    //  grafik 
 
     echo script_tag('https://cdn.jsdelivr.net/npm/chart.js');
     echo script_tag('assets/js/skripku.js');
 
+    // akhir grafik 
     ?>
 
 
-    <!-- akhir grafik -->
 </body>
 
 </html>
