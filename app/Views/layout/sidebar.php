@@ -56,11 +56,18 @@
                      Spareparts
                  </a>
              </li>
-             <li class="nav-item">
-                 <a href="jurnalharian" class="nav-link">
-                     <i class="nav-icon bi bi-journals"></i>
-                     Jurnal Harian
+
+             <li class="nav-item mt-auto">
+                 <a class="nav-link" data-bs-toggle="collapse" href="#submenuJurnal" role="button" aria-expanded="false" aria-controls="submenuJurnal">
+                     <i class="bi bi-person-circle"></i> Jurnal
+                     <i class="bi bi-chevron-right ms-auto dropdown-arrow"></i>
                  </a>
+                 <div class="collapse" id="submenuJurnal">
+                     <ul class="nav flex-column">
+                         <li class="nav-item"><a class="nav-link" href="#">Harian</a></li>
+                         <li class="nav-item"><a class="nav-link" href="#">Khusus</a></li>
+                     </ul>
+                 </div>
              </li>
 
              <li class="nav-item mt-auto">
@@ -68,8 +75,6 @@
                      <i class="bi bi-person-circle"></i> Others
                      <i class="bi bi-chevron-right ms-auto dropdown-arrow"></i>
                  </a>
-
-
                  <div class="collapse" id="submenuOthers">
                      <ul class="nav flex-column">
                          <li class="nav-item"><a class="nav-link" href="#">TPO Countermeasure</a></li>
@@ -78,6 +83,7 @@
                      </ul>
                  </div>
              </li>
+
          </ul>
      </div>
  </nav>
