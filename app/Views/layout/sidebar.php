@@ -56,39 +56,21 @@
                      Spareparts
                  </a>
              </li>
-
-
              <li class="nav-item">
-                 <a class="nav-link" data-bs-toggle="collapse" href="#submenuProdukDesktop" role="button" aria-expanded="false" aria-controls="submenuProdukDesktop">
-                     <i class="nav-icon bi bi-book-half"></i> Jurnal
-                     <i class="bi bi-chevron-right ms-auto dropdown-arrow"></i>
+                 <a href="jurnalharian" class="nav-link">
+                     <i class="nav-icon bi bi-journals"></i>
+                     Jurnal Harian
                  </a>
-                 <div class="collapse" id="submenuProdukDesktop">
-                     <ul class="nav flex-column">
-                         <li class="nav-item">
-                             <?php
-                                $jenisManual = 'torpedo';
-                                ?>
-                             <?= anchor('home/manual/' . $jenisManual, 'Harian', ['class' => 'nav-link']); ?>
-                         </li>
-
-                         <li class="nav-item">
-                             <?php
-                                $jenisManual = 'alattest';
-                                ?>
-                             <?= anchor('home/manual/' . $jenisManual, 'Khusus', ['class' => 'nav-link']); ?>
-                         </li>
-
-
-                     </ul>
-                 </div>
              </li>
 
-             <li class="nav-item mt-auto"> <a class="nav-link" data-bs-toggle="collapse" href="#submenuAdminDesktop" role="button" aria-expanded="false" aria-controls="submenuAdminDesktop">
+             <li class="nav-item mt-auto">
+                 <a class="nav-link" data-bs-toggle="collapse" href="#submenuOthers" role="button" aria-expanded="false" aria-controls="submenuOthers">
                      <i class="bi bi-person-circle"></i> Others
-                     <i class="bi bi-chevron-down ms-auto dropdown-arrow"></i>
+                     <i class="bi bi-chevron-right ms-auto dropdown-arrow"></i>
                  </a>
-                 <div class="collapse" id="submenuAdminDesktop">
+
+
+                 <div class="collapse" id="submenuOthers">
                      <ul class="nav flex-column">
                          <li class="nav-item"><a class="nav-link" href="#">TPO Countermeasure</a></li>
                          <li class="nav-item"><a class="nav-link" href="#">Kas Testbench</a></li>
@@ -96,8 +78,6 @@
                      </ul>
                  </div>
              </li>
-
-
          </ul>
      </div>
  </nav>

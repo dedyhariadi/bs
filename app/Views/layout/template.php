@@ -46,22 +46,20 @@
     echo script_tag('assets/js/popper.js');
     echo script_tag('assets/js/bootstrap.min.js');
     echo script_tag('assets/js/main.js');
-    ?>
-    <!-- akhir calendar -->
+
+    //  akhir calendar 
 
 
-    <!-- grafik -->
 
-
-    <?php
+    //  grafik 
 
     echo script_tag('https://cdn.jsdelivr.net/npm/chart.js');
     echo script_tag('assets/js/skripku.js');
 
+    // akhir grafik 
     ?>
 
 
-    <!-- akhir grafik -->
 </body>
 
 </html>
