@@ -34,8 +34,8 @@
                          <li class="nav-item">
                              <?php
                                 $jenisManual = 'torpedo';
+                                echo anchor('home/manual/' . $jenisManual, 'Torpedo', ['class' => 'nav-link']);
                                 ?>
-                             <?= anchor('home/manual/' . $jenisManual, 'Torpedo', ['class' => 'nav-link']); ?>
                          </li>
 
                          <li class="nav-item">
@@ -78,7 +78,9 @@
                  <div class="collapse" id="submenuOthers">
                      <ul class="nav flex-column">
                          <li class="nav-item"><a class="nav-link" href="#">TPO Countermeasure</a></li>
-                         <li class="nav-item"><a class="nav-link" href="#">Kas Testbench</a></li>
+                         <li class="nav-item">
+                             <?= anchor('kas', 'Kas Testbench', ['class' => 'nav-link']); ?>
+                         </li>
                          <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
                      </ul>
                  </div>
