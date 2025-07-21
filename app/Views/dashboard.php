@@ -59,7 +59,7 @@
         <div class="col-6">
             <div class="card rounded-4">
                 <div class="elegant-calencar d-md-flex">
-                    <div class="wrap-header px-0 d-flex align-items-center img" style="background-image: url(assets/images/bg.jpg);">
+                    <div class="border border-primary wrap-header m-0 p-0 d-flex align-items-center img" style="background-image: url(assets/images/bg.jpg);">
                         <p id="reset">Today</p>
                         <div id="header" class="p-0">
                             <!-- <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div> -->
@@ -78,13 +78,13 @@
                         <table id="calendar">
                             <thead>
                                 <tr>
-                                    <th>Sun</th>
-                                    <th>Mon</th>
-                                    <th>Tue</th>
-                                    <th>Wed</th>
-                                    <th>Thu</th>
-                                    <th>Fri</th>
-                                    <th>Sat</th>
+                                    <th>Min</th>
+                                    <th>Sen</th>
+                                    <th>Sel</th>
+                                    <th>Rab</th>
+                                    <th>Kam</th>
+                                    <th>Jum</th>
+                                    <th>Sab</th>
                                 </tr>
                             </thead>
                             <tbody>
