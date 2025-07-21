@@ -59,7 +59,7 @@
 
              <li class="nav-item mt-auto">
                  <a class="nav-link" data-bs-toggle="collapse" href="#submenuJurnal" role="button" aria-expanded="false" aria-controls="submenuJurnal">
-                     <i class="bi bi-person-circle"></i> Jurnal
+                     <i class="bi bi-journals"></i> Jurnal
                      <i class="bi bi-chevron-right ms-auto dropdown-arrow"></i>
                  </a>
                  <div class="collapse" id="submenuJurnal">
