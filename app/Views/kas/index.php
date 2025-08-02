@@ -7,12 +7,8 @@
         <h1 class="h2">Kas Testbench</h1>
     </div>
 
-
-
     <!-- ========== table components start ========== -->
-
     <div class="container-fluid">
-
         <table class="col-md-12 border">
             <thead>
                 <th style="width: 5%;">No</th>
@@ -24,22 +20,30 @@
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>Beli Nasing Padang</td>
+                    <td>Beli Nasi Padang</td>
                     <td></td>
                     <td>Rp 75.000,-</td>
-                    <td></td>
-                    <td><button class="btn btn-warning">Edit</button></td>
-                    <td><button class="btn btn-danger">Delete</button></td>
-
+                    <td>
+                        <button class="btn btn-warning">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </td>
                 </tr>
+                <!-- BARIS KEDUA YANG DITAMBAHKAN DAN DIPERBAIKI -->
+                <tr>
+                    <td>2</td>
+                    <td>Jual Sparepart</td>
+                    <td>Rp 150.000,-</td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-warning">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+                <!-- Anda bisa menambahkan baris lain di sini -->
             </tbody>
         </table>
     </div>
     <!-- ========== table components end ========== -->
-
-
-
-
 
 </main>
 
