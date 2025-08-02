@@ -1,7 +1,9 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
+
+<main class="col-md-9 col-lg-10 px-md-4 main-content">
+
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
     </div>
@@ -56,7 +58,8 @@
     <div class="row g-2">
 
 
-        <div class="col-6">
+        <div class="col-4">
+
             <div class="card rounded-4">
                 <div class="elegant-calencar d-md-flex">
                     <div class="border border-primary wrap-header m-0 p-0 d-flex align-items-center img" style="background-image: url(assets/images/bg.jpg);">
@@ -149,7 +152,7 @@
             </div>
         </div>
 
-        <div class="col-6">
+        <div class="col-4">
             <?php
             $tandaGrafik = true; //untuk aktifasi script_tag di template.php
             ?>
