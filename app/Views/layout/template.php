@@ -16,11 +16,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <?php
-    echo link_tag('assets/css/stylekalender.css');
+    // echo link_tag('assets/css/stylekalender.css');
     //  akhir calendar 
 
+    echo link_tag('assets/css/style.css');
     ?>
-    <?= link_tag('assets/css/style.css'); ?>
+
 
 
 
@@ -50,10 +51,10 @@
 
     <!-- awal kalender -->
     <?php
-    echo script_tag('assets/js/jquery.min.js');
-    echo script_tag('assets/js/popper.js');
-    echo script_tag('assets/js/bootstrap.min.js');
-    echo script_tag('assets/js/main.js');
+    // echo script_tag('assets/js/jquery.min.js');
+    // echo script_tag('assets/js/popper.js');
+    // echo script_tag('assets/js/bootstrap.min.js');
+    // echo script_tag('assets/js/main.js');
 
     //  akhir calendar 
 
