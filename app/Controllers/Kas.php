@@ -19,11 +19,10 @@ class Kas extends BaseController
 
     public function index()
     {
-        //
-        // echo "ini halaman kas";
+
         if ($this->request->getvar()) {
             $this->kasModel->insert([
-                'tanggal' => date('Y-m-d'),
+                'tanggal' => $this->request->getVar('tanggal'),
                 'keterangan' => $this->request->getVar('uraian'),
                 'pemasukan' => $this->request->getVar('jenisTransaksi') === 'pemasukan' ? $this->request->getVar('jumlah') : 0,
                 'pengeluaran' => $this->request->getVar('jenisTransaksi') === 'pengeluaran' ? $this->request->getVar('jumlah') : 0,
@@ -33,6 +32,36 @@ class Kas extends BaseController
             'title' => 'Kas',
             'kas' => $this->kasModel->findAll(),
             'masukan' => $this->request->getVar(),
+        ];
+
+        return view('kas', $data);
+    }
+
+    public function hapus($id)
+    {
+        $this->kasModel->delete($id);
+        session()->setFlashdata('pesan', 'Transaksi berhasil dihapus.');
+        return redirect()->to('/kas');
+    }
+
+    public function edit($id)
+    {
+        $kas = $this->kasModel->find($id);
+
+        if ($this->request->getVar()) {
+            $this->kasModel->update($id, [
+                'tanggal' => $this->request->getVar('tanggal'),
+                'keterangan' => $this->request->getVar('uraian'),
+                'pemasukan' => $this->request->getVar('jenisTransaksi') === 'pemasukan' ? $this->request->getVar('jumlah') : 0,
+                'pengeluaran' => $this->request->getVar('jenisTransaksi') === 'pengeluaran' ? $this->request->getVar('jumlah') : 0,
+            ]);
+            session()->setFlashdata('pesan', 'Transaksi berhasil diubah.');
+            return redirect()->to('/kas');
+        }
+
+        $data = [
+            'title' => 'Edit Kas',
+            'kas' => $kas,
         ];
 
         return view('kas', $data);
