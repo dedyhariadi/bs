@@ -77,7 +77,9 @@
                  </a>
                  <div class="collapse" id="submenuOthers">
                      <ul class="nav flex-column">
-                         <li class="nav-item"><a class="nav-link" href="#">TPO Countermeasure</a></li>
+                         <li class="nav-item">
+                             <?= anchor('tcm', 'TPO Countermeasure', ['class' => 'nav-link']); ?>
+                         </li>
                          <li class="nav-item">
                              <?= anchor('kas', 'Kas Testbench', ['class' => 'nav-link']); ?>
                          </li>

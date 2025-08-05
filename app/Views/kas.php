@@ -72,7 +72,7 @@
                                 ];
                                 echo form_button($data);
                                 ?>
-                                &nbsp;
+
                                 <?= form_open('kas/' . $k['id'], ['class' => 'd-inline'], ['_method' => 'DELETE']); ?>
 
                                 <button type="submit" class="btn btn-outline-danger border-0" onclick="return confirm('apakah anda yakin menghapusnya?');"><i class="bi bi-x-square "></i></button>
@@ -127,7 +127,7 @@
                         echo '<span class="text-success">Saldo Positif</span>';
                     } else {
                         echo '<span class="text-secondary">Saldo Nol</span>';
-                    }                    
+                    }
                     ?>
                 </span>
             </h4>
