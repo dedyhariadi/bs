@@ -4,14 +4,24 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\Jenis as JenisModel;
+
 
 class Tcm extends BaseController
 {
+
+    protected $jenisModel;
+
+    public function __construct()
+    {
+        $this->jenisModel = new JenisModel();
+    }
+
     public function index()
     {
         $data = [
             'title' => 'Tcm',
-            'terbilang' => terbilang(1234567890), // Contoh penggunaan fungsi terbilang
+            'jenis' => $this->jenisModel->findAll(),
         ];
 
         return view('tcm', $data);

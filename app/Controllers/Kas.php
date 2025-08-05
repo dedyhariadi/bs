@@ -32,6 +32,7 @@ class Kas extends BaseController
             'title' => 'Kas',
             'kas' => $this->kasModel->findAll(),
             'masukan' => $this->request->getVar(),
+            
         ];
 
         return view('kas', $data);

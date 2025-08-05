@@ -25,13 +25,13 @@ class Kas extends Migration
                 'null' => false,
             ],
             'pemasukan' => [
-                'type' => 'DECIMAL',
-                'constraint' => '10,2',
+                'type' => 'int',
+                'constraint' => '11',
                 'null' => true,
             ],
             'pengeluaran' => [
                 'type' => 'DECIMAL',
-                'constraint' => '10,2',
+                'constraint' => '11',
                 'null' => true,
             ],
         ]);
@@ -43,6 +43,5 @@ class Kas extends Migration
     public function down()
     {
         $this->forge->dropTable('kas', true);
-        
     }
 }
