@@ -14,14 +14,14 @@ class Tcm extends BaseController
 
     protected $jenisModel;
     protected $posisiModel;
-    protected $tcmModel; // Uncomment if you need to use TcmModel
+    protected $tcmModel;
 
 
     public function __construct()
     {
         $this->jenisModel = new JenisModel();
         $this->posisiModel = new PosisiModel();
-        $this->tcmModel = new TcmModel(); // Uncomment if you need to use TcmModel
+        $this->tcmModel = new TcmModel();
     }
 
     public function index()
@@ -31,6 +31,7 @@ class Tcm extends BaseController
             'title' => 'Tcm',
             'jenis' => $this->jenisModel->findAll(),
             'posisi' => $this->posisiModel->findAll(), // Fetch all positions
+            'tcm' => $this->tcmModel->findAll(), // Fetch all TCMs
 
         ];
 
@@ -47,13 +48,11 @@ class Tcm extends BaseController
             'jenisId' => $id, // Pass the jenisId to the view
         ];
 
-
         return view('tcm/detail', $data);
     }
 
     public function tambah()
     {
-
 
         $data = [
             'jenisId' => $this->request->getPost('jenisId'),
@@ -64,5 +63,17 @@ class Tcm extends BaseController
 
         $this->tcmModel->insert($data);
         return redirect()->to('tcm/detail/' . $data['jenisId']);
+    }
+
+    public function hapus($id)
+    {
+        // dd($id);
+        $tcm = $this->tcmModel->find($id);
+        if ($tcm) {
+            $this->tcmModel->delete($id);
+            return redirect()->to('tcm/detail/' . $tcm['jenisId']);
+        } else {
+            return redirect()->back()->with('error', 'TCM not found');
+        }
     }
 }

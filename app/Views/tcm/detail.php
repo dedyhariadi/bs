@@ -2,15 +2,13 @@
 
 <?= $this->section('content'); ?>
 
-<main class="col-md-9 col-lg-10 px-md-4 main-content">
+<main class="col-md-9 col-lg-10 px-md-4 main-content fs-4">
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
-        <!-- <h2 class="h2">Torpedo Counter Measure</h2> -->
+        <h2 class="h2">Torpedo Counter Measure</h2>
     </div>
 
-    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addTambahTcmModal">
-        Transaksi Baru
-    </button>
+    <?= anchor('tcm', '< back', ['class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-5']); ?>
 
     <div class="card mt-4">
         <div class="card-header">
@@ -18,7 +16,7 @@
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-striped mb-0">
+                <table class="table table-hover mb-0">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -38,13 +36,43 @@
                                 <td><?= esc($tcm['serialNumber']) ?></td>
                                 <td><?= esc($tcm['status']) ?></td>
                                 <td>posisi</td>
+                                <td>surat</td>
                                 <td>
-                                    <a href="<?= base_url('tcm/edit/' . $tcm['id']) ?>" class="btn btn-sm btn-primary">Edit</a>
-                                    <a href="<?= base_url('tcm/delete/' . $tcm['id']) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
+                                    <div class="d-flex gap-2">
+                                        <?= anchor('', '<i class="bi bi-pencil-fill"></i>', [
+                                            'class' => 'btn btn-warning',
+                                            'type' => 'button',
+                                            'data-bs-toggle' => 'modal',
+                                            'data-bs-target' => '#editSubKegiatanModal' . $index
+                                        ]); ?>
+
+                                        <?= form_open('tcm/' . $tcm['id'], '', ['_method' => 'DELETE']); ?>
+                                        <?= form_button([
+                                            'name'    => 'button',
+                                            'class'   => 'btn btn-danger',
+                                            'type'    => 'submit',
+                                            'content' => '<i class="bi bi-trash-fill"></i>',
+                                            'onclick' => "return confirm('Apakah anda yakin menghapus sub kegiatan?');"
+                                        ]); ?>
+                                        <?= form_close(); ?>
+                                    </div>
+
+
+
+
                                 </td>
                             </tr>
                         <?php endforeach; ?>
+                        <tr>
 
+                            <td></td>
+                            <td>
+                                <?= anchor('#addTambahTcmModal', 'Tambah Data', [
+                                    'class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
+                                    'data-bs-toggle' => 'modal'
+                                ]); ?>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -54,6 +82,8 @@
 
 
     <br><br>
+
+
 
 
     <!-- Modal Tambah Data -->
