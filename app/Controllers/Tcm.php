@@ -24,6 +24,6 @@ class Tcm extends BaseController
             'jenis' => $this->jenisModel->findAll(),
         ];
 
-        return view('tcm', $data);
+        return view('tcm/index', $data);
     }
 }
