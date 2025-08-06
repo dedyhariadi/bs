@@ -17,4 +17,6 @@ $routes->post('kas/edit/(:num)', 'Kas::edit/$1');
 $routes->get('tcm', 'Tcm::index');
 $routes->get('tcm/detail/(:num)', 'Tcm::detail/$1');
 $routes->post('tcm/tambah', 'Tcm::tambah');
+$routes->post('tcm/edit/(:num)', 'Tcm::edit/$1');
 $routes->delete('tcm/(:num)', 'Tcm::hapus/$1');
+

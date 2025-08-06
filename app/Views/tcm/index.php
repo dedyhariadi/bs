@@ -83,6 +83,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- accordian surat -->
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed fw-medium fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -91,7 +93,63 @@
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <strong>This is the second item’s accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                    <div class="card">
+                        <div class="card-body">
+
+
+                            <table class="table table-hover">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nomor Surat</th>
+                                        <th scope="col">Pejabat</th>
+                                        <th scope="col">Perihal</th>
+                                        <th scope="col">Tanggal Surat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $i = 1;
+                                    foreach ($surat as $s) :
+                                    ?>
+                                        <tr>
+                                            <th scope="row"><?= $i++; ?></th>
+                                            <td>
+                                                <?= anchor('tcm/detail/' . $s['id'], $s['noSurat'], ['class' => 'link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover']); ?>
+                                            </td>
+                                            <td>
+                                                <?= $s['pejabat']; ?>
+
+                                            </td>
+                                            <td>
+                                                <?= $s['perihal']; ?>
+                                            </td>
+                                            <td>
+                                                <?= date('d F Y', strtotime($s['tglSurat'])); ?>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    endforeach;
+                                    ?>
+
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td colspan="4">
+                                            <?= anchor('#addSuratModal', 'Tambah Data', [
+                                                'class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
+                                                'data-bs-toggle' => 'modal'
+                                            ]); ?>
+
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -102,13 +160,13 @@
     <br><br>
 
 
-    <!-- Modal Tambah Data -->
-    <div class="modal fade" id="addTambahTcmModal" tabindex="-1" aria-labelledby="addTransaksiModalLabel" aria-hidden="true">
+    <!-- Modal Tambah Surat -->
+    <div class="modal fade" id="addSuratModal" tabindex="-1" aria-labelledby="addSuratModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <form action="<?= base_url('tcm/tambah'); ?>" method="post">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addTransaksiModalLabel">Tambah Data TCM</h5>
+                        <h5 class="modal-title" id="addSuratModalLabel">Tambah Surat</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
