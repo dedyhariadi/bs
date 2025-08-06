@@ -15,12 +15,11 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <?php
-    // echo link_tag('assets/css/stylekalender.css');
-    //  akhir calendar 
+    <!-- jquery -->
+    <?= link_tag('assets/css/jquery-ui.css', 'stylesheet'); ?>
 
-    echo link_tag('assets/css/style.css');
-    ?>
+    <!-- css ku -->
+    <?= link_tag('assets/css/style.css'); ?>
 
 
 
@@ -50,25 +49,28 @@
 
 
     <!-- awal kalender -->
-    <?php
-    // echo script_tag('assets/js/jquery.min.js');
-    // echo script_tag('assets/js/popper.js');
-    // echo script_tag('assets/js/bootstrap.min.js');
-    // echo script_tag('assets/js/main.js');
 
-    //  akhir calendar 
+    <!-- echo script_tag('assets/js/jquery.min.js');
+     echo script_tag('assets/js/popper.js');
+     echo script_tag('assets/js/bootstrap.min.js');
+     echo script_tag('assets/js/main.js');
 
-
-
-    //  grafik 
-
-    echo script_tag('https://cdn.jsdelivr.net/npm/chart.js');
-    echo script_tag('assets/js/skripku.js');
-
-    // akhir grafik 
-    ?>
+      akhir calendar  -->
 
 
+
+    <!--jquery -->
+    <?= script_tag('assets/js/jquery-3.7.1.min.js'); ?>
+    <?= script_tag('assets/js/jquery-ui.min.js'); ?>
+
+
+    <!-- awal grafik -->
+    <?= script_tag('https://cdn.jsdelivr.net/npm/chart.js'); ?>
+    <?= script_tag('assets/js/skripGrafik.js'); ?>
+    <!-- akhir grafik -->
+
+    <!-- skripku -->
+    <?= script_tag('assets/js/myscript.js'); ?>
 </body>
 
 </html>

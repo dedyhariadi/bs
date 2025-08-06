@@ -149,11 +149,11 @@
             <div class="modal-body">
 
                 <label for="tanggal" class="form-label">Tanggal</label>
-                <input class="form-control form-control-lg" type="date" id="tanggal" name="tanggal" required>
+                <input class="form-control form-control-lg" type="text" id="tanggal" name="tanggal" required>
                 <br>
 
                 <label for="Uraian" class="form-label">Uraian</label>
-                <input class="form-control form-control-lg" type="text" id="uraian" name="uraian" placeholder="Masukkan uraian transaksi">
+                <input class="form-control form-control-lg" type="text" id="uraian" name="uraian">
                 <br>
 
                 <div class="form-check">
