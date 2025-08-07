@@ -1,7 +1,7 @@
 $(document).ready( function() {
 
 		//datepicker
-		$('#tanggal').datepicker({
+		$('.tanggal-input').datepicker({
 			showAnim: 'slideDown',
 			dateFormat: 'dd MM yy',
 			changeMonth: true,
@@ -11,4 +11,4 @@ $(document).ready( function() {
 
 	});
 
-	
+ 

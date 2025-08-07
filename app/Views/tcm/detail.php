@@ -34,7 +34,21 @@
                                 <td><?= $index + 1 ?></td>
                                 <td><?= esc($tcm['partNumber']) ?></td>
                                 <td><?= esc($tcm['serialNumber']) ?></td>
-                                <td><?= esc($tcm['status']) ?></td>
+                                <td>
+                                    <?php
+                                    $statusClass = '';
+                                    if ($tcm['status'] === 'Fired') {
+                                        $statusClass = 'text-danger';
+                                    } elseif ($tcm['status'] === 'Eternal Patrol') {
+                                        $statusClass = 'text-primary';
+                                    } elseif ($tcm['status'] === 'aktif') {
+                                        $statusClass = 'text-success';
+                                    }
+                                    ?>
+                                    <span class="<?= $statusClass; ?> fw-medium">
+                                        <?= esc($tcm['status']) ?>
+                                    </span>
+                                </td>
                                 <td>posisi</td>
                                 <td>surat</td>
 

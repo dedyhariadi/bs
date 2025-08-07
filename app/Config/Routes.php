@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Tcm;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -20,3 +21,6 @@ $routes->post('tcm/tambah', 'Tcm::tambah');
 $routes->post('tcm/edit/(:num)', 'Tcm::edit/$1');
 $routes->delete('tcm/(:num)', 'Tcm::hapus/$1');
 
+$routes->post('tcm/tambahsurat', 'Tcm::tambahSurat');
+$routes->delete('tcm/hapussurat/(:num)', 'Tcm::hapusSurat/$1');
+$routes->post('tcm/editsurat/(:num)', 'Tcm::editSurat/$1');

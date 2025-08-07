@@ -8,6 +8,8 @@ use App\Models\Jenis as JenisModel;
 use App\Models\Posisi as PosisiModel; // Uncomment if you need to use PosisiModel
 use App\Models\Tcm as TcmModel; // Uncomment if you need to use TcmModel
 use App\Models\Surat as SuratModel; // Uncomment if you need to use SuratModel
+use App\Models\TrxTcm as TrxTcmModel;
+
 
 
 class Tcm extends BaseController
@@ -17,6 +19,7 @@ class Tcm extends BaseController
     protected $posisiModel;
     protected $tcmModel;
     protected $suratModel;
+    protected $trxTcmModel;
 
 
     public function __construct()
@@ -25,6 +28,7 @@ class Tcm extends BaseController
         $this->posisiModel = new PosisiModel();
         $this->tcmModel = new TcmModel();
         $this->suratModel = new SuratModel(); // Initialize SuratModel if needed
+        $this->trxTcmModel = new TrxTcmModel();
     }
 
     public function index()
@@ -36,6 +40,7 @@ class Tcm extends BaseController
             'posisi' => $this->posisiModel->findAll(), // Fetch all positions
             'tcm' => $this->tcmModel->findAll(), // Fetch all TCMs
             'surat' => $this->suratModel->findAll(), // Fetch all surat records if needed
+            'trxTcm' => $this->trxTcmModel->findAll()
 
         ];
 
@@ -113,5 +118,62 @@ class Tcm extends BaseController
         ];
 
         return view('tcm/suratIndex', $data);
+    }
+
+    public function tambahSurat()
+    {
+
+        $tglSurat = $this->request->getPost('tglSurat');
+        if ($tglSurat) {
+            // Convert to Y-m-d format (MySQL DATE)
+            $tglSurat = date('Y-m-d', strtotime($tglSurat));
+        }
+        $data = [
+            'noSurat' => $this->request->getPost('noSurat'),
+            'pejabat' => $this->request->getPost('pejabat'),
+            'perihal' => $this->request->getPost('perihal'),
+            'tglSurat' => $tglSurat,
+        ];
+        // Insert the surat data into the database
+        $this->suratModel->insert($data);
+        $prevPage = 'surat';
+        // Redirect to the surat index page or wherever you want
+        return redirect()->to('tcm');
+
+        // return view('tcm/suratDetail', $data);
+    }
+
+    public function hapusSurat($id)
+    {
+        $surat = $this->suratModel->find($id);
+        if ($surat) {
+            $this->suratModel->delete($id);
+            return redirect()->to('tcm')->with('success', 'Surat deleted successfully');
+        } else {
+            return redirect()->back()->with('error', 'Surat not found');
+        }
+    }
+
+    public function editSurat($id)
+    {
+        $surat = $this->suratModel->find($id);
+        if (!$surat) {
+            return redirect()->back()->with('error', 'Surat not found');
+        }
+
+        $tglSurat = $this->request->getPost('tglSurat');
+        if ($tglSurat) {
+            $tglSurat = date('Y-m-d', strtotime($tglSurat));
+        }
+
+        $data = [
+            'noSurat' => $this->request->getPost('noSurat'),
+            'pejabat' => $this->request->getPost('pejabat'),
+            'perihal' => $this->request->getPost('perihal'),
+            'tglSurat' => $tglSurat,
+        ];
+
+        $this->suratModel->update($id, $data);
+        return redirect()->to('tcm')->with('success', 'Surat updated successfully');
     }
 }
