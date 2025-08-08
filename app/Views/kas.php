@@ -149,7 +149,7 @@
             <div class="modal-body">
 
                 <label for="tanggal" class="form-label">Tanggal</label>
-                <input class="form-control form-control-lg" type="text" id="tanggal" name="tanggal" required>
+                <input class="form-control form-control-lg tanggal-input" type="text" name="tanggal" required>
                 <br>
 
                 <label for="Uraian" class="form-label">Uraian</label>

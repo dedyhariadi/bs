@@ -108,16 +108,18 @@ class Tcm extends BaseController
         // return redirect('tcm/detail/' . $jenisId, $data);
     }
 
-    public function suratIndex()
+    public function surat()
     {
         $data = [
             'title' => 'Surat Index',
             'jenis' => $this->jenisModel->findAll(),
             'posisi' => $this->posisiModel->findAll(), // Fetch all positions
             'tcm' => $this->tcmModel->findAll(), // Fetch all TCMs
+            'surat' => $this->suratModel->findAll(),
+            'trxTcm' => $this->trxTcmModel->findAll()
         ];
 
-        return view('tcm/suratIndex', $data);
+        return view('tcm/surat', $data);
     }
 
     public function tambahSurat()
@@ -138,7 +140,7 @@ class Tcm extends BaseController
         $this->suratModel->insert($data);
         $prevPage = 'surat';
         // Redirect to the surat index page or wherever you want
-        return redirect()->to('tcm');
+        return redirect()->to('tcm/surat');
 
         // return view('tcm/suratDetail', $data);
     }
@@ -148,7 +150,7 @@ class Tcm extends BaseController
         $surat = $this->suratModel->find($id);
         if ($surat) {
             $this->suratModel->delete($id);
-            return redirect()->to('tcm')->with('success', 'Surat deleted successfully');
+            return redirect()->to('tcm/surat')->with('success', 'Surat deleted successfully');
         } else {
             return redirect()->back()->with('error', 'Surat not found');
         }
@@ -174,6 +176,24 @@ class Tcm extends BaseController
         ];
 
         $this->suratModel->update($id, $data);
-        return redirect()->to('tcm')->with('success', 'Surat updated successfully');
+        return redirect()->to('tcm/surat')->with('success', 'Surat updated successfully');
+    }
+
+    public function tambahKegiatan()
+    {
+
+        dd($this->request->getVar());
+        $data = [
+            'tcmId' => $this->request->getPost('tcmId'),
+            'kegiatan' => $this->request->getPost('kegiatan'),
+            'tanggal' => $this->request->getPost('tanggal') ? date('Y-m-d', strtotime($this->request->getPost('tanggal'))) : null,
+            'keterangan' => $this->request->getPost('keterangan'),
+        ];
+
+        // Assuming TrxTcmModel is used for kegiatan
+        $this->trxTcmModel->insert($data);
+
+        // Redirect to a relevant page, e.g., detail TCM
+        return redirect()->to('tcm/detail/' . $this->request->getPost('jenisId'));
     }
 }
