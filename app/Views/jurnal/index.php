@@ -46,7 +46,7 @@
                                                 <?= date('d F Y', strtotime($j['tanggal'])); ?>
                                             </td>
                                             <td>
-                                                <?= $s['kegiatan']; ?>
+                                                <?= $j['kegiatan']; ?>
                                             </td>
 
                                             <td>
@@ -135,7 +135,7 @@
                                                 <?= date('d F Y', strtotime($j['tanggal'])); ?>
                                             </td>
                                             <td>
-                                                <?= $s['kegiatan']; ?>
+                                                <?= $j['kegiatan']; ?>
                                             </td>
 
                                             <td>
@@ -204,7 +204,7 @@
                     <?= form_open('jurnal/tambah'); ?>
                     <div class="mb-3">
                         <label for="tanggal" class="form-label">Tanggal</label>
-                        <input type="text" class="form-control tanggal-input" id="tanggal" name="tanggal" required>
+                        <input type="text" class="form-control tanggal-input" id="tanggal" name="tanggal" autocomplete="off" required>
                     </div>
 
                     <div class="mb-3">
