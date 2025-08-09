@@ -221,6 +221,8 @@ class Tcm extends Migration
             'posisiId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'tglPelaksanaan' => ['type' => 'DATETIME', 'null' => true],
             'keterangan' => ['type' => 'TEXT', 'null' => true],
+            'created_at' => ['type' => 'DATETIME', 'null' => true],
+            'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('suratId', 'surat', 'id', 'CASCADE', 'CASCADE');
