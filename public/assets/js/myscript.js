@@ -3,10 +3,14 @@ $(document).ready( function() {
 		//datepicker
 		$('.tanggal-input').datepicker({
 			showAnim: 'slideDown',
-			dateFormat: 'dd MM yy',
+			dateFormat: 'DD, dd MM yy',
 			changeMonth: true,
 			changeYear: true,
 			regional: 'id',
+			dayNames: ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'],
+			monthNames: ['Januari','Februari','Maret','April','Mei','Juni', 'Juli','Agustus','September','Oktober','Nopember','Desember'],
+			dayNamesMin: ['Mg','Sn','Sl','Rb','Km','Jm','Sb'],
+    		weekHeader: 'Sn',
 		});
 
 	});

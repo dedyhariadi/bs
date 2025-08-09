@@ -57,18 +57,11 @@
                  </a>
              </li>
 
-             <li class="nav-item mt-auto">
-                 <a class="nav-link" data-bs-toggle="collapse" href="#submenuJurnal" role="button" aria-expanded="false" aria-controls="submenuJurnal">
-                     <i class="bi bi-journals"></i> Jurnal
-                     <i class="bi bi-chevron-right ms-auto dropdown-arrow"></i>
-                 </a>
-                 <div class="collapse" id="submenuJurnal">
-                     <ul class="nav flex-column">
-                         <li class="nav-item"><a class="nav-link" href="#">Harian</a></li>
-                         <li class="nav-item"><a class="nav-link" href="#">Khusus</a></li>
-                     </ul>
-                 </div>
+             <li class="nav-item">
+                 <?= anchor('jurnal', '<i class="nav-icon bi bi-journals"></i> Jurnal', ['class' => 'nav-link']); ?>
              </li>
+
+
 
              <li class="nav-item">
                  <?= anchor('tcm', 'TPO Countermeasure', ['class' => 'nav-link']); ?>

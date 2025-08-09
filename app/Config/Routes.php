@@ -27,3 +27,10 @@ $routes->delete('tcm/hapussurat/(:num)', 'Tcm::hapusSurat/$1');
 $routes->post('tcm/editsurat/(:num)', 'Tcm::editSurat/$1');
 
 $routes->post('tcm/tambahkegiatan', 'Tcm::tambahKegiatan');
+
+
+// jurnal
+$routes->get('jurnal', 'Jurnal::index');
+$routes->post('jurnal/tambah', 'Jurnal::tambah');
+$routes->delete('jurnal/(:num)', 'Jurnal::hapus/$1');
+$routes->post('jurnal/edit/(:num)', 'Jurnal::edit/$1');
