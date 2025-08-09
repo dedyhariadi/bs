@@ -9,6 +9,8 @@ use App\Models\Posisi as PosisiModel; // Uncomment if you need to use PosisiMode
 use App\Models\Tcm as TcmModel; // Uncomment if you need to use TcmModel
 use App\Models\Surat as SuratModel; // Uncomment if you need to use SuratModel
 use App\Models\TrxTcm as TrxTcmModel;
+use App\Models\Kegiatan as KegiatanModel; // Uncomment if you need to use KegiatanModel
+
 
 
 
@@ -20,6 +22,7 @@ class Tcm extends BaseController
     protected $tcmModel;
     protected $suratModel;
     protected $trxTcmModel;
+    protected $kegiatanModel; // Uncomment if you need to use KegiatanModel
 
 
     public function __construct()
@@ -29,6 +32,7 @@ class Tcm extends BaseController
         $this->tcmModel = new TcmModel();
         $this->suratModel = new SuratModel(); // Initialize SuratModel if needed
         $this->trxTcmModel = new TrxTcmModel();
+        $this->kegiatanModel = new KegiatanModel(); // Initialize KegiatanModel if needed
     }
 
     public function index()
@@ -40,10 +44,11 @@ class Tcm extends BaseController
             'posisi' => $this->posisiModel->findAll(), // Fetch all positions
             'tcm' => $this->tcmModel->findAll(), // Fetch all TCMs
             'surat' => $this->suratModel->findAll(), // Fetch all surat records if needed
-            'trxTcm' => $this->trxTcmModel->findAll()
+            'trxTcm' => $this->trxTcmModel->findAll(),
+            'kegiatan' => $this->kegiatanModel->findAll(), // Fetch all kegiatan records if needed
 
         ];
-
+        // dd($data);
         return view('tcm/index', $data);
     }
 
@@ -182,18 +187,19 @@ class Tcm extends BaseController
     public function tambahKegiatan()
     {
 
-        dd($this->request->getVar());
+        d($this->request->getVar());
         $data = [
-            'tcmId' => $this->request->getPost('tcmId'),
-            'kegiatan' => $this->request->getPost('kegiatan'),
-            'tanggal' => $this->request->getPost('tanggal') ? date('Y-m-d', strtotime($this->request->getPost('tanggal'))) : null,
+            'jenisGiat' => $this->request->getPost('jenis'),
+            'suratId' => $this->request->getPost('noSurat'),
+            'posisiId' => $this->request->getPost('posisi'),
+            'tglPelaksanaan' => $this->request->getPost('tglPelaksanaan') ? date('Y-m-d', strtotime($this->request->getPost('tglPelaksanaan'))) : null,
             'keterangan' => $this->request->getPost('keterangan'),
         ];
 
-        // Assuming TrxTcmModel is used for kegiatan
-        $this->trxTcmModel->insert($data);
+        // Insert the activity data into the database
+        $this->kegiatanModel->insert($data);
 
         // Redirect to a relevant page, e.g., detail TCM
-        return redirect()->to('tcm/detail/' . $this->request->getPost('jenisId'));
+        return redirect()->to('tcm');
     }
 }

@@ -99,7 +99,7 @@
                     <div class="card">
                         <div class="card-body">
 
-
+                            <!-- dd($kegiatan); -->
                             <table class="table table-hover rounded-5">
                                 <thead class="table-success ">
                                     <tr>
@@ -115,22 +115,28 @@
                                 <tbody>
                                     <?php
 
-                                    foreach ($trxTcm as $indeks => $t) :
+                                    foreach ($kegiatan as $indeks => $k) :
                                     ?>
                                         <tr>
                                             <td scope="row"><?= $indeks + 1; ?></td>
                                             <td>
-                                                <?= anchor('tcm/detail/' . $s['id'], $s['noSurat'], ['class' => 'link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover']); ?>
+                                                <?php
+                                                // anchor('tcm/detail/' . $k['id'], $k['noSurat'], ['class' => 'link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover']); 
+                                                ?>
                                             </td>
                                             <td>
-                                                <?= $s['pejabat']; ?>
+                                                <?= $k['posisiId']; ?>
 
                                             </td>
                                             <td>
-                                                <?= $s['perihal']; ?>
+                                                <?= date('d F Y', strtotime($k['tglPelaksanaan'])); ?>
+
                                             </td>
                                             <td>
-                                                <?= date('d F Y', strtotime($s['tglSurat'])); ?>
+                                                <?= $k['keterangan']; ?>
+                                            </td>
+                                            <td>
+                                                <?= $k['jenisGiat']; ?>
                                             </td>
                                             <td>
                                                 <div class="d-flex gap-2">
@@ -145,7 +151,7 @@
                                                         'data-bs-target' => $modalId
                                                     ]); ?>
 
-                                                    <?= form_open('tcm/hapussurat/' . $s['id'], '', ['_method' => 'DELETE']); ?>
+                                                    <?= form_open('tcm/hapussurat/' . $k['id'], '', ['_method' => 'DELETE']); ?>
                                                     <?= form_button([
                                                         'name'    => 'button',
                                                         'class'   => 'btn btn-danger',
