@@ -43,10 +43,16 @@
                                         <tr>
                                             <td scope="row"><?= $indeks + 1; ?></td>
                                             <td>
+                                                <?php
+
+
+
+                                                ?>
                                                 <?= date('d F Y', strtotime($j['tanggal'])); ?>
                                             </td>
                                             <td>
-                                                <?= $j['kegiatan']; ?>
+
+                                                <?= nl2br($j['kegiatan']); ?>
                                             </td>
 
                                             <td>
@@ -141,7 +147,7 @@
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <?php
-                                                    // Prepare the modal ID for each TCM
+
                                                     $modalId = '#eduJurnalModal' . $indeks;
                                                     ?>
                                                     <?= anchor('', '<i class="bi bi-pencil-fill"></i>', [

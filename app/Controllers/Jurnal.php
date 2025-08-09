@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\Jurnal as JurnalModel; // Import the Jurnal model
+use CodeIgniter\I18n\Time;
 
 class Jurnal extends BaseController
 {
@@ -25,8 +26,10 @@ class Jurnal extends BaseController
 
     public function tambah()
     {
+
         $data = [
-            'tanggal' => $this->request->getPost('tanggal'),
+            // 'tanggal' => $tanggal_untuk_db,
+            'tanggal' => parseTanggalIndonesia($this->request->getPost('tanggal')),
             'jenis' => 'harian',
             'kegiatan' => $this->request->getPost('kegiatan'),
             'foto' => $this->request->getPost('foto'),

@@ -149,7 +149,7 @@
             <div class="modal-body">
 
                 <label for="tanggal" class="form-label">Tanggal</label>
-                <input class="form-control form-control-lg tanggal-input" type="text" name="tanggal" required>
+                <input class="form-control form-control-lg tanggal-input" type="text" name="tanggal" autocomplete="off" required>
                 <br>
 
                 <label for="Uraian" class="form-label">Uraian</label>
@@ -196,7 +196,12 @@
                 <div class="modal-body">
 
                     <label for="tanggal" class="form-label">Tanggal</label>
-                    <input class="form-control form-control-lg" type="date" id="tanggal" name="tanggal" value="<?= $k['tanggal']; ?>" required>
+                    <?php
+                    // Format tanggal menjadi "senin, 07 agustus 2025"
+                    setlocale(LC_TIME, 'id_ID.utf8', 'id_ID', 'Indonesian_indonesia');
+                    $tanggalFormatted = strftime('%A, %d %B %Y', strtotime($k['tanggal']));
+                    ?>
+                    <input class="form-control form-control-lg tanggal-input" type="text" name="tanggal" value="<?= $tanggalFormatted; ?>" autocomplete="off" required>
                     <br>
 
                     <label for="Uraian" class="form-label">Uraian</label>
