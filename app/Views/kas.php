@@ -32,7 +32,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">TANGGAL</th>
+                        <th scope="col">HARI, TANGGAL</th>
                         <th scope="col">URAIAN</th>
                         <th scope="col" class="text-end">PEMASUKAN</th>
                         <th scope="col" class="text-end">PENGELUARAN</th>
@@ -48,7 +48,7 @@
                         <tr>
                             <th scope="row"><?= $i++; ?></th>
                             <td>
-                                <?= date('d F Y', strtotime($k['tanggal'])); ?>
+                                <?= tampilTanggal($k['tanggal']); ?>
                             </td>
                             <td><?= $k['keterangan']; ?></td>
                             <td class="text-end"><?= number_format($k['pemasukan'], 0, ",", "."); ?></td>
@@ -196,12 +196,7 @@
                 <div class="modal-body">
 
                     <label for="tanggal" class="form-label">Tanggal</label>
-                    <?php
-                    // Format tanggal menjadi "senin, 07 agustus 2025"
-                    setlocale(LC_TIME, 'id_ID.utf8', 'id_ID', 'Indonesian_indonesia');
-                    $tanggalFormatted = strftime('%A, %d %B %Y', strtotime($k['tanggal']));
-                    ?>
-                    <input class="form-control form-control-lg tanggal-input" type="text" name="tanggal" value="<?= $tanggalFormatted; ?>" autocomplete="off" required>
+                    <input class="form-control form-control-lg tanggal-input" type="text" name="tanggal" value="<?= tampilTanggal($k['tanggal']); ?>" autocomplete="off" required>
                     <br>
 
                     <label for="Uraian" class="form-label">Uraian</label>
