@@ -110,6 +110,7 @@
                                         <th scope="col">Jenis</th>
                                         <th scope="col">Jumlah</th>
                                         <th scope="col">Keterangan</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -120,41 +121,68 @@
                                         <tr>
                                             <td scope="row"><?= $indeks + 1; ?></td>
                                             <td>
+
                                                 <?php
-                                                // anchor('tcm/detail/' . $k['id'], $k['noSurat'], ['class' => 'link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover']); 
+                                                $noSurat = '';
+                                                foreach ($surat as $s) {
+                                                    if ($s['id'] == $k['suratId']) {
+                                                        $noSurat = $s['noSurat'];
+                                                        break;
+                                                    }
+                                                }
+                                                echo esc($noSurat);
                                                 ?>
-                                            </td>
-                                            <td>
-                                                <?= $k['posisiId']; ?>
+
 
                                             </td>
                                             <td>
-                                                <?= date('d F Y', strtotime($k['tglPelaksanaan'])); ?>
+                                                <?php
+                                                $namaPosisi = '';
+                                                foreach ($posisi as $p) {
+                                                    if ($p['id'] == $k['posisiId']) {
+                                                        $namaPosisi = $p['posisi'];
+                                                        break;
+                                                    }
+                                                }
+                                                echo esc($namaPosisi);
+                                                ?>
 
+                                            </td>
+                                            <td>
+                                                <?= tampilTanggal($k['tglPelaksanaan']); ?>
+
+                                            </td>
+                                            <td>
+
+                                                <?= $k['jenisGiat']; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <?= anchor('addTrxTcm', '<i class="bi bi-plus-square"></i>', ['class' => 'btn btn-outline-success']); ?>
                                             </td>
                                             <td>
                                                 <?= $k['keterangan']; ?>
                                             </td>
                                             <td>
-                                                <?= $k['jenisGiat']; ?>
-                                            </td>
-                                            <td>
                                                 <div class="d-flex gap-2">
+
+
+
                                                     <?php
                                                     // Prepare the modal ID for each TCM
                                                     $modalId = '#editSuratModal' . $indeks;
                                                     ?>
                                                     <?= anchor('', '<i class="bi bi-pencil-fill"></i>', [
-                                                        'class' => 'btn btn-warning',
+                                                        'class' => 'btn btn-outline-warning',
                                                         'type' => 'button',
                                                         'data-bs-toggle' => 'modal',
                                                         'data-bs-target' => $modalId
-                                                    ]); ?>
+                                                    ]);
+                                                    ?>
 
                                                     <?= form_open('tcm/hapussurat/' . $k['id'], '', ['_method' => 'DELETE']); ?>
                                                     <?= form_button([
                                                         'name'    => 'button',
-                                                        'class'   => 'btn btn-danger',
+                                                        'class'   => 'btn btn-outline-danger',
                                                         'type'    => 'submit',
                                                         'content' => '<i class="bi bi-trash-fill"></i>',
                                                         'onclick' => "return confirm('Apakah anda yakin menghapus sub kegiatan?');"
@@ -220,7 +248,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="tglPelaksanaan" class="form-label">Tgl Pelaksanaan</label>
-                        <input type="text" class="form-control tanggal-input" id="tglPelaksanaan" name="tglPelaksanaan" required>
+                        <input type="text" class="form-control tanggal-input" id="tglPelaksanaan" name="tglPelaksanaan" autocomplete="off" required>
                     </div>
                     <div class="mb-3">
                         <label for="jenis" class="form-label">Jenis</label>

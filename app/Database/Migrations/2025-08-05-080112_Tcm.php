@@ -216,7 +216,7 @@ class Tcm extends Migration
         // Tabel 5: Kegiatan
         $this->forge->addField([
             'id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'jenisGiat' => ['type' => 'ENUM', 'constraint' => ['Masuk', 'Keluar', 'PUT', 'PUS'], 'default' => 'Masuk'],
+            'jenisGiat' => ['type' => 'ENUM', 'constraint' => ['Barang Masuk', 'Barang Keluar', 'PUT', 'PUS'], 'default' => 'Barang Masuk'],
             'suratId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'posisiId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'tglPelaksanaan' => ['type' => 'DATETIME', 'null' => true],

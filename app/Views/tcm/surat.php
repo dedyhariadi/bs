@@ -58,7 +58,7 @@
                                                 <?= $s['perihal']; ?>
                                             </td>
                                             <td>
-                                                <?= date('d F Y', strtotime($s['tglSurat'])); ?>
+                                                <?= tampilTanggal($s['tglSurat']); ?>
                                             </td>
                                             <td>
                                                 <div class="d-flex gap-2">

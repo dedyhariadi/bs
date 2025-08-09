@@ -22,7 +22,7 @@ class Kas extends BaseController
 
         if ($this->request->getvar()) {
             $this->kasModel->insert([
-                'tanggal' => parseTanggalIndonesia($this->request->getVar('tanggal')),
+                'tanggal' => simpanTanggal($this->request->getVar('tanggal')),
                 'keterangan' => $this->request->getVar('uraian'),
                 'pemasukan' => $this->request->getVar('jenisTransaksi') === 'pemasukan' ? $this->request->getVar('jumlah') : 0,
                 'pengeluaran' => $this->request->getVar('jenisTransaksi') === 'pengeluaran' ? $this->request->getVar('jumlah') : 0,
@@ -51,7 +51,7 @@ class Kas extends BaseController
 
         if ($this->request->getVar()) {
             $this->kasModel->update($id, [
-                'tanggal' => parseTanggalIndonesia($this->request->getVar('tanggal')),
+                'tanggal' => simpanTanggal($this->request->getVar('tanggal')),
                 'keterangan' => $this->request->getVar('uraian'),
                 'pemasukan' => $this->request->getVar('jenisTransaksi') === 'pemasukan' ? $this->request->getVar('jumlah') : 0,
                 'pengeluaran' => $this->request->getVar('jenisTransaksi') === 'pengeluaran' ? $this->request->getVar('jumlah') : 0,

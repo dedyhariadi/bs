@@ -130,16 +130,11 @@ class Tcm extends BaseController
     public function tambahSurat()
     {
 
-        $tglSurat = $this->request->getPost('tglSurat');
-        if ($tglSurat) {
-            // Convert to Y-m-d format (MySQL DATE)
-            $tglSurat = date('Y-m-d', strtotime($tglSurat));
-        }
         $data = [
             'noSurat' => $this->request->getPost('noSurat'),
             'pejabat' => $this->request->getPost('pejabat'),
             'perihal' => $this->request->getPost('perihal'),
-            'tglSurat' => $tglSurat,
+            'tglSurat' => simpanTanggal($this->request->getPost('tglSurat')),
         ];
         // Insert the surat data into the database
         $this->suratModel->insert($data);
@@ -168,16 +163,13 @@ class Tcm extends BaseController
             return redirect()->back()->with('error', 'Surat not found');
         }
 
-        $tglSurat = $this->request->getPost('tglSurat');
-        if ($tglSurat) {
-            $tglSurat = date('Y-m-d', strtotime($tglSurat));
-        }
+
 
         $data = [
             'noSurat' => $this->request->getPost('noSurat'),
             'pejabat' => $this->request->getPost('pejabat'),
             'perihal' => $this->request->getPost('perihal'),
-            'tglSurat' => $tglSurat,
+            'tglSurat' => simpanTanggal($this->request->getPost('tglSurat')),
         ];
 
         $this->suratModel->update($id, $data);
@@ -187,12 +179,12 @@ class Tcm extends BaseController
     public function tambahKegiatan()
     {
 
-        d($this->request->getVar());
+        // dd($this->request->getVar());
         $data = [
             'jenisGiat' => $this->request->getPost('jenis'),
             'suratId' => $this->request->getPost('noSurat'),
             'posisiId' => $this->request->getPost('posisi'),
-            'tglPelaksanaan' => $this->request->getPost('tglPelaksanaan') ? date('Y-m-d', strtotime($this->request->getPost('tglPelaksanaan'))) : null,
+            'tglPelaksanaan' => $this->request->getPost('tglPelaksanaan') ? simpanTanggal($this->request->getPost('tglPelaksanaan')) : null,
             'keterangan' => $this->request->getPost('keterangan'),
         ];
 
