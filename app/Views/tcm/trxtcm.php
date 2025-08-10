@@ -58,7 +58,12 @@
                                     <div class="p-3 border bg-light rounded-3">Jenis Giat :
                                         <br>
                                         <span class="fw-bold text-primary">
-                                            <?= $kegiatan['jenisGiat']; ?></span>
+                                            <?= isset($kegiatan['jenisGiat']) ? esc($kegiatan['jenisGiat']) : '<span class="text-danger">Data tidak tersedia</span>'; ?>
+                                            <?php
+                                            // d($kegiatan);
+
+                                            ?>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -145,8 +150,12 @@
                                             <td>
                                                 <div class="d-flex gap-2">
 
+                                                    <?php
 
-                                                    <?= form_open('tcm/hapussurat/' . $t['id'], '', ['_method' => 'DELETE']); ?>
+                                                    // d($kegiatan['id']);
+                                                    // echo form_open()
+                                                    ?>
+                                                    <?= form_open('trxtcm/' . $t['id'], '', ['_method' => 'DELETE', 'idKegiatan' => $kegiatan['id']]); ?>
                                                     <?= form_button([
                                                         'name'    => 'button',
                                                         'class'   => 'btn btn-outline-danger',
@@ -237,19 +246,22 @@
 
                                     <?= form_open('trxtcm/' . $kegiatan['id'], '', ['tcmId' => $t['id']]); ?>
 
-                                    <tr style="cursor:pointer;" onclick="this.closest('form').submit();">
+                                    <tr>
                                         <td scope="row"><?= $indeks + 1; ?></td>
                                         <td><?= $t['partNumber']; ?></td>
                                         <td><?= $t['serialNumber']; ?></td>
                                         <td><?= $t['status']; ?></td>
                                         <td>
+
+
                                             <?= form_button([
                                                 'name'    => 'button',
-                                                'class'   => 'btn btn-outline-primary',
+                                                'class'   => 'btn btn-outline-danger',
                                                 'type'    => 'submit',
                                                 'content' => '<i class="bi bi-plus-square-dotted"></i>',
-                                                // 'onclick' => "return confirm('Apakah anda yakin menghapus sub kegiatan?');"
                                             ]); ?>
+
+
                                         </td>
                                     </tr>
 

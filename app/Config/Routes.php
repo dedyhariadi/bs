@@ -32,6 +32,7 @@ $routes->post('tcm/tambahkegiatan', 'Tcm::tambahKegiatan');
 
 // transaksi tcm
 $routes->match(['GET', 'POST'], 'trxtcm/(:num)', 'Tcm::trxtcm/$1');
+$routes->delete('trxtcm/(:num)', 'Tcm::hapusTrxtcm/$1');
 // $routes->post('trxtcm/(:num)', 'Tcm::trxtcm/$1');
 
 

@@ -228,10 +228,6 @@ class Tcm extends BaseController
     public function trxtcm($idKegiatan)
     {
 
-
-
-
-        // dd($this->request->getVar(), $data);
         if ($this->request->getVar()) {
             $dataTrx = [
                 'kegiatanId' => $idKegiatan,
@@ -255,5 +251,31 @@ class Tcm extends BaseController
         ];
 
         return view('tcm/trxtcm', $data);
+    }
+
+    public function hapusTrxtcm($id)
+    {
+        // dd($this->request->getVar());
+        $trxTcm = $this->trxTcmModel->find($id);
+        $idKegiatan = $this->request->getVar('idKegiatan'); // Get the idKegiatan from the request
+        if ($trxTcm) {
+            $this->trxTcmModel->delete($id);
+            // session()->setFlashdata('hapus', 'Berhasil menghapus transaksi TCM.');
+            return redirect()->to('trxtcm/' . $idKegiatan)->with('hapus', 'berhasil menghapus transaksi'); // Redirect to the transaction page with the idKegiatan
+        } else {
+            session()->setFlashdata('error', 'Transaksi TCM not found.');
+        }
+
+        // $data = [
+        //     'title' => 'Trx TCM',
+        //     'jenis' => $this->jenisModel->findAll(),
+        //     'posisi' => $this->posisiModel->findAll(), // Fetch all positions
+        //     'tcm' => $this->tcmModel->orderBy('jenisId')->findAll(), // Fetch all TCMs
+        //     'surat' => $this->suratModel->findAll(),
+        //     'trxTcmbyKegiatan' => $this->trxTcmModel->getTrxTcmByKegiatanId($idKegiatan),
+        //     'kegiatan' => $this->kegiatanModel->find($idKegiatan), // Fetch all kegiatan records if needed
+        // ];
+        // dd($data);
+        // return view('tcm/trxtcm', $data);
     }
 }
