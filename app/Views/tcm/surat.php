@@ -13,9 +13,6 @@
 
     <div class="accordion mt-3" id="accordionExample">
 
-
-
-
         <!-- accordian surat -->
         <div class="accordion-item">
             <h2 class="accordion-header">
@@ -55,7 +52,7 @@
 
                                             </td>
                                             <td>
-                                                <?= $s['perihal']; ?>
+                                                <?= nl2br($s['perihal']); ?>
                                             </td>
                                             <td>
                                                 <?= tampilTanggal($s['tglSurat']); ?>
