@@ -165,8 +165,6 @@
                                             <td>
                                                 <div class="d-flex gap-2">
 
-
-
                                                     <?php
                                                     // Prepare the modal ID for each TCM
                                                     $modalId = '#editSuratModal' . $indeks;
