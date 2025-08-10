@@ -191,7 +191,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="tglSurat" class="form-label">Tanggal Surat</label>
-                            <input type="text" class="form-control fs-3 tanggal-input" name="tglSurat" value="<?= date('d F Y', strtotime($s['tglSurat'])); ?>" required autocomplete="off">
+                            <input type="text" class="form-control fs-3 tanggal-input" name="tglSurat" value="<?= tampilTanggal($s['tglSurat']); ?>" required autocomplete="off">
                         </div>
 
                     </div>
