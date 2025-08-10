@@ -111,6 +111,7 @@
                                         <th scope="col">Serial Number</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Keterangan</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -120,10 +121,22 @@
                                         <tr>
                                             <td scope="row"><?= $indeks + 1; ?></td>
                                             <td>
-                                                <?= $t['item']; ?>
-
+                                                <?php
+                                                foreach ($jenis as $j) :
+                                                    if ($j['id'] == $t['jenisId']) {
+                                                        echo $j['nama'];
+                                                    }
+                                                endforeach;
+                                                ?>
                                             </td>
                                             <td>
+                                                <?= $t['partNumber']; ?>
+                                            </td>
+                                            <td>
+                                                <?= $t['serialNumber']; ?>
+                                            </td>
+                                            <td>
+                                                <?= $t['status']; ?>
                                             </td>
                                             <td>
 
@@ -160,7 +173,7 @@
 
                                     <tr>
                                         <th scope="row"></th>
-                                        <td colspan="4">
+                                        <td colspan="5">
                                             <?= anchor('#addTrxTcmModal', 'add', [
                                                 'class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
                                                 'data-bs-toggle' => 'modal'
@@ -201,7 +214,6 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <!-- <th scope="col">Item</th> -->
                                     <th scope="col">Part Number</th>
                                     <th scope="col">Serial Number</th>
                                     <th scope="col">Status</th>
@@ -230,12 +242,29 @@
                                         $lastJenisId = $t['jenisId'];
                                     }
                                     ?>
-                                    <tr>
+
+
+                                    <?= form_open('trxtcm/' . $kegiatan['id'], '', ['tcmId' => $t['id']]); ?>
+
+                                    <tr style="cursor:pointer;" onclick="this.closest('form').submit();">
                                         <td scope="row"><?= $indeks + 1; ?></td>
                                         <td><?= $t['partNumber']; ?></td>
                                         <td><?= $t['serialNumber']; ?></td>
                                         <td><?= $t['status']; ?></td>
+                                        <td>
+                                            <?= form_button([
+                                                'name'    => 'button',
+                                                'class'   => 'btn btn-outline-primary',
+                                                'type'    => 'submit',
+                                                'content' => '<i class="bi bi-plus-square-dotted"></i>',
+                                                // 'onclick' => "return confirm('Apakah anda yakin menghapus sub kegiatan?');"
+                                            ]); ?>
+                                        </td>
                                     </tr>
+
+
+                                    <?= form_close(); ?>
+
                                 <?php
                                 endforeach;
                                 ?>

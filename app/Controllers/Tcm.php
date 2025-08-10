@@ -227,6 +227,23 @@ class Tcm extends BaseController
 
     public function trxtcm($idKegiatan)
     {
+
+
+
+
+        // dd($this->request->getVar(), $data);
+        if ($this->request->getVar()) {
+            $dataTrx = [
+                'kegiatanId' => $idKegiatan,
+                'tcmId' => $this->request->getVar('tcmId'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+            // Insert the transaction data into the database
+            $this->trxTcmModel->insert($dataTrx);
+            session()->setFlashdata('success', 'Berhasil menambahkan transaksi TCM.');
+        }
+
         $data = [
             'title' => 'Trx TCM',
             'jenis' => $this->jenisModel->findAll(),
@@ -234,11 +251,8 @@ class Tcm extends BaseController
             'tcm' => $this->tcmModel->orderBy('jenisId')->findAll(), // Fetch all TCMs
             'surat' => $this->suratModel->findAll(),
             'trxTcmbyKegiatan' => $this->trxTcmModel->getTrxTcmByKegiatanId($idKegiatan),
-
             'kegiatan' => $this->kegiatanModel->find($idKegiatan), // Fetch all kegiatan records if needed
         ];
-
-
 
         return view('tcm/trxtcm', $data);
     }

@@ -12,12 +12,8 @@ class TrxTcm extends Model
     protected $useTimestamps = true;
     protected $allowedFields    = [
 
-        'suratId',
-        'posisiId',
-        'keterangan',
+        'kegiatanId',
         'tcmId',
-        'giat',
-        'tglPelaksanaan',
         'created_at',
         'updated_at'
     ];

@@ -30,7 +30,9 @@ $routes->post('tcm/kegiatan/(:num)', 'Tcm::editKegiatan/$1');
 $routes->delete('tcm/kegiatan/(:num)', 'Tcm::hapusKegiatan/$1');
 $routes->post('tcm/tambahkegiatan', 'Tcm::tambahKegiatan');
 
-$routes->get('trxtcm/(:num)', 'Tcm::trxtcm/$1');
+// transaksi tcm
+$routes->match(['GET', 'POST'], 'trxtcm/(:num)', 'Tcm::trxtcm/$1');
+// $routes->post('trxtcm/(:num)', 'Tcm::trxtcm/$1');
 
 
 // jurnal
