@@ -12,7 +12,6 @@
 
 
 
-
     <!-- awal toast (informasi sukses dari halaman sebelumnya) -->
     <?php if (session()->getFlashdata('success')): ?>
         <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
@@ -202,7 +201,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Item</th>
+                                    <!-- <th scope="col">Item</th> -->
                                     <th scope="col">Part Number</th>
                                     <th scope="col">Serial Number</th>
                                     <th scope="col">Status</th>
@@ -214,7 +213,8 @@
                                 foreach ($tcm as $indeks => $t) :
                                     if ($t['jenisId'] !== $lastJenisId) { ?>
                                         <!-- Judul jenis baru -->
-                                        <tr class="table-success mb-5">
+
+                                        <tr class="table-success m-5 ">
                                             <td colspan="5" class="fw-bold">
                                                 <?php
                                                 foreach ($jenis as $j) :
@@ -222,13 +222,9 @@
                                                         echo $j['nama'];
                                                     }
                                                 endforeach;
-
                                                 ?>
 
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
                                         </tr>
                                     <?php
                                         $lastJenisId = $t['jenisId'];
@@ -236,7 +232,6 @@
                                     ?>
                                     <tr>
                                         <td scope="row"><?= $indeks + 1; ?></td>
-                                        <td><?= $t['jenisId']; ?></td>
                                         <td><?= $t['partNumber']; ?></td>
                                         <td><?= $t['serialNumber']; ?></td>
                                         <td><?= $t['status']; ?></td>
@@ -247,8 +242,6 @@
 
                             </tbody>
                         </table>
-
-
                     </div>
                 </div>
             </div>
