@@ -24,7 +24,7 @@ class TrxTcm extends Model
             return $this->findAll();
         }
 
-        return $this->select('*')
+        return $this->select('*,trxtcm.id as trxTcmId')
             ->join('tcm', 'tcm.id = trxtcm.tcmId')
             ->where('trxtcm.kegiatanId', $id)
             ->findAll();

@@ -155,7 +155,7 @@
                                                     // d($kegiatan['id']);
                                                     // echo form_open()
                                                     ?>
-                                                    <?= form_open('trxtcm/' . $t['id'], '', ['_method' => 'DELETE', 'idKegiatan' => $kegiatan['id']]); ?>
+                                                    <?= form_open('trxtcm/' . $t['trxTcmId'], '', ['_method' => 'DELETE', 'idKegiatan' => $kegiatan['id']]); ?>
                                                     <?= form_button([
                                                         'name'    => 'button',
                                                         'class'   => 'btn btn-outline-danger',

@@ -228,7 +228,7 @@ class Tcm extends BaseController
     public function trxtcm($idKegiatan)
     {
 
-        if ($this->request->getVar()) {
+        if ($this->request->getVar('tcmId')) {
             $dataTrx = [
                 'kegiatanId' => $idKegiatan,
                 'tcmId' => $this->request->getVar('tcmId'),
@@ -256,6 +256,7 @@ class Tcm extends BaseController
     public function hapusTrxtcm($id)
     {
         // dd($this->request->getVar());
+        d($id);
         $trxTcm = $this->trxTcmModel->find($id);
         $idKegiatan = $this->request->getVar('idKegiatan'); // Get the idKegiatan from the request
         if ($trxTcm) {
