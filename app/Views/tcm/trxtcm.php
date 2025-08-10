@@ -39,57 +39,102 @@
     <!-- akhir toast -->
 
 
+
+
     <div class="accordion mt-3" id="accordionExample">
 
-        <!-- accordian surat -->
+        <!-- accordian trxtcm -->
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed fw-medium fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    SURAT
+                    List TCM
                 </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card">
                         <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col text-start">
+                                    <div class="p-3 border bg-light rounded-3">Jenis Giat :
+                                        <br>
+                                        <span class="fw-bold text-primary">
+                                            <?= $kegiatan['jenisGiat']; ?></span>
+                                    </div>
+                                </div>
 
+                                <div class="col text-start">
+                                    <div class="p-3 border bg-light rounded-3">Posisi :
+                                        <br>
+                                        <span class="fw-bold text-primary">
+                                            <?php
+                                            foreach ($posisi as $p) {
+                                                if ($p['id'] == $kegiatan['posisiId']) {
+                                                    echo $p['posisi'];
+                                                }
+                                            }
+                                            ?>
+                                        </span>
+                                    </div>
+                                </div>
 
-                            <table class="table table-hover rounded-5">
-                                <thead class="table-success ">
+                                <div class="col text-start">
+                                    <div class="p-3 border bg-light rounded-3">No Surat :
+                                        <br>
+                                        <span class="fw-bold text-primary">
+                                            <?php
+                                            foreach ($surat as $s) {
+                                                if ($s['id'] == $kegiatan['suratId']) {
+                                                    echo $s['noSurat'];
+                                                }
+                                            }
+                                            ?>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col text-start">
+                                    <div class="p-3 border bg-light rounded-3">Tgl Pelaksanaan :
+                                        <br>
+                                        <span class="fw-bold text-primary">
+                                            <?= tampilTanggal($kegiatan['tglPelaksanaan']); ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-hover fs-4">
+                                <thead class="table-success">
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Nomor Surat</th>
-                                        <th scope="col">Pejabat</th>
-                                        <th scope="col">Perihal</th>
-                                        <th scope="col">Tanggal Surat</th>
-                                        <th scope="col"></th>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Part Number</th>
+                                        <th scope="col">Serial Number</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-
-                                    foreach ($surat as $indeks => $s) :
+                                    foreach ($trxTcmbyKegiatan as $indeks => $t) :
                                     ?>
                                         <tr>
                                             <td scope="row"><?= $indeks + 1; ?></td>
                                             <td>
-                                                <?= anchor('tcm/detail/' . $s['id'], $s['noSurat'], ['class' => 'link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover']); ?>
-                                            </td>
-                                            <td>
-                                                <?= $s['pejabat']; ?>
+                                                <?= $t['item']; ?>
 
                                             </td>
                                             <td>
-                                                <?= nl2br($s['perihal']); ?>
                                             </td>
                                             <td>
-                                                <?= tampilTanggal($s['tglSurat']); ?>
+
                                             </td>
+
                                             <td>
                                                 <div class="d-flex gap-2">
                                                     <?php
                                                     // Prepare the modal ID for each TCM
-                                                    $modalId = '#editSuratModal' . $indeks;
+                                                    $modalId = '#editTrxTcmModal' . $indeks;
                                                     ?>
                                                     <?= anchor('', '<i class="bi bi-pencil-fill"></i>', [
                                                         'class' => 'btn btn-warning',
@@ -98,7 +143,7 @@
                                                         'data-bs-target' => $modalId
                                                     ]); ?>
 
-                                                    <?= form_open('tcm/hapussurat/' . $s['id'], '', ['_method' => 'DELETE']); ?>
+                                                    <?= form_open('tcm/hapussurat/' . $t['id'], '', ['_method' => 'DELETE']); ?>
                                                     <?= form_button([
                                                         'name'    => 'button',
                                                         'class'   => 'btn btn-danger',
@@ -117,14 +162,13 @@
                                     <tr>
                                         <th scope="row"></th>
                                         <td colspan="4">
-                                            <?= anchor('#addSuratModal', 'add', [
+                                            <?= anchor('#addTrxTcmModal', 'add', [
                                                 'class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
                                                 'data-bs-toggle' => 'modal'
                                             ]); ?>
 
                                         </td>
-                                        <td></td>
-                                        <td></td>
+
                                         <td></td>
                                     </tr>
                                 </tbody>
@@ -144,45 +188,74 @@
 
 
 
-    <!-- Modal Tambah Surat -->
-    <div class="modal fade" id="addSuratModal" tabindex="-1" aria-labelledby="addSuratModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Modal Tambah Transaksi -->
+    <div class="modal fade" id="addTrxTcmModal" tabindex="-1" aria-labelledby="addTrxTcmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addSuratModalLabel">Tambah Surat</h5>
+                    <h5 class="modal-title" id="addTrxTcmModalLabel">Tambah Item</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div class="container-fluid">
+                        <table class="table table-hover fs-4">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Part Number</th>
+                                    <th scope="col">Serial Number</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $lastJenisId = null;
+                                foreach ($tcm as $indeks => $t) :
+                                    if ($t['jenisId'] !== $lastJenisId) { ?>
+                                        <!-- Judul jenis baru -->
+                                        <tr class="table-success mb-5">
+                                            <td colspan="5" class="fw-bold">
+                                                <?php
+                                                foreach ($jenis as $j) :
+                                                    if ($j['id'] == $t['jenisId']) {
+                                                        echo $j['nama'];
+                                                    }
+                                                endforeach;
 
-                    <?= form_open('tcm/tambahsurat'); ?>
-                    <div class="mb-3">
-                        <label for="noSurat" class="form-label">Nomor Surat</label>
-                        <input type="text" class="form-control fs-3" id="noSurat" name="noSurat" required>
-                    </div>
+                                                ?>
 
-                    <div class="mb-3">
-                        <label for="pejabat" class="form-label">Pejabat</label>
-                        <input type="text" class="form-control fs-3" id="pejabat" name="pejabat" required>
-                    </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                        $lastJenisId = $t['jenisId'];
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td scope="row"><?= $indeks + 1; ?></td>
+                                        <td><?= $t['jenisId']; ?></td>
+                                        <td><?= $t['partNumber']; ?></td>
+                                        <td><?= $t['serialNumber']; ?></td>
+                                        <td><?= $t['status']; ?></td>
+                                    </tr>
+                                <?php
+                                endforeach;
+                                ?>
 
-                    <div class="mb-3">
-                        <label for="perihal" class="form-label">Perihal</label>
-                        <textarea class="form-control fs-3" id="perihal" name="perihal" rows="3" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="tglSurat" class="form-label">Tanggal Surat</label>
-                        <input type="text" class="form-control fs-3 tanggal-input" name="tglSurat" required autocomplete="off">
-                    </div>
+                            </tbody>
+                        </table>
 
+
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </div>
-                <?= form_close(); ?>
             </div>
         </div>
     </div>
+
+
 
 
 
@@ -191,13 +264,13 @@
     <?php
     foreach ($surat as $index => $s):
         // Prepare the modal ID for each TCM
-        $modalId = 'editSuratModal' . $index;
+        $modalId = 'editTrxTcmModal' . $index;
     ?>
-        <div class="modal fade" id="<?= $modalId; ?>" tabindex="-1" aria-labelledby="editSuratModalLabel" aria-hidden="true">
+        <div class="modal fade" id="<?= $modalId; ?>" tabindex="-1" aria-labelledby="editTrxTcmLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editSuratModalLabel">Edit Surat</h5>
+                        <h5 class="modal-title" id="editTrxTcmLabel">Edit Transaksi</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

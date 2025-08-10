@@ -9,6 +9,31 @@
     </div>
 
 
+    <!-- awal toast (informasi sukses dari halaman sebelumnya) -->
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">Sukses</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('success'); ?>
+            </div>
+        </div>
+    <?php elseif (session()->getFlashdata('hapus')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Berhasil</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('hapus'); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <!-- akhir toast -->
+
     <div class="accordion mt-3" id="accordionExample">
 
         <!-- 1. accordian Rekapitulasi -->
@@ -18,7 +43,7 @@
                     1. REKAPITULASI
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card">
                         <div class="card-body">
@@ -92,12 +117,10 @@
                     2. KEGIATAN
                 </button>
             </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div id="collapseThree" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card">
                         <div class="card-body">
-
-                            <!-- dd($kegiatan); -->
                             <table class="table table-hover rounded-5">
                                 <thead class="table-success ">
                                     <tr>
@@ -105,7 +128,7 @@
                                         <th scope="col">Nomor Surat</th>
                                         <th scope="col">Posisi</th>
                                         <th scope="col">Tgl Pelaksanaan</th>
-                                        <th scope="col">Jenis</th>
+                                        <th scope="col">Jenis Giat</th>
                                         <th scope="col">Jumlah</th>
                                         <th scope="col">Keterangan</th>
                                         <th></th>
@@ -155,7 +178,7 @@
                                                 <?= $k['jenisGiat']; ?>
                                             </td>
                                             <td class="text-center">
-                                                <?= anchor('addTrxTcm', '<i class="bi bi-plus-square"></i>', ['class' => 'btn btn-outline-success']); ?>
+                                                <?= anchor('trxtcm/' . $k['id'], '<i class="bi bi-plus-square"></i>', ['class' => 'btn btn-outline-success']); ?>
                                             </td>
                                             <td>
                                                 <?= $k['keterangan']; ?>

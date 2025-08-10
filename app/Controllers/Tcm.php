@@ -140,7 +140,7 @@ class Tcm extends BaseController
         $this->suratModel->insert($data);
         $prevPage = 'surat';
         // Redirect to the surat index page or wherever you want
-        return redirect()->to('tcm/surat');
+        return redirect()->to('tcm/surat')->with('success', 'Berhasil menambahkan surat.');
 
         // return view('tcm/suratDetail', $data);
     }
@@ -150,7 +150,7 @@ class Tcm extends BaseController
         $surat = $this->suratModel->find($id);
         if ($surat) {
             $this->suratModel->delete($id);
-            return redirect()->to('tcm/surat')->with('success', 'Surat deleted successfully');
+            return redirect()->to('tcm/surat')->with('hapus', 'Berhasil menghapus surat.');
         } else {
             return redirect()->back()->with('error', 'Surat not found');
         }
@@ -162,8 +162,6 @@ class Tcm extends BaseController
         if (!$surat) {
             return redirect()->back()->with('error', 'Surat not found');
         }
-
-
 
         $data = [
             'noSurat' => $this->request->getPost('noSurat'),
@@ -192,7 +190,7 @@ class Tcm extends BaseController
         $this->kegiatanModel->insert($data);
 
         // Redirect to a relevant page, e.g., detail TCM
-        return redirect()->to('tcm');
+        return redirect()->to('tcm')->with('success', 'Berhasil menambahkan kegiatan.');
     }
 
     public function editKegiatan($id)
@@ -212,7 +210,7 @@ class Tcm extends BaseController
 
         // Update the activity data
         $this->kegiatanModel->update($id, $data);
-        return redirect()->to('tcm')->with('success', 'Kegiatan updated successfully');
+        return redirect()->to('tcm')->with('success', 'Kegiatan berhasil diperbarui.');
     }
 
     public function hapusKegiatan($id)
@@ -220,12 +218,28 @@ class Tcm extends BaseController
         $kegiatan = $this->kegiatanModel->find($id);
         if ($kegiatan) {
             $this->kegiatanModel->delete($id);
-            session()->setFlashdata('pesan', 'Kegiatan berhasil dihapus.');
-            // session()->setFlashdata('warna', 'success');
-            return redirect()->to('tcm')->with('success', 'Kegiatan deleted successfully');
+            return redirect()->to('tcm')->with('hapus', 'Kegiatan berhasil dihapus.');
         } else {
             session()->setFlashdata('error', 'Kegiatan not found.');
             return redirect()->back()->with('error', 'Kegiatan not found');
         }
+    }
+
+    public function trxtcm($idKegiatan)
+    {
+        $data = [
+            'title' => 'Trx TCM',
+            'jenis' => $this->jenisModel->findAll(),
+            'posisi' => $this->posisiModel->findAll(), // Fetch all positions
+            'tcm' => $this->tcmModel->orderBy('jenisId')->findAll(), // Fetch all TCMs
+            'surat' => $this->suratModel->findAll(),
+            'trxTcmbyKegiatan' => $this->trxTcmModel->getTrxTcmByKegiatanId($idKegiatan),
+
+            'kegiatan' => $this->kegiatanModel->find($idKegiatan), // Fetch all kegiatan records if needed
+        ];
+
+
+
+        return view('tcm/trxtcm', $data);
     }
 }

@@ -9,6 +9,7 @@ class TrxTcm extends Model
     protected $table            = 'trxtcm';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
+    protected $useTimestamps = true;
     protected $allowedFields    = [
 
         'suratId',
@@ -20,4 +21,16 @@ class TrxTcm extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function getTrxTcmByKegiatanId($id = false)
+    {
+        if ($id === false) {
+            return $this->findAll();
+        }
+
+        return $this->select('*')
+            ->join('tcm', 'tcm.id = trxtcm.tcmId')
+            ->where('trxtcm.kegiatanId', $id)
+            ->findAll();
+    }
 }
