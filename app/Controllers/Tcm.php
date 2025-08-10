@@ -221,7 +221,7 @@ class Tcm extends BaseController
         if ($kegiatan) {
             $this->kegiatanModel->delete($id);
             session()->setFlashdata('pesan', 'Kegiatan berhasil dihapus.');
-            session()->setFlashdata('warna', 'success');
+            // session()->setFlashdata('warna', 'success');
             return redirect()->to('tcm')->with('success', 'Kegiatan deleted successfully');
         } else {
             session()->setFlashdata('error', 'Kegiatan not found.');

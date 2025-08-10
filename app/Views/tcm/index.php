@@ -4,29 +4,9 @@
 
 <main class="col-md-9 col-lg-10 px-md-4 main-content fs-4">
 
-
-    <!-- toast -->
-    <?php if (session()->getFlashdata('pesan')) : ?>
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="..." class="rounded me-2" alt="...">
-                <strong class="me-auto">Bootstrap</strong>
-                <small>11 mins ago</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                <?= esc(session()->getFlashdata('pesan')); ?>
-            </div>
-        </div>
-    <?php endif; ?>
-
-
-
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
         <h2 class="h2">Torpedo Counter Measure</h2>
     </div>
-
-
 
 
     <div class="accordion mt-3" id="accordionExample">
