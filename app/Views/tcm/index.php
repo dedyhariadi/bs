@@ -4,6 +4,24 @@
 
 <main class="col-md-9 col-lg-10 px-md-4 main-content fs-4">
 
+
+    <!-- toast -->
+    <?php if (session()->getFlashdata('pesan')) : ?>
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="..." class="rounded me-2" alt="...">
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= esc(session()->getFlashdata('pesan')); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+
+
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
         <h2 class="h2">Torpedo Counter Measure</h2>
     </div>
@@ -130,10 +148,10 @@
                                                         break;
                                                     }
                                                 }
-                                                echo esc($noSurat);
+                                                // echo esc($noSurat);
                                                 ?>
 
-
+                                                <?= anchor('tcm/surat', esc($noSurat), ['class' => 'link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover']); ?>
                                             </td>
                                             <td>
                                                 <?php
@@ -165,11 +183,9 @@
                                             <td>
                                                 <div class="d-flex gap-2">
 
-
-
                                                     <?php
                                                     // Prepare the modal ID for each TCM
-                                                    $modalId = '#editSuratModal' . $indeks;
+                                                    $modalId = '#editKegiatanModal' . $indeks;
                                                     ?>
                                                     <?= anchor('', '<i class="bi bi-pencil-fill"></i>', [
                                                         'class' => 'btn btn-outline-warning',
@@ -179,7 +195,7 @@
                                                     ]);
                                                     ?>
 
-                                                    <?= form_open('tcm/hapussurat/' . $k['id'], '', ['_method' => 'DELETE']); ?>
+                                                    <?= form_open('tcm/kegiatan/' . $k['id'], '', ['_method' => 'DELETE']); ?>
                                                     <?= form_button([
                                                         'name'    => 'button',
                                                         'class'   => 'btn btn-outline-danger',
@@ -277,5 +293,80 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal kegiatan Edit -->
+
+    <?php
+    foreach ($kegiatan as $indeks => $k) :
+        // Cari nilai default untuk dropdown dan input
+        $selectedSurat = $k['suratId'] ?? '';
+        $selectedPosisi = $k['posisiId'] ?? '';
+        $selectedJenis = $k['jenisGiat'] ?? '';
+        $tglPelaksanaan = $k['tglPelaksanaan'] ?? '';
+        $keterangan = $k['keterangan'] ?? '';
+    ?>
+        <div class="modal fade" id="editKegiatanModal<?= $indeks; ?>" tabindex="-1" aria-labelledby="editKegiatanModalLabel<?= $indeks; ?>" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editKegiatanModalLabel<?= $indeks; ?>">Edit Kegiatan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <?= form_open('tcm/kegiatan/' . $k['id']); ?>
+                        <div class="mb-3">
+                            <label for="noSurat<?= $indeks; ?>" class="form-label">Surat <?= anchor('tcm/surat', 'add', ['class' => 'link fs']); ?></label>
+                            <?= form_dropdown('noSurat', array_column($surat, 'noSurat', 'id'), $selectedSurat, [
+                                'class' => 'form-select',
+                                'id' => 'noSurat' . $indeks,
+                                'required' => 'required'
+                            ]); ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="posisi<?= $indeks; ?>" class="form-label">Posisi</label>
+                            <?= form_dropdown('posisi', array_column($posisi, 'posisi', 'id'), $selectedPosisi, [
+                                'class' => 'form-select',
+                                'id' => 'posisi' . $indeks,
+                                'required' => 'required'
+                            ]); ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tglPelaksanaan<?= $indeks; ?>" class="form-label">Tgl Pelaksanaan</label>
+                            <input type="text" class="form-control tanggal-input" id="tglPelaksanaan<?= $indeks; ?>" name="tglPelaksanaan" value="<?= tampilTanggal(esc($tglPelaksanaan)); ?>" autocomplete="off" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jenis<?= $indeks; ?>" class="form-label">Jenis</label>
+                            <?= form_dropdown('jenis', [
+                                'Barang Masuk' => 'Barang Masuk',
+                                'Barang Keluar' => 'Barang Keluar',
+                                'PUT' => 'PUT',
+                                'PUS' => 'PUS'
+                            ], $selectedJenis, [
+                                'class' => 'form-select',
+                                'id' => 'jenis' . $indeks,
+                                'required' => 'required'
+                            ]); ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="keterangan<?= $indeks; ?>" class="form-label">Keterangan</label>
+                            <textarea class="form-control" id="keterangan<?= $indeks; ?>" name="keterangan" rows="2"><?= esc($keterangan); ?></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success">Simpan</button>
+                    </div>
+                    <?= form_close(); ?>
+                </div>
+            </div>
+        </div>
+    <?php
+    endforeach;
+    ?>
+
+
+    </div>
+
 
     <?= $this->endSection(); ?>

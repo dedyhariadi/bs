@@ -194,4 +194,38 @@ class Tcm extends BaseController
         // Redirect to a relevant page, e.g., detail TCM
         return redirect()->to('tcm');
     }
+
+    public function editKegiatan($id)
+    {
+        $kegiatan = $this->kegiatanModel->find($id);
+        if (!$kegiatan) {
+            return redirect()->back()->with('error', 'Kegiatan not found');
+        }
+
+        $data = [
+            'jenisGiat' => $this->request->getPost('jenis'),
+            'suratId' => $this->request->getPost('noSurat'),
+            'posisiId' => $this->request->getPost('posisi'),
+            'tglPelaksanaan' => $this->request->getPost('tglPelaksanaan') ? simpanTanggal($this->request->getPost('tglPelaksanaan')) : null,
+            'keterangan' => $this->request->getPost('keterangan'),
+        ];
+
+        // Update the activity data
+        $this->kegiatanModel->update($id, $data);
+        return redirect()->to('tcm')->with('success', 'Kegiatan updated successfully');
+    }
+
+    public function hapusKegiatan($id)
+    {
+        $kegiatan = $this->kegiatanModel->find($id);
+        if ($kegiatan) {
+            $this->kegiatanModel->delete($id);
+            session()->setFlashdata('pesan', 'Kegiatan berhasil dihapus.');
+            session()->setFlashdata('warna', 'success');
+            return redirect()->to('tcm')->with('success', 'Kegiatan deleted successfully');
+        } else {
+            session()->setFlashdata('error', 'Kegiatan not found.');
+            return redirect()->back()->with('error', 'Kegiatan not found');
+        }
+    }
 }
