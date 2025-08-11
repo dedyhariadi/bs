@@ -59,10 +59,6 @@
                                         <br>
                                         <span class="fw-bold text-primary">
                                             <?= isset($kegiatan['jenisGiat']) ? esc($kegiatan['jenisGiat']) : '<span class="text-danger">Data tidak tersedia</span>'; ?>
-                                            <?php
-                                            // d($kegiatan);
-
-                                            ?>
                                         </span>
                                     </div>
                                 </div>
@@ -191,9 +187,6 @@
     </div>
 
 
-
-
-
     <!-- Modal Tambah Transaksi -->
     <div class="modal fade" id="addTrxTcmModal" tabindex="-1" aria-labelledby="addTrxTcmModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -235,9 +228,15 @@
                                     <?php
                                         $lastJenisId = $t['jenisId'];
                                     }
-                                    ?>
 
-                                    <?= form_open('trxtcm/' . $kegiatan['id'], '', ['tcmId' => $t['id'], 'posisiAkhirId' => 'Arsenal']); ?>
+
+                                    if ($kegiatan['jenisGiat'] == 'PUS' || $kegiatan['jenisGiat'] == 'Barang Masuk') {
+                                        $posisiAkhir = 2; // Posisi akhir untuk PUS atau Barang Masuk
+                                    } elseif ($kegiatan['jenisGiat'] == 'PUT' || $kegiatan['jenisGiat'] == 'Barang Keluar') {
+                                        $posisiAkhir = $kegiatan['satkaiId']; // Posisi akhir untuk PUT atau Barang Keluar
+                                    }
+
+                                    echo form_open('trxtcm/' . $kegiatan['id'], '', ['tcmId' => (string)$t['id'], 'posisiAkhirId' => (string)$posisiAkhir]); ?>
 
                                     <tr>
                                         <td scope="row"><?= $indeks + 1; ?></td>
