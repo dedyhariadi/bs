@@ -29,4 +29,16 @@ class TrxTcm extends Model
             ->where('trxtcm.kegiatanId', $id)
             ->findAll();
     }
+
+    public function getTrxTcmByTcmId($id = false)
+    {
+        if ($id === false) {
+            return $this->findAll();
+        }
+
+        return $this->select('*,trxtcm.id as trxTcmId')
+            ->join('tcm', 'tcm.id = trxtcm.tcmId')
+            ->where('trxtcm.tcmId', $id)
+            ->findAll();
+    }
 }

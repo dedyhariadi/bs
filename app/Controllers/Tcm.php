@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\Jenis as JenisModel;
-use App\Models\Posisi as PosisiModel; // Uncomment if you need to use PosisiModel
+use App\Models\Satkai as SatkaiModel; // Uncomment if you need to use SatkaiModel
 use App\Models\Tcm as TcmModel; // Uncomment if you need to use TcmModel
 use App\Models\Surat as SuratModel; // Uncomment if you need to use SuratModel
 use App\Models\TrxTcm as TrxTcmModel;
@@ -18,7 +18,7 @@ class Tcm extends BaseController
 {
 
     protected $jenisModel;
-    protected $posisiModel;
+    protected $satkaiModel;
     protected $tcmModel;
     protected $suratModel;
     protected $trxTcmModel;
@@ -28,7 +28,7 @@ class Tcm extends BaseController
     public function __construct()
     {
         $this->jenisModel = new JenisModel();
-        $this->posisiModel = new PosisiModel();
+        $this->satkaiModel = new SatkaiModel();
         $this->tcmModel = new TcmModel();
         $this->suratModel = new SuratModel(); // Initialize SuratModel if needed
         $this->trxTcmModel = new TrxTcmModel();
@@ -41,7 +41,7 @@ class Tcm extends BaseController
         $data = [
             'title' => 'Tcm',
             'jenis' => $this->jenisModel->findAll(),
-            'posisi' => $this->posisiModel->findAll(), // Fetch all positions
+            'satkai' => $this->satkaiModel->findAll(), // Fetch all positions
             'tcm' => $this->tcmModel->findAll(), // Fetch all TCMs
             'surat' => $this->suratModel->findAll(), // Fetch all surat records if needed
             'trxTcm' => $this->trxTcmModel->findAll(),
@@ -57,7 +57,7 @@ class Tcm extends BaseController
         $data = [
             'title' => 'Detail Tcm',
             'jenis' => $this->jenisModel->find($id),
-            'posisi' => $this->posisiModel->findAll(), // Fetch all positions
+            'satkai' => $this->satkaiModel->findAll(), // Fetch all positions
             'tcmList' => $this->tcmModel->where('jenisId', $id)->findAll(), // Fetch TCMs by jenisId
             'jenisId' => $id, // Pass the jenisId to the view
         ];
@@ -118,7 +118,7 @@ class Tcm extends BaseController
         $data = [
             'title' => 'Surat Index',
             'jenis' => $this->jenisModel->findAll(),
-            'posisi' => $this->posisiModel->findAll(), // Fetch all positions
+            'satkai' => $this->satkaiModel->findAll(), // Fetch all positions
             'tcm' => $this->tcmModel->findAll(), // Fetch all TCMs
             'surat' => $this->suratModel->findAll(),
             'trxTcm' => $this->trxTcmModel->findAll()
@@ -181,7 +181,7 @@ class Tcm extends BaseController
         $data = [
             'jenisGiat' => $this->request->getPost('jenis'),
             'suratId' => $this->request->getPost('noSurat'),
-            'posisiId' => $this->request->getPost('posisi'),
+            'satkaiId' => $this->request->getPost('satkai'),
             'tglPelaksanaan' => $this->request->getPost('tglPelaksanaan') ? simpanTanggal($this->request->getPost('tglPelaksanaan')) : null,
             'keterangan' => $this->request->getPost('keterangan'),
         ];
@@ -203,7 +203,7 @@ class Tcm extends BaseController
         $data = [
             'jenisGiat' => $this->request->getPost('jenis'),
             'suratId' => $this->request->getPost('noSurat'),
-            'posisiId' => $this->request->getPost('posisi'),
+            'satkaiId' => $this->request->getPost('satkai'),
             'tglPelaksanaan' => $this->request->getPost('tglPelaksanaan') ? simpanTanggal($this->request->getPost('tglPelaksanaan')) : null,
             'keterangan' => $this->request->getPost('keterangan'),
         ];
@@ -232,6 +232,7 @@ class Tcm extends BaseController
             $dataTrx = [
                 'kegiatanId' => $idKegiatan,
                 'tcmId' => $this->request->getVar('tcmId'),
+                'posisiAkhirId' => $this->request->getVar('posisiAkhirId'), // Assuming you have a field for posisiAkhirId
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
@@ -243,7 +244,7 @@ class Tcm extends BaseController
         $data = [
             'title' => 'Trx TCM',
             'jenis' => $this->jenisModel->findAll(),
-            'posisi' => $this->posisiModel->findAll(), // Fetch all positions
+            'satkai' => $this->satkaiModel->findAll(), // Fetch all positions
             'tcm' => $this->tcmModel->orderBy('jenisId')->findAll(), // Fetch all TCMs
             'surat' => $this->suratModel->findAll(),
             'trxTcmbyKegiatan' => $this->trxTcmModel->getTrxTcmByKegiatanId($idKegiatan),
@@ -270,7 +271,7 @@ class Tcm extends BaseController
         // $data = [
         //     'title' => 'Trx TCM',
         //     'jenis' => $this->jenisModel->findAll(),
-        //     'posisi' => $this->posisiModel->findAll(), // Fetch all positions
+        //     'satkai' => $this->satkaiModel->findAll(), // Fetch all positions
         //     'tcm' => $this->tcmModel->orderBy('jenisId')->findAll(), // Fetch all TCMs
         //     'surat' => $this->suratModel->findAll(),
         //     'trxTcmbyKegiatan' => $this->trxTcmModel->getTrxTcmByKegiatanId($idKegiatan),

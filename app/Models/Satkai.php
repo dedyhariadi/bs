@@ -4,13 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Posisi extends Model
+class Satkai extends Model
 {
-    protected $table            = 'posisi';
+    protected $table            = 'satkai';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $allowedFields    = [
-        'posisi',
+        'satkai',
         'jenis',
     ];
 }

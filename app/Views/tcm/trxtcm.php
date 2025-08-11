@@ -68,13 +68,13 @@
                                 </div>
 
                                 <div class="col text-start">
-                                    <div class="p-3 border bg-light rounded-3">Posisi :
+                                    <div class="p-3 border bg-light rounded-3">Satkai :
                                         <br>
                                         <span class="fw-bold text-primary">
                                             <?php
-                                            foreach ($posisi as $p) {
-                                                if ($p['id'] == $kegiatan['posisiId']) {
-                                                    echo $p['posisi'];
+                                            foreach ($satkai as $p) {
+                                                if ($p['id'] == $kegiatan['satkaiId']) {
+                                                    echo $p['satkai'];
                                                 }
                                             }
                                             ?>
@@ -149,12 +149,6 @@
 
                                             <td>
                                                 <div class="d-flex gap-2">
-
-                                                    <?php
-
-                                                    // d($kegiatan['id']);
-                                                    // echo form_open()
-                                                    ?>
                                                     <?= form_open('trxtcm/' . $t['trxTcmId'], '', ['_method' => 'DELETE', 'idKegiatan' => $kegiatan['id']]); ?>
                                                     <?= form_button([
                                                         'name'    => 'button',
@@ -243,8 +237,7 @@
                                     }
                                     ?>
 
-
-                                    <?= form_open('trxtcm/' . $kegiatan['id'], '', ['tcmId' => $t['id']]); ?>
+                                    <?= form_open('trxtcm/' . $kegiatan['id'], '', ['tcmId' => $t['id'], 'posisiAkhirId' => 'Arsenal']); ?>
 
                                     <tr>
                                         <td scope="row"><?= $indeks + 1; ?></td>
@@ -252,20 +245,14 @@
                                         <td><?= $t['serialNumber']; ?></td>
                                         <td><?= $t['status']; ?></td>
                                         <td>
-
-
                                             <?= form_button([
                                                 'name'    => 'button',
-                                                'class'   => 'btn btn-outline-danger',
+                                                'class'   => 'btn btn-outline-primary',
                                                 'type'    => 'submit',
                                                 'content' => '<i class="bi bi-plus-square-dotted"></i>',
                                             ]); ?>
-
-
                                         </td>
                                     </tr>
-
-
                                     <?= form_close(); ?>
 
                                 <?php

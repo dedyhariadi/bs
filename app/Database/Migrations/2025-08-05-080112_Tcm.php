@@ -110,7 +110,7 @@ class Tcm extends Migration
         $this->forge->addField([
             'id'          => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'jenisId'    => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
-            'status'      => ['type' => 'ENUM', 'constraint' => ['aktif', 'Fired', 'Eternal Patrol'], 'default' => 'aktif'],
+            'status'      => ['type' => 'ENUM', 'constraint' => ['Aktif', 'Fired', 'Eternal Patrol'], 'default' => 'Aktif'],
             'partNumber' => ['type' => 'VARCHAR', 'constraint' => 100],
             'serialNumber'   => ['type' => 'VARCHAR', 'constraint' => 100],
             'created_at'  => ['type' => 'DATETIME', 'null' => true],
@@ -121,6 +121,136 @@ class Tcm extends Migration
         $this->forge->createTable('tcm');
 
 
+        $this->db->table('tcm')->insertBatch([
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0020',
+                'serialNumber' => '000001',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0020',
+                'serialNumber' => '000002',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0020',
+                'serialNumber' => '000003',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0020',
+                'serialNumber' => '000004',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0020',
+                'serialNumber' => '000005',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0020',
+                'serialNumber' => '000006',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Fired',
+                'partNumber' => '5845-9841-0020',
+                'serialNumber' => '000007',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Fired',
+                'partNumber' => '5845-9841-0020',
+                'serialNumber' => '000008',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Fired',
+                'partNumber' => '5845-9841-0030',
+                'serialNumber' => '000001',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Fired',
+                'partNumber' => '5845-9841-0030',
+                'serialNumber' => '000002',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0030',
+                'serialNumber' => '000003',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0030',
+                'serialNumber' => '000004',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0030',
+                'serialNumber' => '000005',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0030',
+                'serialNumber' => '000006',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0030',
+                'serialNumber' => '000007',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisId' => 1,
+                'status' => 'Aktif',
+                'partNumber' => '5845-9841-0030',
+                'serialNumber' => '000008',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+        ]);
 
 
 
@@ -138,68 +268,91 @@ class Tcm extends Migration
         $this->forge->addKey('id', true);
         $this->forge->createTable('surat');
 
-        // Tabel 4: posisi
+        $data = [
+            [
+                'noSurat' => 'Sprin/70/I/2021',
+                'pejabat' => 'Kadissenlekal',
+                'perihal' => 'Surat Perintah PMB',
+                'tglSurat' => '2021-12-20 00:00:00',
+                'filePdf' => 'surat1.pdf',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'noSurat' => 'Sprin/67/X/2023',
+                'pejabat' => 'Kadissenlekal',
+                'perihal' => 'Surat Perintah PMB',
+                'tglSurat' => '2023-10-13 00:00:00',
+                'filePdf' => 'surat2.pdf',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+        ];
+        // Insert data into the surat table
+        $this->db->table('surat')->insertBatch($data);
+
+        // Tabel 4: satkai
         $this->forge->addField([
             'id'        => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'posisi'      => ['type' => 'VARCHAR', 'constraint' => 100],
+            'satkai'      => ['type' => 'VARCHAR', 'constraint' => 100],
             'jenis'      => ['type' => 'ENUM', 'constraint' => ['Arsenal', 'Surface Ship', 'Submarines'], 'default' => 'Arsenal'],
             'created_at'  => ['type' => 'DATETIME', 'null' => true],
             'updated_at'  => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('posisi');
+        $this->forge->createTable('satkai');
 
         $data = [
             [
-                'posisi' => 'Arsenal Gd. 05',
+                'satkai' => 'Arsenal Gd. 05',
                 'jenis' => 'Arsenal',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'posisi' => 'Arsenal Gd. 91',
+                'satkai' => 'Arsenal Gd. 91',
                 'jenis' => 'Arsenal',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'posisi' => 'KRI REM-331',
+                'satkai' => 'KRI REM-331',
                 'jenis' => 'Surface Ship',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'posisi' => 'KRI SIM-367',
+                'satkai' => 'KRI SIM-367',
                 'jenis' => 'Surface Ship',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'posisi' => 'KRI Cakra-401',
+                'satkai' => 'KRI Cakra-401',
                 'jenis' => 'Submarines',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'posisi' => 'KRI Nanggala-402',
+                'satkai' => 'KRI Nanggala-402',
                 'jenis' => 'Submarines',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'posisi' => 'KRI Nagapasa-403',
+                'satkai' => 'KRI Nagapasa-403',
                 'jenis' => 'Submarines',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'posisi' => 'KRI Ardadedali-404',
+                'satkai' => 'KRI Ardadedali-404',
                 'jenis' => 'Submarines',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'posisi' => 'KRI Alugoro-405',
+                'satkai' => 'KRI Alugoro-405',
                 'jenis' => 'Submarines',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -207,8 +360,8 @@ class Tcm extends Migration
 
         ];
 
-        // Insert data into the posisi table
-        $this->db->table('posisi')->insertBatch($data);
+        // Insert data into the satkai table
+        $this->db->table('satkai')->insertBatch($data);
 
 
 
@@ -218,7 +371,7 @@ class Tcm extends Migration
             'id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'jenisGiat' => ['type' => 'ENUM', 'constraint' => ['Barang Masuk', 'Barang Keluar', 'PUT', 'PUS'], 'default' => 'Barang Masuk'],
             'suratId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
-            'posisiId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
+            'satkaiId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'tglPelaksanaan' => ['type' => 'DATETIME', 'null' => true],
             'keterangan' => ['type' => 'TEXT', 'null' => true],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
@@ -226,7 +379,7 @@ class Tcm extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('suratId', 'surat', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('posisiId', 'posisi', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('satkaiId', 'satkai', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('kegiatan');
 
         // Tabel 6: trxTcm
@@ -234,12 +387,14 @@ class Tcm extends Migration
             'id'        => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'kegiatanId'   => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'tcmId'   => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
+            'posisiAkhirId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('kegiatanId', 'kegiatan', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('tcmId', 'tcm', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('posisiAkhirId', 'satkai', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('trxTcm');
     }
 
@@ -248,7 +403,7 @@ class Tcm extends Migration
         // Drop tables in reverse order
         $this->forge->dropTable('trxTcm', true);
         $this->forge->dropTable('kegiatan', true);
-        $this->forge->dropTable('posisi', true);
+        $this->forge->dropTable('satkai', true);
         $this->forge->dropTable('surat', true);
         $this->forge->dropTable('tcm', true);
         $this->forge->dropTable('jenis', true);

@@ -158,14 +158,14 @@
                                             </td>
                                             <td>
                                                 <?php
-                                                $namaPosisi = '';
-                                                foreach ($posisi as $p) {
-                                                    if ($p['id'] == $k['posisiId']) {
-                                                        $namaPosisi = $p['posisi'];
+                                                $namaSatkai = '';
+                                                foreach ($satkai as $p) {
+                                                    if ($p['id'] == $k['satkaiId']) {
+                                                        $namaSatkai = $p['satkai'];
                                                         break;
                                                     }
                                                 }
-                                                echo esc($namaPosisi);
+                                                echo esc($namaSatkai);
                                                 ?>
 
                                             </td>
@@ -178,35 +178,57 @@
                                                 <?= $k['jenisGiat']; ?>
                                             </td>
                                             <td class="text-center">
-                                                <?= anchor('trxtcm/' . $k['id'], '<i class="bi bi-plus-square"></i>', ['class' => 'btn btn-outline-success']); ?>
+                                                <?php
+                                                // echo anchor('trxtcm/' . $k['id'], '<i class="bi bi-plus-square"></i>', ['class' => 'btn btn-outline-success']);
+                                                ?>
+
+                                                <?php
+                                                $countTrx = 0;
+                                                foreach ($trxTcm as $trx) {
+                                                    if ($trx['kegiatanId'] == $k['id']) {
+                                                        $countTrx++;
+                                                    }
+                                                }
+
+                                                if ($countTrx > 0):
+                                                    echo anchor('trxtcm/' . $k['id'], $countTrx . ' Unit', [
+                                                        'class' => 'link link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover'
+                                                    ]);
+                                                else:
+                                                    echo anchor('trxtcm/' . $k['id'], '<i class="bi bi-plus-square"></i>', [
+                                                        'class' => 'btn btn-outline-primary',
+                                                    ]);
+                                                endif;
+
+                                                // echo $countTrx;
+                                                ?>
                                             </td>
                                             <td>
-                                                <?= $k['keterangan']; ?>
+                                                <?= nl2br($k['keterangan']); ?>
                                             </td>
                                             <td>
                                                 <div class="d-flex gap-2">
-
                                                     <?php
                                                     // Prepare the modal ID for each TCM
                                                     $modalId = '#editKegiatanModal' . $indeks;
-                                                    ?>
-                                                    <?= anchor('', '<i class="bi bi-pencil-fill"></i>', [
+
+                                                    echo anchor('', '<i class="bi bi-pencil-fill"></i>', [
                                                         'class' => 'btn btn-outline-warning',
                                                         'type' => 'button',
                                                         'data-bs-toggle' => 'modal',
                                                         'data-bs-target' => $modalId
                                                     ]);
-                                                    ?>
 
-                                                    <?= form_open('tcm/kegiatan/' . $k['id'], '', ['_method' => 'DELETE']); ?>
-                                                    <?= form_button([
+                                                    echo form_open('tcm/kegiatan/' . $k['id'], '', ['_method' => 'DELETE']);
+                                                    echo form_button([
                                                         'name'    => 'button',
                                                         'class'   => 'btn btn-outline-danger',
                                                         'type'    => 'submit',
                                                         'content' => '<i class="bi bi-trash-fill"></i>',
-                                                        'onclick' => "return confirm('Apakah anda yakin menghapus sub kegiatan?');"
-                                                    ]); ?>
-                                                    <?= form_close(); ?>
+                                                        'onclick' => "return confirm('Apakah anda yakin menghapus kegiatan ini?');"
+                                                    ]);
+                                                    echo form_close();
+                                                    ?>
                                                 </div>
                                             </td>
                                         </tr>
@@ -258,10 +280,10 @@
                         ]); ?>
                     </div>
                     <div class="mb-3">
-                        <label for="posisi" class="form-label">Posisi</label>
-                        <?= form_dropdown('posisi', array_column($posisi, 'posisi', 'id'), '', [
+                        <label for="satkai" class="form-label">Satkai</label>
+                        <?= form_dropdown('satkai', array_column($satkai, 'satkai', 'id'), '', [
                             'class' => 'form-select',
-                            'id' => 'posisi',
+                            'id' => 'satkai',
                             'required' => 'required'
                         ]); ?>
                     </div>
@@ -304,7 +326,7 @@
     foreach ($kegiatan as $indeks => $k) :
         // Cari nilai default untuk dropdown dan input
         $selectedSurat = $k['suratId'] ?? '';
-        $selectedPosisi = $k['posisiId'] ?? '';
+        $selectedSatkai = $k['satkaiId'] ?? '';
         $selectedJenis = $k['jenisGiat'] ?? '';
         $tglPelaksanaan = $k['tglPelaksanaan'] ?? '';
         $keterangan = $k['keterangan'] ?? '';
@@ -327,10 +349,10 @@
                             ]); ?>
                         </div>
                         <div class="mb-3">
-                            <label for="posisi<?= $indeks; ?>" class="form-label">Posisi</label>
-                            <?= form_dropdown('posisi', array_column($posisi, 'posisi', 'id'), $selectedPosisi, [
+                            <label for="satkai<?= $indeks; ?>" class="form-label">satkai</label>
+                            <?= form_dropdown('satkai', array_column($satkai, 'satkai', 'id'), $selectedSatkai, [
                                 'class' => 'form-select',
-                                'id' => 'posisi' . $indeks,
+                                'id' => 'satkai' . $indeks,
                                 'required' => 'required'
                             ]); ?>
                         </div>

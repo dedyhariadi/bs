@@ -64,11 +64,11 @@
 
 
              <li class="nav-item">
-                 <?= anchor('tcm', 'TPO Countermeasure', ['class' => 'nav-link']); ?>
+                 <?= anchor('tcm', '<i class="bi bi-arrow-counterclockwise"></i> TPO Countermeasure', ['class' => 'nav-link']); ?>
              </li>
 
              <li class="nav-item">
-                 <?= anchor('kas', 'Kas Testbench', ['class' => 'nav-link']); ?>
+                 <?= anchor('kas', '<i class="bi bi-cash-stack"></i> Kas Testbench', ['class' => 'nav-link']); ?>
              </li>
 
 
