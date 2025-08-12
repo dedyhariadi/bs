@@ -14,7 +14,8 @@ class Kegiatan extends Model
     protected $allowedFields    = [
         'jenisGiat',
         'suratId',
-        'satkaiId',
+        'transferDariId',
+        'transferKeId',
         'tglPelaksanaan',
         'keterangan',
         'created_at',

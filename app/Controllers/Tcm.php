@@ -177,7 +177,6 @@ class Tcm extends BaseController
     public function tambahKegiatan()
     {
 
-        dd($this->request->getVar());
         $data = [
             'jenisGiat' => $this->request->getPost('jenis'),
             'suratId' => $this->request->getPost('noSurat'),
@@ -188,10 +187,14 @@ class Tcm extends BaseController
         ];
 
         // Insert the activity data into the database
-        $this->kegiatanModel->insert($data);
+        if ($this->kegiatanModel->save($data)) {
+            session()->setFlashdata('success', 'Berhasil menambahkan kegiatan.');
+        } else {
+            session()->setFlashdata('error', 'Gagal menambahkan kegiatan.');
+        }
 
         // Redirect to a relevant page, e.g., detail TCM
-        return redirect()->to('tcm')->with('success', 'Berhasil menambahkan kegiatan.');
+        return redirect()->to('tcm');
     }
 
     public function editKegiatan($id)
@@ -204,13 +207,17 @@ class Tcm extends BaseController
         $data = [
             'jenisGiat' => $this->request->getPost('jenis'),
             'suratId' => $this->request->getPost('noSurat'),
-            'satkaiId' => $this->request->getPost('satkai'),
+            'transferDariId' => $this->request->getPost('transferDariId'),
+            'transferKeId' => $this->request->getPost('transferKeId'),
             'tglPelaksanaan' => $this->request->getPost('tglPelaksanaan') ? simpanTanggal($this->request->getPost('tglPelaksanaan')) : null,
             'keterangan' => $this->request->getPost('keterangan'),
         ];
 
         // Update the activity data
-        $this->kegiatanModel->update($id, $data);
+        if (!$this->kegiatanModel->update($id, $data)) {
+            return redirect()->back()->with('error', 'Gagal memperbarui kegiatan.');
+        }
+        // $this->kegiatanModel->update($id, $data);
         return redirect()->to('tcm')->with('success', 'Kegiatan berhasil diperbarui.');
     }
 
@@ -233,7 +240,6 @@ class Tcm extends BaseController
             $dataTrx = [
                 'kegiatanId' => $idKegiatan,
                 'tcmId' => $this->request->getVar('tcmId'),
-                'posisiAkhirId' => $this->request->getVar('posisiAkhirId'), // Assuming you have a field for posisiAkhirId
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
@@ -242,12 +248,15 @@ class Tcm extends BaseController
             session()->setFlashdata('success', 'Berhasil menambahkan transaksi TCM.');
         }
 
+        $selectedTransferDariId = $this->kegiatanModel->select('kegiatan.transferDariId')->find($idKegiatan);
+
         $data = [
             'title' => 'Trx TCM',
             'jenis' => $this->jenisModel->findAll(),
             'satkai' => $this->satkaiModel->findAll(), // Fetch all positions
             'tcm' => $this->tcmModel->orderBy('jenisId')->findAll(), // Fetch all TCMs
             'surat' => $this->suratModel->findAll(),
+            'tcmByTransferDariId' => $this->trxTcmModel->getTrxTcmByKegiatanTransferDariId($selectedTransferDariId),
             'trxTcmbyKegiatan' => $this->trxTcmModel->getTrxTcmByKegiatanId($idKegiatan),
             'kegiatan' => $this->kegiatanModel->find($idKegiatan), // Fetch all kegiatan records if needed
         ];

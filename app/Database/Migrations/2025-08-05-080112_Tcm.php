@@ -387,14 +387,12 @@ class Tcm extends Migration
             'id'        => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'kegiatanId'   => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'tcmId'   => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
-            'posisiAkhirId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('kegiatanId', 'kegiatan', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('tcmId', 'tcm', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('posisiAkhirId', 'satkai', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('trxTcm');
     }
 

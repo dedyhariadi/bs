@@ -64,12 +64,23 @@
                                 </div>
 
                                 <div class="col text-start">
-                                    <div class="p-3 border bg-light rounded-3">Satkai :
-                                        <br>
+                                    <div class="p-3 border bg-light rounded-3">Dari
+                                        <span class="fw-bold text-dark mx-2">:</span>
                                         <span class="fw-bold text-primary">
                                             <?php
                                             foreach ($satkai as $p) {
-                                                if ($p['id'] == $kegiatan['satkaiId']) {
+                                                if ($p['id'] == $kegiatan['transferDariId']) {
+                                                    echo $p['satkai'];
+                                                }
+                                            }
+                                            ?>
+                                        </span><br>
+                                        Ke
+                                        <span class="fw-bold text-dark ms-4">:</span>
+                                        <span class="fw-bold text-primary ms-2">
+                                            <?php
+                                            foreach ($satkai as $p) {
+                                                if ($p['id'] == $kegiatan['transferKeId']) {
                                                     echo $p['satkai'];
                                                 }
                                             }
@@ -209,7 +220,7 @@
                             <tbody>
                                 <?php
                                 $lastJenisId = null;
-                                foreach ($tcm as $indeks => $t) :
+                                foreach ($tcmByTransferDariId as $indeks => $t) :
                                     if ($t['jenisId'] !== $lastJenisId) { ?>
                                         <!-- Judul jenis baru -->
 
@@ -230,13 +241,8 @@
                                     }
 
 
-                                    if ($kegiatan['jenisGiat'] == 'PUS' || $kegiatan['jenisGiat'] == 'Barang Masuk') {
-                                        $posisiAkhir = 2; // Posisi akhir untuk PUS atau Barang Masuk
-                                    } elseif ($kegiatan['jenisGiat'] == 'PUT' || $kegiatan['jenisGiat'] == 'Barang Keluar') {
-                                        $posisiAkhir = $kegiatan['satkaiId']; // Posisi akhir untuk PUT atau Barang Keluar
-                                    }
 
-                                    echo form_open('trxtcm/' . $kegiatan['id'], '', ['tcmId' => (string)$t['id'], 'posisiAkhirId' => (string)$posisiAkhir]); ?>
+                                    echo form_open('trxtcm/' . $kegiatan['id'], '', ['tcmId' => (string)$t['id']]); ?>
 
                                     <tr>
                                         <td scope="row"><?= $indeks + 1; ?></td>

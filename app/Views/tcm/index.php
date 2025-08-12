@@ -30,6 +30,16 @@
                 <?= session()->getFlashdata('hapus'); ?>
             </div>
         </div>
+    <?php elseif (session()->getFlashdata('error')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Gagal</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('error'); ?>
+            </div>
+        </div>
     <?php endif; ?>
 
     <!-- akhir toast -->
@@ -277,7 +287,7 @@
 
     <!-- Modal kegiatan Baru -->
     <div class="modal fade" id="addKegiatanModal" tabindex="-1" aria-labelledby="addKegiatanModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addKegiatanModalLabel">Tambah kegiatan Baru</h5>
@@ -288,7 +298,7 @@
                     <div class="mb-3">
                         <label for="noSurat" class="form-label">Surat <?= anchor('tcm/surat', 'add', ['class' => 'link fs']); ?></label>
                         <?= form_dropdown('noSurat', array_column($surat, 'noSurat', 'id'), '', [
-                            'class' => 'form-select',
+                            'class' => 'form-select fs-3',
                             'id' => 'noSurat',
                             'required' => 'required'
                         ]); ?>
@@ -301,7 +311,7 @@
                             'PUT' => 'PUT',
                             'PUS' => 'PUS'
                         ], '', [
-                            'class' => 'form-select',
+                            'class' => 'form-select fs-3',
                             'id' => 'jenis',
                             'required' => 'required'
                         ]); ?>
@@ -309,7 +319,7 @@
                     <div class="mb-3">
                         <label for="transferDariId" class="form-label">Dari</label>
                         <?= form_dropdown('transferDariId', array_column($satkai, 'satkai', 'id'), '', [
-                            'class' => 'form-select',
+                            'class' => 'form-select fs-3',
                             'id' => 'transferDariId',
                             'required' => 'required'
                         ]); ?>
@@ -317,20 +327,20 @@
                     <div class="mb-3">
                         <label for="transferKeId" class="form-label">Ke</label>
                         <?= form_dropdown('transferKeId', array_column($satkai, 'satkai', 'id'), '', [
-                            'class' => 'form-select',
+                            'class' => 'form-select fs-3',
                             'id' => 'transferKeId',
                             'required' => 'required'
                         ]); ?>
                     </div>
                     <div class="mb-3">
                         <label for="tglPelaksanaan" class="form-label">Tgl Pelaksanaan</label>
-                        <input type="text" class="form-control tanggal-input" id="tglPelaksanaan" name="tglPelaksanaan" autocomplete="off" required>
+                        <input type="text" class="form-control tanggal-input fs-3" id="tglPelaksanaan" name="tglPelaksanaan" autocomplete="off" required>
                     </div>
 
 
                     <div class="mb-3">
                         <label for="keterangan" class="form-label">Keterangan</label>
-                        <textarea class="form-control" id="keterangan" name="keterangan" rows="2"></textarea>
+                        <textarea class="form-control fs-3" id="keterangan" name="keterangan" rows="2"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -349,13 +359,14 @@
     foreach ($kegiatan as $indeks => $k) :
         // Cari nilai default untuk dropdown dan input
         $selectedSurat = $k['suratId'] ?? '';
-        $selectedSatkai = $k['satkaiId'] ?? '';
+        $selectedTransferDariId = $k['transferDariId'] ?? '';
+        $selectedTransferKeId = $k['transferKeId'] ?? '';
         $selectedJenis = $k['jenisGiat'] ?? '';
         $tglPelaksanaan = $k['tglPelaksanaan'] ?? '';
         $keterangan = $k['keterangan'] ?? '';
     ?>
         <div class="modal fade" id="editKegiatanModal<?= $indeks; ?>" tabindex="-1" aria-labelledby="editKegiatanModalLabel<?= $indeks; ?>" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editKegiatanModalLabel<?= $indeks; ?>">Edit Kegiatan</h5>
@@ -366,22 +377,30 @@
                         <div class="mb-3">
                             <label for="noSurat<?= $indeks; ?>" class="form-label">Surat <?= anchor('tcm/surat', 'add', ['class' => 'link fs']); ?></label>
                             <?= form_dropdown('noSurat', array_column($surat, 'noSurat', 'id'), $selectedSurat, [
-                                'class' => 'form-select',
+                                'class' => 'form-select fs-3',
                                 'id' => 'noSurat' . $indeks,
                                 'required' => 'required'
                             ]); ?>
                         </div>
                         <div class="mb-3">
-                            <label for="satkai<?= $indeks; ?>" class="form-label">satkai</label>
-                            <?= form_dropdown('satkai', array_column($satkai, 'satkai', 'id'), $selectedSatkai, [
-                                'class' => 'form-select',
-                                'id' => 'satkai' . $indeks,
+                            <label for="transferDariId" class="form-label">Dari</label>
+                            <?= form_dropdown('transferDariId', array_column($satkai, 'satkai', 'id'), $selectedTransferDariId, [
+                                'class' => 'form-select fs-3',
+                                'id' => 'transferDariId',
+                                'required' => 'required'
+                            ]); ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="transferKeId" class="form-label">Ke</label>
+                            <?= form_dropdown('transferKeId', array_column($satkai, 'satkai', 'id'), $selectedTransferKeId, [
+                                'class' => 'form-select fs-3',
+                                'id' => 'transferKeId',
                                 'required' => 'required'
                             ]); ?>
                         </div>
                         <div class="mb-3">
                             <label for="tglPelaksanaan<?= $indeks; ?>" class="form-label">Tgl Pelaksanaan</label>
-                            <input type="text" class="form-control tanggal-input" id="tglPelaksanaan<?= $indeks; ?>" name="tglPelaksanaan" value="<?= tampilTanggal(esc($tglPelaksanaan)); ?>" autocomplete="off" required>
+                            <input type="text" class="form-control tanggal-input fs-3" id="tglPelaksanaan<?= $indeks; ?>" name="tglPelaksanaan" value="<?= tampilTanggal(esc($tglPelaksanaan)); ?>" autocomplete="off" required>
                         </div>
                         <div class="mb-3">
                             <label for="jenis<?= $indeks; ?>" class="form-label">Jenis</label>
@@ -391,14 +410,14 @@
                                 'PUT' => 'PUT',
                                 'PUS' => 'PUS'
                             ], $selectedJenis, [
-                                'class' => 'form-select',
+                                'class' => 'form-select fs-3',
                                 'id' => 'jenis' . $indeks,
                                 'required' => 'required'
                             ]); ?>
                         </div>
                         <div class="mb-3">
                             <label for="keterangan<?= $indeks; ?>" class="form-label">Keterangan</label>
-                            <textarea class="form-control" id="keterangan<?= $indeks; ?>" name="keterangan" rows="2"><?= esc($keterangan); ?></textarea>
+                            <textarea class="form-control fs-3" id="keterangan<?= $indeks; ?>" name="keterangan" rows="2"><?= esc($keterangan); ?></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
