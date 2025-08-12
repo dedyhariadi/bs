@@ -382,6 +382,43 @@ class Tcm extends Migration
         $this->forge->addForeignKey('suratId', 'surat', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('kegiatan');
 
+
+        $data = [
+            [
+                'jenisGiat' => 'Barang Masuk',
+                'suratId' => 1,
+                'transferDariId' => 1,
+                'transferKeId' => 2,
+                'tglPelaksanaan' => '2023-10-13 00:00:00',
+                'keterangan' => 'Kegiatan penerimaan barang masuk dari Arsenal Gd. 05 ke Arsenal Gd. 91',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisGiat' => 'Barang Masuk',
+                'suratId' => 1,
+                'transferDariId' => 1,
+                'transferKeId' => 2,
+                'tglPelaksanaan' => '2023-10-13 00:00:00',
+                'keterangan' => 'Kegiatan penerimaan barang masuk dari Arsenal Gd. 05 ke Arsenal Gd. 91',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'jenisGiat' => 'Barang Masuk',
+                'suratId' => 1,
+                'transferDariId' => 1,
+                'transferKeId' => 2,
+                'tglPelaksanaan' => '2023-10-13 00:00:00',
+                'keterangan' => 'Kegiatan penerimaan barang masuk dari Arsenal Gd. 05 ke Arsenal Gd. 91',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+
+        ];
+        // Insert data into the kegiatan table
+        $this->db->table('kegiatan')->insertBatch($data);
+
         // Tabel 6: trxTcm
         $this->forge->addField([
             'id'        => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
@@ -394,10 +431,126 @@ class Tcm extends Migration
         $this->forge->addForeignKey('kegiatanId', 'kegiatan', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('tcmId', 'tcm', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('trxTcm');
+
+        $data = [
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 2,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 3,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 4,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 5,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 6,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 7,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 8,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 9,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 10,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 11,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 12,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 13,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 14,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 15,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'kegiatanId' => 3,
+                'tcmId' => 16,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+
+        ];
+        // Insert data into the trxTcm table
+        $this->db->table('trxtcm')->insertBatch($data);
     }
+
+
 
     public function down()
     {
+        // Drop foreign keys first
+        $this->forge->dropForeignKey('trxTcm', 'trxtcm_kegiatanId_foreign');
+        $this->forge->dropForeignKey('trxTcm', 'trxtcm_tcmId_foreign');
+        $this->forge->dropForeignKey('kegiatan', 'kegiatan_suratId_foreign');
+        $this->forge->dropForeignKey('tcm', 'tcm_jenisId_foreign');
+        $this->forge->dropForeignKey('satkai', 'satkai_jenis_foreign');
+        $this->forge->dropForeignKey('kegiatan', 'kegiatan_transferDariId_foreign');
+        $this->forge->dropForeignKey('kegiatan', 'kegiatan_transferKeId_foreign');
+        $this->forge->dropForeignKey('kas', 'kas_id_foreign');
+        $this->forge->dropForeignKey('jenis', 'jenis_id_foreign');
+        $this->forge->dropForeignKey('surat', 'surat_id_foreign');
+
         // Drop tables in reverse order
         $this->forge->dropTable('trxTcm', true);
         $this->forge->dropTable('kegiatan', true);

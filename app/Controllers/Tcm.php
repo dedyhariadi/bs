@@ -248,7 +248,7 @@ class Tcm extends BaseController
             session()->setFlashdata('success', 'Berhasil menambahkan transaksi TCM.');
         }
 
-        $selectedTransferDariId = $this->kegiatanModel->select('kegiatan.transferDariId')->find($idKegiatan);
+        $selectedTransferKeId = $this->kegiatanModel->select('kegiatan.transferKeId')->orderBy('kegiatan.updated_at')->first();
 
         $data = [
             'title' => 'Trx TCM',
@@ -256,7 +256,7 @@ class Tcm extends BaseController
             'satkai' => $this->satkaiModel->findAll(), // Fetch all positions
             'tcm' => $this->tcmModel->orderBy('jenisId')->findAll(), // Fetch all TCMs
             'surat' => $this->suratModel->findAll(),
-            'tcmByTransferDariId' => $this->trxTcmModel->getTrxTcmByKegiatanTransferDariId($selectedTransferDariId),
+            'tcmByTransferKeId' => $this->trxTcmModel->getTrxTcmByKegiatanTransferKeId($selectedTransferKeId),
             'trxTcmbyKegiatan' => $this->trxTcmModel->getTrxTcmByKegiatanId($idKegiatan),
             'kegiatan' => $this->kegiatanModel->find($idKegiatan), // Fetch all kegiatan records if needed
         ];

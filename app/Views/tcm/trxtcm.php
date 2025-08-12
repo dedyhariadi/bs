@@ -220,7 +220,7 @@
                             <tbody>
                                 <?php
                                 $lastJenisId = null;
-                                foreach ($tcmByTransferDariId as $indeks => $t) :
+                                foreach ($tcmByTransferKeId as $indeks => $t) :
                                     if ($t['jenisId'] !== $lastJenisId) { ?>
                                         <!-- Judul jenis baru -->
 

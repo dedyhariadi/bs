@@ -42,28 +42,18 @@ class TrxTcm extends Model
             ->findAll();
     }
 
-    public function getTrxTcmByTransferDariId($id = false)
-    {
-        if ($id === false) {
-            return $this->findAll();
-        }
 
-        return $this->select('*,trxtcm.id as trxTcmId')
-            ->join('tcm', 'tcm.id = trxtcm.tcmId')
-            ->where('tcm.transferDariId', $id)
-            ->findAll();
-    }
 
-    public function getTrxTcmByKegiatanTransferDariId($transferDariId = false)
+    public function getTrxTcmByKegiatanTransferKeId($transferKeId = false)
     {
-        if ($transferDariId === false) {
+        if ($transferKeId === false) {
             return $this->findAll();
         }
 
         return $this->select('kegiatan.*, trxtcm.*, tcm.*, trxtcm.id as trxTcmId')
             ->join('kegiatan', 'kegiatan.id = trxtcm.kegiatanId')
             ->join('tcm', 'tcm.id = trxtcm.tcmId')
-            ->where('kegiatan.transferDariId', $transferDariId)
+            ->where('kegiatan.transferKeId', $transferKeId)
             ->findAll();
     }
 }
