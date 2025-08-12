@@ -177,11 +177,12 @@ class Tcm extends BaseController
     public function tambahKegiatan()
     {
 
-        // dd($this->request->getVar());
+        dd($this->request->getVar());
         $data = [
             'jenisGiat' => $this->request->getPost('jenis'),
             'suratId' => $this->request->getPost('noSurat'),
-            'satkaiId' => $this->request->getPost('satkai'),
+            'transferDariId' => $this->request->getPost('transferDariId'),
+            'transferKeId' => $this->request->getPost('transferKeId'),
             'tglPelaksanaan' => $this->request->getPost('tglPelaksanaan') ? simpanTanggal($this->request->getPost('tglPelaksanaan')) : null,
             'keterangan' => $this->request->getPost('keterangan'),
         ];

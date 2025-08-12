@@ -371,7 +371,8 @@ class Tcm extends Migration
             'id' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'jenisGiat' => ['type' => 'ENUM', 'constraint' => ['Barang Masuk', 'Barang Keluar', 'PUT', 'PUS'], 'default' => 'Barang Masuk'],
             'suratId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
-            'satkaiId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
+            'transferDariId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
+            'transferKeId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'tglPelaksanaan' => ['type' => 'DATETIME', 'null' => true],
             'keterangan' => ['type' => 'TEXT', 'null' => true],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
@@ -379,7 +380,6 @@ class Tcm extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('suratId', 'surat', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('satkaiId', 'satkai', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('kegiatan');
 
         // Tabel 6: trxTcm

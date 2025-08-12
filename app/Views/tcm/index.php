@@ -126,7 +126,8 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Nomor Surat</th>
-                                        <th scope="col">Posisi</th>
+                                        <th scope="col">Dari</th>
+                                        <th scope="col">Ke</th>
                                         <th scope="col">Tgl Pelaksanaan</th>
                                         <th scope="col">Jenis Giat</th>
                                         <th scope="col">Jumlah</th>
@@ -160,7 +161,20 @@
                                                 <?php
                                                 $namaSatkai = '';
                                                 foreach ($satkai as $p) {
-                                                    if ($p['id'] == $k['satkaiId']) {
+                                                    if ($p['id'] == $k['transferDariId']) {
+                                                        $namaSatkai = $p['satkai'];
+                                                        break;
+                                                    }
+                                                }
+                                                echo esc($namaSatkai);
+                                                ?>
+
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $namaSatkai = '';
+                                                foreach ($satkai as $p) {
+                                                    if ($p['id'] == $k['transferKeId']) {
                                                         $namaSatkai = $p['satkai'];
                                                         break;
                                                     }
@@ -280,18 +294,6 @@
                         ]); ?>
                     </div>
                     <div class="mb-3">
-                        <label for="satkai" class="form-label">Satkai</label>
-                        <?= form_dropdown('satkai', array_column($satkai, 'satkai', 'id'), '', [
-                            'class' => 'form-select',
-                            'id' => 'satkai',
-                            'required' => 'required'
-                        ]); ?>
-                    </div>
-                    <div class="mb-3">
-                        <label for="tglPelaksanaan" class="form-label">Tgl Pelaksanaan</label>
-                        <input type="text" class="form-control tanggal-input" id="tglPelaksanaan" name="tglPelaksanaan" autocomplete="off" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="jenis" class="form-label">Jenis</label>
                         <?= form_dropdown('jenis', [
                             'Barang Masuk' => 'Barang Masuk',
@@ -304,6 +306,27 @@
                             'required' => 'required'
                         ]); ?>
                     </div>
+                    <div class="mb-3">
+                        <label for="transferDariId" class="form-label">Dari</label>
+                        <?= form_dropdown('transferDariId', array_column($satkai, 'satkai', 'id'), '', [
+                            'class' => 'form-select',
+                            'id' => 'transferDariId',
+                            'required' => 'required'
+                        ]); ?>
+                    </div>
+                    <div class="mb-3">
+                        <label for="transferKeId" class="form-label">Ke</label>
+                        <?= form_dropdown('transferKeId', array_column($satkai, 'satkai', 'id'), '', [
+                            'class' => 'form-select',
+                            'id' => 'transferKeId',
+                            'required' => 'required'
+                        ]); ?>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tglPelaksanaan" class="form-label">Tgl Pelaksanaan</label>
+                        <input type="text" class="form-control tanggal-input" id="tglPelaksanaan" name="tglPelaksanaan" autocomplete="off" required>
+                    </div>
+
 
                     <div class="mb-3">
                         <label for="keterangan" class="form-label">Keterangan</label>
