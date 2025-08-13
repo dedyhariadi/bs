@@ -424,108 +424,126 @@ class Tcm extends Migration
             'id'        => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'kegiatanId'   => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'tcmId'   => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
+            'posisiId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('kegiatanId', 'kegiatan', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('kegiatanId', 'kegiatan', 'id', 'CASCADE', 'CASCADE', 'trxtcm_kegiatanId_foreign');
         $this->forge->addForeignKey('tcmId', 'tcm', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('posisiId', 'satkai', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('trxTcm');
 
         $data = [
             [
                 'kegiatanId' => 3,
                 'tcmId' => 1,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 2,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 3,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 4,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 5,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 6,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 7,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 8,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 9,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 10,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 11,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 12,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 13,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 14,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 15,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
                 'kegiatanId' => 3,
                 'tcmId' => 16,
+                'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
@@ -542,14 +560,17 @@ class Tcm extends Migration
         // Drop foreign keys first
         $this->forge->dropForeignKey('trxTcm', 'trxtcm_kegiatanId_foreign');
         $this->forge->dropForeignKey('trxTcm', 'trxtcm_tcmId_foreign');
+        $this->forge->dropForeignKey('trxTcm', 'trxtcm_posisiId_foreign');
         $this->forge->dropForeignKey('kegiatan', 'kegiatan_suratId_foreign');
         $this->forge->dropForeignKey('tcm', 'tcm_jenisId_foreign');
-        $this->forge->dropForeignKey('satkai', 'satkai_jenis_foreign');
+        $this->forge->dropForeignKey('satkai', 'satkai_id_foreign');
+        $this->forge->dropForeignKey('jenis', 'jenis_id_foreign');
+        $this->forge->dropForeignKey('surat', 'surat_id_foreign');
         $this->forge->dropForeignKey('kegiatan', 'kegiatan_transferDariId_foreign');
         $this->forge->dropForeignKey('kegiatan', 'kegiatan_transferKeId_foreign');
         $this->forge->dropForeignKey('kas', 'kas_id_foreign');
-        $this->forge->dropForeignKey('jenis', 'jenis_id_foreign');
-        $this->forge->dropForeignKey('surat', 'surat_id_foreign');
+
+
 
         // Drop tables in reverse order
         $this->forge->dropTable('trxTcm', true);

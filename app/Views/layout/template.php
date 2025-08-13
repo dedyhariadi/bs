@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Informasi Testbench - TPO Blackshark</title>
+    <title>TPO Blackshark</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
@@ -21,7 +21,10 @@
     <!-- css ku -->
     <?= link_tag('assets/css/style.css'); ?>
 
-
+    <!-- Favicon icon -->
+    <?= link_tag('assets/images/apple-touch-icon.png', 'apple-touch-icon'); ?>
+    <?= link_tag('assets/images/favicon-32x32.png', 'icon', 'image/png'); ?>
+    <?= link_tag('assets/images/favicon-16x16.png', 'icon', 'image/png'); ?>
 
 
 </head>
