@@ -29,12 +29,32 @@ class Jurnal extends BaseController
 
         $data = [
             // 'tanggal' => $tanggal_untuk_db,
-            'tanggal' => parseTanggalIndonesia($this->request->getPost('tanggal')),
+            'tanggal' => simpanTanggal($this->request->getPost('tanggal')),
             'jenis' => 'harian',
             'kegiatan' => $this->request->getPost('kegiatan'),
             'foto' => $this->request->getPost('foto'),
 
         ];
+
+        // Validasi input
+        if (!$this->validate([
+            'tanggal' => 'required',
+            'kegiatan' => 'required',
+            'foto' => 'permit_empty|uploaded[foto]|max_size[foto,2048]|is_image[foto]',
+        ])) {
+            // Jika validasi gagal, kembalikan ke halaman sebelumnya dengan pesan error
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }       
+        // Jika validasi berhasil, simpan data ke database
+        if ($this->request->getFile('foto')->isValid()) {
+            $foto = $this->request->getFile('foto');
+            $namaFile = $foto->getRandomName();
+            $foto->move('uploads/jurnal', $namaFile);
+            $data['foto'] = $namaFile;
+        } else {
+            $data['foto'] = null; // Atau bisa diisi dengan nilai default lainnya
+        }
+        
         $this->Jurnalmodel->insert($data);
 
         // $data['jurnal'] = $this->Jurnalmodel->findAll();

@@ -558,17 +558,17 @@ class Tcm extends Migration
     public function down()
     {
         // Drop foreign keys first
-        $this->forge->dropForeignKey('trxTcm', 'trxtcm_kegiatanId_foreign');
-        $this->forge->dropForeignKey('trxTcm', 'trxtcm_tcmId_foreign');
-        $this->forge->dropForeignKey('trxTcm', 'trxtcm_posisiId_foreign');
-        $this->forge->dropForeignKey('kegiatan', 'kegiatan_suratId_foreign');
-        $this->forge->dropForeignKey('tcm', 'tcm_jenisId_foreign');
-        $this->forge->dropForeignKey('satkai', 'satkai_id_foreign');
-        $this->forge->dropForeignKey('jenis', 'jenis_id_foreign');
-        $this->forge->dropForeignKey('surat', 'surat_id_foreign');
-        $this->forge->dropForeignKey('kegiatan', 'kegiatan_transferDariId_foreign');
-        $this->forge->dropForeignKey('kegiatan', 'kegiatan_transferKeId_foreign');
-        $this->forge->dropForeignKey('kas', 'kas_id_foreign');
+        // $this->forge->dropForeignKey('trxTcm', 'trxtcm_kegiatanId_foreign');
+        // $this->forge->dropForeignKey('trxTcm', 'trxtcm_tcmId_foreign');
+        // $this->forge->dropForeignKey('trxTcm', 'trxtcm_posisiId_foreign');
+        // $this->forge->dropForeignKey('kegiatan', 'kegiatan_suratId_foreign');
+        // $this->forge->dropForeignKey('tcm', 'tcm_jenisId_foreign');
+        // // $this->forge->dropForeignKey('satkai', 'satkai_id_foreign');
+        // $this->forge->dropForeignKey('jenis', 'jenis_id_foreign');
+        // $this->forge->dropForeignKey('surat', 'surat_id_foreign');
+        // $this->forge->dropForeignKey('kegiatan', 'kegiatan_transferDariId_foreign');
+        // $this->forge->dropForeignKey('kegiatan', 'kegiatan_transferKeId_foreign');
+        // $this->forge->dropForeignKey('kas', 'kas_id_foreign');
 
 
 

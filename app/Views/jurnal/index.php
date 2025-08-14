@@ -4,6 +4,44 @@
 
 <main class="col-md-9 col-lg-10 px-md-4 main-content fs-4">
 
+
+    <!-- awal toast (informasi sukses dari halaman sebelumnya) -->
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">Sukses</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('success'); ?>
+            </div>
+        </div>
+    <?php elseif (session()->getFlashdata('hapus')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Berhasil</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('hapus'); ?>
+            </div>
+        </div>
+    <?php elseif (session()->getFlashdata('error')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Gagal</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('error'); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <!-- akhir toast -->
+
+
+
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
         <h2 class="h2">JURNAL</h2>
     </div>
@@ -25,14 +63,13 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <table class="table table-hover rounded-5">
+                            <table class="table table-hover table-bordered rounded-5">
                                 <thead class="table-success ">
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Hari, Tanggal</th>
-                                        <th scope="col">Kegiatan</th>
-                                        <th></th>
-
+                                        <th scope="col" class="text-center" style="width: 5%;">#</th>
+                                        <th scope="col" class="col-3 text-center">Hari, Tanggal</th>
+                                        <th scope="col" class="col-7 text-start">Kegiatan</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,61 +78,31 @@
                                     foreach ($jurnal as $indeks => $j) :
                                     ?>
                                         <tr>
-                                            <td scope="row"><?= $indeks + 1; ?></td>
+                                            <td scope="row" class="text-center"><?= $indeks + 1; ?></td>
                                             <td>
-                                                <?php
+                                                <?= tampilTanggal($j['tanggal']); ?>
 
-
-
-                                                ?>
-                                                <?= date('d F Y', strtotime($j['tanggal'])); ?>
                                             </td>
                                             <td>
-
                                                 <?= nl2br($j['kegiatan']); ?>
                                             </td>
-
-                                            <td>
-                                                <div class="d-flex gap-2">
-                                                    <?php
-                                                    // Prepare the modal ID for each TCM
-                                                    $modalId = '#eduJurnalModal' . $indeks;
-                                                    ?>
-                                                    <?= anchor('', '<i class="bi bi-pencil-fill"></i>', [
-                                                        'class' => 'btn btn-warning',
-                                                        'type' => 'button',
-                                                        'data-bs-toggle' => 'modal',
-                                                        'data-bs-target' => $modalId
-                                                    ]); ?>
-
-                                                    <?= form_open('jurnal' . $j['id'], '', ['_method' => 'DELETE']); ?>
-                                                    <?= form_button([
-                                                        'name'    => 'button',
-                                                        'class'   => 'btn btn-danger',
-                                                        'type'    => 'submit',
-                                                        'content' => '<i class="bi bi-trash-fill"></i>',
-                                                        'onclick' => "return confirm('Apakah anda yakin menghapus jurnal ini?');"
-                                                    ]); ?>
-                                                    <?= form_close(); ?>
-                                                </div>
+                                            <td class="text-center">
+                                                <?= anchor('jurnal/detail/' . $j['id'], 'Detail', ['class' => 'btn btn-outline-success']); ?>
                                             </td>
+
+
                                         </tr>
                                     <?php
                                     endforeach;
                                     ?>
-
                                     <tr>
                                         <th scope="row"></th>
-                                        <td colspan="4">
+                                        <td colspan="2">
                                             <?= anchor('#addJurnalModal', 'add Jurnal', [
                                                 'class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
                                                 'data-bs-toggle' => 'modal'
                                             ]); ?>
-
                                         </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -207,7 +214,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('jurnal/tambah'); ?>
+                    <?= form_open_multipart('jurnal/tambah'); ?>
                     <div class="mb-3">
                         <label for="tanggal" class="form-label">Tanggal</label>
                         <input type="text" class="form-control tanggal-input" id="tanggal" name="tanggal" autocomplete="off" required>

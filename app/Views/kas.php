@@ -28,7 +28,7 @@
 
     <div class="row">
         <div class="col-12">
-            <table class="table table-hover" style="background-color:#F7FFF7;">
+            <table class="table table-hover fs-5" style="background-color:#F7FFF7;">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
