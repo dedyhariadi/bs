@@ -38,6 +38,10 @@ $routes->delete('trxtcm/(:num)', 'Tcm::hapusTrxtcm/$1');
 
 // jurnal
 $routes->get('jurnal', 'Jurnal::index');
+$routes->get('jurnal/(:num)', 'Jurnal::detail/$1');
 $routes->post('jurnal/tambah', 'Jurnal::tambah');
 $routes->delete('jurnal/(:num)', 'Jurnal::hapus/$1');
 $routes->post('jurnal/edit/(:num)', 'Jurnal::edit/$1');
+$routes->post('jurnal/tambahGiat', 'Jurnal::tambahGiat');
+$routes->post('jurnal/editGiat/(:num)', 'Jurnal::editGiat/$1');
+$routes->delete('jurnal/giat/(:num)', 'Jurnal::hapusGiat/$1');

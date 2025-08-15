@@ -8,6 +8,36 @@ class Jurnal extends Migration
 {
     public function up()
     {
+        //table 1 : giatjurnal
+        $this->forge->addField(
+            [
+                'id' => [
+                    'type' => 'INT',
+                    'constraint' => 11,
+                    'unsigned' => true,
+                    'auto_increment' => true,
+                ],
+                'kegiatan' => [
+                    'type' => 'VARCHAR',
+                    'constraint' => 255,
+                    'null' => true,
+                ],
+                'created_at' => ['type' => 'DATETIME', 'null' => true],
+                'updated_at' => ['type' => 'DATETIME', 'null' => true],
+            ]
+        );
+        $this->forge->addKey('id', true);
+        $this->forge->createTable('giatjurnal', true);
+
+        $data = [
+            ['kegiatan' => 'Harian'],
+            ['kegiatan' => 'Survey Tim WASS / Leonardo'],
+        ];
+
+        $this->db->table('giatjurnal')->insertBatch($data);
+
+
+        // table 2 :jurnal
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',
@@ -19,10 +49,10 @@ class Jurnal extends Migration
                 'type' => 'DATETIME',
                 'null' => false,
             ],
-            'jenis' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'default' => 'harian',
+            'giatId'   => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true
             ],
             'kegiatan' => [
                 'type' => 'text',
@@ -43,11 +73,13 @@ class Jurnal extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('giatId', 'giatjurnal', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('jurnal', true);
     }
 
     public function down()
     {
         $this->forge->dropTable('jurnal', true);
+        $this->forge->dropTable('giatjurnal', true);
     }
 }

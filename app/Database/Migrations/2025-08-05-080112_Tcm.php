@@ -551,6 +551,9 @@ class Tcm extends Migration
         ];
         // Insert data into the trxTcm table
         $this->db->table('trxtcm')->insertBatch($data);
+
+      
+        
     }
 
 
