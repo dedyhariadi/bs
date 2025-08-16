@@ -7,6 +7,10 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+// Home
+$routes->get('home', 'Home::index');
+// Manual
+$routes->get('home/manual/(:any)', 'Home::manual/$1');
 
 
 // kas
@@ -45,7 +49,3 @@ $routes->post('jurnal/edit/(:num)', 'Jurnal::edit/$1');
 $routes->post('jurnal/tambahGiat', 'Jurnal::tambahGiat');
 $routes->post('jurnal/editGiat/(:num)', 'Jurnal::editGiat/$1');
 $routes->delete('jurnal/hapusGiat/(:num)', 'Jurnal::hapusGiat/$1');
-
-
-// manual
-$routes->get('manual/torpedo', 'Manual::index');

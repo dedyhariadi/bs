@@ -179,20 +179,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-3">
-            <div class="card rounded-4 text-white mb-4" style="background-color: #4D5947 " ;>
-                <h5 class="card-header">MT41920003</h5>
-                <div class="card-body">
-                    <h1 class="card-title">Exercise Head</h1>
-                    <p class="card-text">Base April 2020.</p>
-                    <a href="#" class="btn btn-outline-light">Detail</a>
-                </div>
-            </div>
-        </div>
     </div>
-
-
 
 </main>
 
