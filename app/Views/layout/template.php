@@ -10,11 +10,6 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- calender -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <!-- jquery -->
     <?= link_tag('assets/css/jquery-ui.css', 'stylesheet'); ?>
 
@@ -45,21 +40,7 @@
         </div>
     </div>
 
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-
-    <!-- awal kalender -->
-
-    <!-- echo script_tag('assets/js/jquery.min.js');
-     echo script_tag('assets/js/popper.js');
-     echo script_tag('assets/js/bootstrap.min.js');
-     echo script_tag('assets/js/main.js');
-
-      akhir calendar  -->
-
-
 
     <!--jquery -->
     <?= script_tag('assets/js/jquery-3.7.1.min.js'); ?>

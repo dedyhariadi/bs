@@ -27,6 +27,7 @@ class Kas extends BaseController
                 'pemasukan' => $this->request->getVar('jenisTransaksi') === 'pemasukan' ? $this->request->getVar('jumlah') : 0,
                 'pengeluaran' => $this->request->getVar('jenisTransaksi') === 'pengeluaran' ? $this->request->getVar('jumlah') : 0,
             ]);
+            session()->setFlashdata('success', 'Transaksi berhasil ditambahkan.');
         }
         $data = [
             'title' => 'Kas',
@@ -41,8 +42,7 @@ class Kas extends BaseController
     public function hapus($id)
     {
         $this->kasModel->delete($id);
-        session()->setFlashdata('pesan', 'Transaksi berhasil dihapus.');
-        return redirect()->to('/kas');
+        return redirect()->to('/kas')->with('success', 'Transaksi berhasil dihapus.');
     }
 
     public function edit($id)
@@ -56,8 +56,7 @@ class Kas extends BaseController
                 'pemasukan' => $this->request->getVar('jenisTransaksi') === 'pemasukan' ? $this->request->getVar('jumlah') : 0,
                 'pengeluaran' => $this->request->getVar('jenisTransaksi') === 'pengeluaran' ? $this->request->getVar('jumlah') : 0,
             ]);
-            session()->setFlashdata('pesan', 'Transaksi berhasil diubah.');
-            return redirect()->to('/kas');
+            return redirect()->to('/kas')->with('success', 'Transaksi berhasil diubah.');
         }
 
         $data = [

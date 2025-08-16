@@ -4,6 +4,43 @@
 
 <main class="col-md-9 col-lg-10 px-md-4 main-content">
 
+
+    <!-- awal toast (informasi sukses dari halaman sebelumnya) -->
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">Sukses</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('success'); ?>
+            </div>
+        </div>
+    <?php elseif (session()->getFlashdata('hapus')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Berhasil</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('hapus'); ?>
+            </div>
+        </div>
+    <?php elseif (session()->getFlashdata('error')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Gagal</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('error'); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <!-- akhir toast -->
+
+
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
         <h1 class="h2">KAS Testbench</h1>
     </div>
@@ -13,18 +50,7 @@
     </button>
     <br><br>
 
-    <!-- alert pesan setelah berhasil disimpan -->
-    <?php if (session()->getFlashdata('pesan')) : ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-bookmarks-fill"></i>
-            <?= session()->getFlashdata('pesan'); ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
 
-    <?php endif; ?>
-
-    <!-- akhir alert -->
-    <br>
 
     <div class="row">
         <div class="col-12">
@@ -137,7 +163,7 @@
 </main>
 
 <!-- modal tambah transaksi -->
-<div class="modal fade" id="addTransaksiModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal modal-lg" id="addTransaksiModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <?= form_open(''); ?>
@@ -185,7 +211,7 @@
 
 <!-- modal EDIT transaksi -->
 <?php foreach ($kas as $k): ?>
-    <div class="modal fade" id="<?= 'editTransaksiModal' . $k['id']; ?>" tabindex=" -1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal modal-lg" id="<?= 'editTransaksiModal' . $k['id']; ?>" tabindex=" -1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <?= form_open('kas/edit/' . $k['id']); ?>

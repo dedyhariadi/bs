@@ -44,4 +44,8 @@ $routes->delete('jurnal/(:num)', 'Jurnal::hapus/$1');
 $routes->post('jurnal/edit/(:num)', 'Jurnal::edit/$1');
 $routes->post('jurnal/tambahGiat', 'Jurnal::tambahGiat');
 $routes->post('jurnal/editGiat/(:num)', 'Jurnal::editGiat/$1');
-$routes->delete('jurnal/giat/(:num)', 'Jurnal::hapusGiat/$1');
+$routes->delete('jurnal/hapusGiat/(:num)', 'Jurnal::hapusGiat/$1');
+
+
+// manual
+$routes->get('manual/torpedo', 'Manual::index');
