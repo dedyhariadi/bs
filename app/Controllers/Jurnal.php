@@ -68,7 +68,7 @@ class Jurnal extends BaseController
         // Jika validasi BERHASIL, baru proses data dan file
         $data = [
             'tanggal' => simpanTanggal($this->request->getPost('tanggal')),
-            'jenis' => 'harian',
+            'giatId' => '1',
             'kegiatan' => $this->request->getPost('kegiatan'),
         ];
 
