@@ -13,7 +13,7 @@ class Jurnal extends Model
     protected $dateFormat       = 'datetime';
     protected $allowedFields    = [
         'tanggal',
-        'jenis',
+        'giatId',
         'kegiatan',
         'foto',
         'created_at',

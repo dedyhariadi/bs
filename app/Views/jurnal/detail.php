@@ -46,9 +46,7 @@
         <h2 class="h2">JURNAL HARIAN</h2>
     </div>
 
-
     <?= anchor('jurnal', '< back', ['class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-4']); ?>
-
 
     <div class="card mt-3">
         <div class="card-body fs-2">
@@ -112,7 +110,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <?= form_open_multipart('jurnal/edit/' . $jurnal['id']); ?>
+                        <?= form_open_multipart('jurnal/edit/' . $jurnal['id'], '', ['giatId' => $jurnal['giatId']]); ?>
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal</label>
                             <input type="text" class="fs-3 form-control tanggal-input" id="tanggal" name="tanggal" autocomplete="off" value="<?= tampilTanggal($jurnal['tanggal']); ?>" required>

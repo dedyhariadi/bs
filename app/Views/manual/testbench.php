@@ -129,7 +129,7 @@
                 <h5 class="card-header">MT41920025</h5>
                 <div class="card-body">
                     <h2 class="card-title">Container</h2>
-                    <p class="card-text">Primary dan Secondary</p>
+                    <p class="card-text">Primary dan Secondary Battery</p>
                     <a href="#" class="btn btn-outline-dark">Detail</a>
                 </div>
             </div>

@@ -127,7 +127,12 @@
                                         <tr>
                                             <td scope="row"><?= $indeks + 1; ?></td>
                                             <td>
-                                                <?= $j['kegiatan']; ?>
+
+                                                <?= anchor('jurnal/khusus/' . $j['id'], $j['kegiatan'], [
+                                                    'class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
+                                                    'title' => 'Lihat Kegiatan'
+                                                ]); ?>
+
                                             </td>
                                             <td>
                                                 <?php
@@ -192,7 +197,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open_multipart('jurnal/tambah'); ?>
+                    <?= form_open_multipart('jurnal/tambah', '', ['giatId' => '1']); ?>
                     <div class="mb-3">
                         <label for="tanggal" class="form-label">Tanggal</label>
                         <input type="text" class="fs-3 form-control tanggal-input" id="tanggal" name="tanggal" autocomplete="off" required>
@@ -228,7 +233,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('jurnal/tambahGiat'); ?>
+                    <?= form_open('jurnal/tambahGiat', '', ['giatId' => '1']); ?>
 
                     <div class="mb-3">
                         <label for="kegiatan" class="form-label">Kegiatan</label>
@@ -258,7 +263,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <?= form_open('jurnal/editGiat/' . $j['id']); ?>
+                        <?= form_open('jurnal/editGiat/' . $j['id'], '', ['giatId' => '1']); ?>
 
                         <div class="mb-3">
                             <label for="kegiatan" class="form-label">Kegiatan</label>

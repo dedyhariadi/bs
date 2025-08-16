@@ -19,10 +19,22 @@ class Jurnal extends BaseController
         $this->GiatJurnalmodel = new GiatJurnalModel();
     }
 
-    public function index()
+    public function index($id = null)
     {
+
+        if ($id) {
+            $data = [
+                'jurnal' => $this->Jurnalmodel->where('giatId', $id)->orderBy('tanggal', 'desc')->findAll(),
+                'giatJurnal' => $this->GiatJurnalmodel->findAll(),
+                'selectedGiat' => $this->GiatJurnalmodel->find($id),
+            ];
+
+            return view('jurnal/khusus', $data);
+        }
+
+
         $data = [
-            'jurnal' => $this->Jurnalmodel->orderBy('tanggal', 'desc')->findAll(),
+            'jurnal' => $this->Jurnalmodel->where('giatId', '1')->orderBy('tanggal', 'desc')->findAll(),
             'giatJurnal' => $this->GiatJurnalmodel->findAll(),
         ];
 
@@ -66,9 +78,10 @@ class Jurnal extends BaseController
         }
 
         // Jika validasi BERHASIL, baru proses data dan file
+
         $data = [
             'tanggal' => simpanTanggal($this->request->getPost('tanggal')),
-            'giatId' => '1',
+            'giatId' => $this->request->getPost('giatId'), // Tambahkan giatId jika ada
             'kegiatan' => $this->request->getPost('kegiatan'),
         ];
 
@@ -84,7 +97,11 @@ class Jurnal extends BaseController
         }
 
         if ($this->Jurnalmodel->insert($data)) {
-            return redirect()->to('jurnal')->with('success', 'Jurnal berhasil ditambahkan.');
+            if ($this->request->getPost('giatId') == 1) {
+                return redirect()->to('jurnal')->with('success', 'Jurnal berhasil ditambahkan.');
+            } else {
+                return redirect()->to('jurnal/khusus/' . $this->request->getPost('giatId'))->with('success', 'Jurnal berhasil ditambahkan.');
+            }
         } else {
             return redirect()->back()->withInput()->with('error', 'Gagal menambahkan jurnal.');
         }
@@ -104,7 +121,6 @@ class Jurnal extends BaseController
     public function edit($id)
     {
         $jurnal = $this->Jurnalmodel->find($id);
-
         if (!$jurnal) {
             return redirect()->to('jurnal')->with('error', 'Jurnal tidak ditemukan.');
         }
@@ -144,7 +160,7 @@ class Jurnal extends BaseController
         $data = [
             'id' => $id,
             'tanggal' => simpanTanggal($this->request->getPost('tanggal')),
-            'jenis' => 'harian',
+            'giatId' => $this->request->getPost('giatId'), // Tambahkan giatId jika ada
             'kegiatan' => $this->request->getPost('kegiatan'),
         ];
 
@@ -162,7 +178,13 @@ class Jurnal extends BaseController
 
         if ($this->Jurnalmodel->update($id, $data)) {
             $pesan = "Jurnal hari " . tampilTanggal($jurnal['tanggal']) . " berhasil diperbarui.";
-            return redirect()->to('jurnal')->with('success', $pesan);
+
+            if ($this->request->getPost('giatId') == 1) {
+                return redirect()->to('jurnal')->with('success', $pesan);
+            } else {
+                return redirect()->to('jurnal/khusus/' . $this->request->getPost('giatId'))->with('success', $pesan);
+            }
+            // return redirect()->to('jurnal')->with('success', $pesan);
         } else {
 
             return redirect()->back()->withInput()->with('error', 'Gagal memperbarui jurnal.');
@@ -244,8 +266,15 @@ class Jurnal extends BaseController
             'id' => $id,
             'kegiatan' => $this->request->getPost('kegiatan'),
         ];
+
         if ($this->GiatJurnalmodel->update($id, $data)) {
-            return redirect()->to('jurnal')->with('success', 'Kegiatan berhasil diperbarui.');
+            if ($this->request->getPost('giatId') == 1) {
+                return redirect()->to('jurnal')->with('success', 'Kegiatan berhasil diperbarui.');
+            } else {
+                return redirect()->to('jurnal/khusus/' . $this->request->getPost('giatId'))->with('success', 'Kegiatan berhasil diperbarui.');
+            }
+
+            // return redirect()->to('jurnal')->with('success', 'Kegiatan berhasil diperbarui.');
         } else {
             return redirect()->back()->withInput()->with('error', 'Gagal memperbarui kegiatan.');
         }
