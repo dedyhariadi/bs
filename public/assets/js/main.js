@@ -6,7 +6,7 @@
     var today = new Date(),
         year = today.getFullYear(),
         month = today.getMonth(),
-        monthTag =["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"],
+        monthTag =["January","February","March","April","May","June","July","August","September","October","November","December"],
         day = today.getDate(),
         days = document.getElementsByTagName('td'),
         selectedDay,

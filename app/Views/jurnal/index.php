@@ -147,7 +147,7 @@
                                                         'data-bs-target' => $modalId
                                                     ]); ?>
 
-                                                    <?= form_open('jurnal/hapusGiat' . $j['id'], '', ['_method' => 'DELETE']); ?>
+                                                    <?= form_open('jurnal/hapusGiat/' . $j['id'], '', ['_method' => 'DELETE']); ?>
                                                     <?= form_button([
                                                         'name'     => 'button',
                                                         'class'    => 'btn btn-danger',

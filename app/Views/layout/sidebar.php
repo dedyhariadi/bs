@@ -34,7 +34,7 @@
                          <li class="nav-item">
                              <?php
                                 $jenisManual = 'torpedo';
-                                echo anchor('home/manual/' . $jenisManual, 'Torpedo', ['class' => 'nav-link']);
+                                echo anchor('manual/torpedo', 'Torpedo', ['class' => 'nav-link']);
                                 ?>
                          </li>
 

@@ -5,16 +5,16 @@
 <main class="col-md-9 col-lg-10 px-md-4 main-content">
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
+        <h1 class="h2">Manual Torpedo</h1>
     </div>
 
     <div class="row g-4">
         <div class="col-3">
             <div class="card text-white rounded-4 mb-4" style="background-color: #2F4F4F;">
-                <h5 class="card-header">Next Activity</h5>
+                <h5 class="card-header">MT41920001 (Base April 2020)</h5>
                 <div class="card-body">
-                    <h1 class="card-title">Januari 2026</h1>
-                    <p class="card-text">Class E Maintenance.</p>
+                    <h1 class="card-title">Acoustic Head</h1>
+                    <p class="card-text">Section.</p>
                     <a href="#" class="btn btn-outline-light">Detail</a>
                 </div>
             </div>
@@ -22,10 +22,10 @@
 
         <div class="col-3">
             <div class="card text-white rounded-4 mb-4" style="background-color: #6B8E23" ;>
-                <h5 class="card-header">SOC Battery</h5>
+                <h5 class="card-header">MT41920002 (Base April 2020)</h5>
                 <div class="card-body">
-                    <h1 class="card-title">45,5%</h1>
-                    <p class="card-text">Last updated at 23 Nov 2025.</p>
+                    <h1 class="card-title">Warhead</h1>
+                    <p class="card-text">Section.</p>
                     <a href="#" class="btn btn-outline-light">Detail</a>
                 </div>
             </div>
@@ -53,21 +53,6 @@
             </div>
         </div>
 
-    </div>
-    <div class="row g-2">
-        <div class="col-12">
-            <?php
-            $tandaGrafik = true; //untuk aktifasi script_tag di template.php
-            ?>
-            <div class="card rounded-4">
-                <div class="card-body">
-                    <div>
-                        <canvas id="myChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
