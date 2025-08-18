@@ -1,0 +1,175 @@
+        /* Palet Warna Hutan Modern */
+        :root {
+            --color-primary-accent: #7CB342;
+            /* Hijau Cerah/Limau */
+            --color-secondary-bg: #E0EFE0;
+            /* Krem Lembut/Abu-abu Kehijauan */
+            --color-tertiary-sidebar: #2E7D32;
+            /* Hijau Tua/Hutan, sesuai gambar Anda */
+            --color-text-dark: #212529;
+            --color-text-muted: #495057;
+            --color-sidebar-text: #F8F9FA;
+            /* Teks terang untuk sidebar gelap */
+            --color-sidebar-hover-bg: rgba(255, 255, 255, 0.1);
+            --color-submenu-hover-bg: rgba(255, 255, 255, 0.05);
+            --color-sidebar-active-text: #9CCC65;
+            /* Warna aktif/hover submenu */
+
+        }
+
+        html {
+        font-family: sans-serif;
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+        }
+
+
+        body {
+            min-height: 100vh;
+            background-color: var(--color-secondary-bg);
+            /* Latar belakang halaman */
+            color: var(--color-text-muted);
+            /* Warna teks default */
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: var(--color-text-dark);
+            /* Warna judul */
+        }
+
+        /* Gaya untuk Sidebar di Desktop */
+        @media (min-width: 768px) {
+            .sidebar-fixed {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 1040;
+                padding: 48px 0 0;
+                box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+                background-color: var(--color-tertiary-sidebar);
+                /* Warna sidebar utama */
+                overflow-y: auto;
+            }
+
+            .main-content {
+                margin-left: 16.666667%;
+                
+                padding-top: 20px;
+            }
+        }
+
+        /* Gaya untuk item navigasi umum di sidebar */
+        .sidebar-nav .nav-link {
+            font-weight: 400;
+            color: var(--color-sidebar-text);
+            /* Teks di sidebar gelap */
+            padding: .75rem 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-nav .nav-link:hover {
+            color: var(--color-sidebar-active-text);
+            /* Warna teks hover/aktif */
+            background-color: var(--color-sidebar-hover-bg);
+            /* Latar belakang hover/aktif */
+        }
+
+        .sidebar-nav .nav-link.active {
+            color: var(--color-sidebar-active-text);
+            /* Warna teks aktif */
+            background-color: var(--color-sidebar-hover-bg);
+            /* Latar belakang aktif */
+        }
+
+        .sidebar-nav .nav-link i {
+            margin-right: 8px;
+        }
+
+        /* Gaya untuk submenu (item collapse) */
+        .sidebar-nav .collapse .nav-link {
+            padding-left: 2.5rem;
+            font-size: 0.95em;
+            color: var(--color-sidebar-text);
+            /* Teks submenu terang */
+        }
+
+        .sidebar-nav .collapse .nav-link:hover {
+            background-color: var(--color-submenu-hover-bg);
+            /* Latar belakang hover submenu */
+            color: var(--color-sidebar-active-text);
+            /* Warna teks hover submenu */
+        }
+
+        .sidebar-nav .nav-header {
+            padding: 0.75rem 1.25rem;
+            font-size: 0.875em;
+            color: var(--color-sidebar-text);
+            /* Warna teks header */
+            text-transform: uppercase;
+            /* Huruf kapital */
+            font-weight: 600;
+        }
+
+        /* Gaya untuk ikon panah dropdown */
+        .sidebar-nav .dropdown-arrow {
+            margin-left: auto;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .sidebar-nav .nav-link[aria-expanded="true"] .dropdown-arrow {
+            transform: rotate(90deg);
+        }
+
+        /* Gaya untuk Offcanvas di mobile */
+        .navbar.bg-light {
+            /* Untuk navbar tombol Offcanvas */
+            background-color: var(--color-secondary-bg) !important;
+        }
+
+        .navbar-brand {
+            color: var(--color-text-dark);
+        }
+
+        .offcanvas.offcanvas-start {
+            background-color: var(--color-tertiary-sidebar);
+            /* Latar belakang Offcanvas */
+        }
+
+        .offcanvas-header {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .offcanvas-title {
+            color: var(--color-sidebar-text);
+            /* Teks judul Offcanvas */
+        }
+
+        .offcanvas-body .sidebar-nav {
+            padding: 0;
+        }
+
+        .accordion-button:focus,
+        .accordion-button:not(.collapsed) {
+            background-color: #198754;
+            color: #fff;
+            box-shadow: none;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1080;
+        }
+        
+        
+
+       
