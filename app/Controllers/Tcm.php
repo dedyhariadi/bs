@@ -278,4 +278,18 @@ class Tcm extends BaseController
             session()->setFlashdata('error', 'Transaksi TCM not found.');
         }
     }
+
+    public function historyTcm($tcmId)
+    {
+        $history = $this->db->table('trxtcm')
+            ->select('*, trxtcm.created_at as tanggal_penempatan')
+            ->join('posisi', 'posisi.id = trxtcm.posisiId')
+            ->join('tcm', 'tcm.id = trxtcm.tcmId')
+            ->where('tcmId', $tcmId)
+            ->orderBy('trxtcm.created_at', 'DESC')
+            ->get()
+            ->getResultArray();
+
+        return $history;
+    }
 }
