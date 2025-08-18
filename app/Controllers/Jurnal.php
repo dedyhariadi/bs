@@ -32,8 +32,13 @@ class Jurnal extends BaseController
             return view('jurnal/khusus', $data);
         }
 
+        foreach ($this->GiatJurnalmodel->findAll() as $giat) {
+            $durasi[$giat['id']] = $this->Jurnalmodel->where('giatId', $giat['id'])->selectSum('tanggal')->first()['tanggal'];
+        }
 
         $data = [
+            // hitung durasi jurnal berdasarkan giatjurnal
+            'durasi' => $durasi,
             'jurnal' => $this->Jurnalmodel->where('giatId', '1')->orderBy('tanggal', 'desc')->findAll(),
             'giatJurnal' => $this->GiatJurnalmodel->findAll(),
         ];
@@ -46,6 +51,7 @@ class Jurnal extends BaseController
 
         // Tentukan aturan validasi // Periksa apakah tanggal yang diinput sudah ada di jurnal lain
         $existingJurnal = $this->Jurnalmodel->where('tanggal', simpanTanggal($this->request->getPost('tanggal')))
+            ->where('giatId', $this->request->getPost('giatId'))
             ->first();
         if ($existingJurnal) {
             $pesan = 'Jurnal pada ' . $this->request->getPost('tanggal') . ' sudah ada.';
@@ -213,8 +219,6 @@ class Jurnal extends BaseController
 
     public function tambahGiat()
     {
-
-
 
         $rules = [
             'kegiatan' => 'required',
