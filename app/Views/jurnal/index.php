@@ -136,7 +136,11 @@
                                             </td>
                                             <td>
                                                 <?php
-
+                                                foreach ($durasiPerGiatJurnal as $durasi) :
+                                                    if ($durasi['id'] == $j['id']) {
+                                                        echo $durasi['totalDurasi'];
+                                                    }
+                                                endforeach;
                                                 ?>
                                             </td>
 

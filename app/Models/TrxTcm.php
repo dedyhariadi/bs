@@ -24,7 +24,7 @@ class TrxTcm extends Model
             return $this->findAll();
         }
 
-        return $this->select('*,trxtcm.id as trxTcmId')
+        return $this->select('trxtcm.id as trxTcmId, trxtcm.kegiatanId, trxtcm.tcmId, trxtcm.created_at, trxtcm.updated_at, tcm.*')
             ->join('tcm', 'tcm.id = trxtcm.tcmId')
             ->where('trxtcm.kegiatanId', $id)
             ->findAll();
@@ -36,7 +36,7 @@ class TrxTcm extends Model
             return $this->findAll();
         }
 
-        return $this->select('*,trxtcm.id as trxTcmId')
+        return $this->select('trxtcm.id as trxTcmId, trxtcm.kegiatanId, trxtcm.tcmId, trxtcm.created_at, trxtcm.updated_at, tcm.*')
             ->join('tcm', 'tcm.id = trxtcm.tcmId')
             ->where('trxtcm.tcmId', $id)
             ->findAll();

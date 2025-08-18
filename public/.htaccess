@@ -24,11 +24,20 @@ Options -Indexes
     RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
     RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
 
+<<<<<<< HEAD
     # Perbaikan utama untuk Fly.io:
     # Rewrite rules untuk menangani permintaan ke front controller
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
+=======
+	# Checks to see if the user is attempting to access a valid file,
+	# such as an image or css document, if this isn't true it sends the
+	# request to the front controller, index.php
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
+>>>>>>> 374edf4d4e4074f6298719a22f3261ab1e0a9352
 
     # Ensure Authorization header is passed along
     RewriteCond %{HTTP:Authorization} .
