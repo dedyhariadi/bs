@@ -40,7 +40,7 @@ class Jurnal extends BaseController
             // hitung durasi jurnal berdasarkan giatjurnal
             'durasi' => $durasi,
             'jurnal' => $this->Jurnalmodel->where('giatId', '1')->orderBy('tanggal', 'desc')->findAll(),
-            'giatJurnal' => $this->GiatJurnalmodel->findAll(),
+            'giatJurnal' => $this->GiatJurnalmodel->where('id !=', '1')->findAll(),
         ];
 
         return view('jurnal/index', $data);

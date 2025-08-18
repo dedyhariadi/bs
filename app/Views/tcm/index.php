@@ -89,8 +89,37 @@
                                                 ?>
 
                                             </td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
+                                            <td>
+                                                <?php
+                                                $lastTcm = null;
+                                                foreach ($tcm as $row) {
+                                                    if ($row['jenisId'] == $item['id']) {
+                                                        $lastTcm = $row;
+                                                    }
+                                                }
+                                                // app/Views/tcm/index.php
+                                                if ($lastTcm) {
+                                                    echo isset($lastTcm['posisi']) ? $lastTcm['posisi'] : '-';
+                                                    // atau: echo $lastTcm['posisi'] ?? '-';
+                                                } else {
+                                                    echo '-';
+                                                }
+
+                                                ?>
+
+
+                                            </td>
+                                            <td>
+                                                <?php
+                                                foreach ($trxTcm as $trx) {
+                                                    if ($trx['tcmId'] == $item['id']) {
+                                                        // echo $trx['tanggal'];
+                                                    }
+                                                }
+                                                ?>
+
+
+                                            </td>
                                         </tr>
                                     <?php
                                     endforeach;
