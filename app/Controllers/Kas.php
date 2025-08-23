@@ -20,12 +20,12 @@ class Kas extends BaseController
     public function index()
     {
 
-        if ($this->request->getvar()) {
+        if ($this->request->getPost()) {
             $this->kasModel->insert([
-                'tanggal' => simpanTanggal($this->request->getVar('tanggal')),
-                'keterangan' => $this->request->getVar('uraian'),
-                'pemasukan' => $this->request->getVar('jenisTransaksi') === 'pemasukan' ? $this->request->getVar('jumlah') : 0,
-                'pengeluaran' => $this->request->getVar('jenisTransaksi') === 'pengeluaran' ? $this->request->getVar('jumlah') : 0,
+                'tanggal' => simpanTanggal($this->request->getPost('tanggal')),
+                'keterangan' => $this->request->getPost('uraian'),
+                'pemasukan' => $this->request->getPost('jenisTransaksi') === 'pemasukan' ? $this->request->getPost('jumlah') : 0,
+                'pengeluaran' => $this->request->getPost('jenisTransaksi') === 'pengeluaran' ? $this->request->getPost('jumlah') : 0,
             ]);
             session()->setFlashdata('success', 'Transaksi berhasil ditambahkan.');
         }
@@ -33,7 +33,6 @@ class Kas extends BaseController
             'title' => 'Kas',
             'kas' => $this->kasModel->findAll(),
             'masukan' => $this->request->getVar(),
-
         ];
 
         return view('kas', $data);

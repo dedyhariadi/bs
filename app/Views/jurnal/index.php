@@ -121,6 +121,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     <?php
                                     foreach ($giatJurnal as $indeks => $j) :
                                     ?>
@@ -136,11 +137,11 @@
                                             </td>
                                             <td>
                                                 <?php
-                                                // foreach ($durasiPerGiatJurnal as $durasi) :
-                                                //     if ($durasi['id'] == $j['id']) {
-                                                //         echo $durasi['totalDurasi'];
-                                                //     }
-                                                // endforeach;
+                                                $durasi = '';
+                                                if (isset($jurnalCount[$j['id']])) {
+                                                    $durasi = $jurnalCount[$j['id']];
+                                                }
+                                                echo $durasi . ' Hari';
                                                 ?>
                                             </td>
 

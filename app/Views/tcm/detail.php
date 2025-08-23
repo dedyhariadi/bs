@@ -54,6 +54,14 @@
 
                                 <td>
                                     <div class="d-flex gap-2">
+
+
+                                        <?= anchor(
+                                            'tcm/history/' . $tcm['id'],
+                                            '<i class="bi bi-clock-history"></i> History',
+                                            ['class' => 'btn btn-sm btn-outline-primary']
+                                        ); ?>
+
                                         <?php
                                         // Prepare the modal ID for each TCM
                                         $modalId = '#editTcmModal' . $index;

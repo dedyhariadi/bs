@@ -39,6 +39,8 @@ $routes->match(['GET', 'POST'], 'trxtcm/(:num)', 'Tcm::trxtcm/$1');
 $routes->delete('trxtcm/(:num)', 'Tcm::hapusTrxtcm/$1');
 // $routes->post('trxtcm/(:num)', 'Tcm::trxtcm/$1');
 
+// history penempatan tcm
+$routes->get('tcm/history/(:num)', 'Tcm::historyPenempatan/$1');
 
 // jurnal
 $routes->get('jurnal', 'Jurnal::index');

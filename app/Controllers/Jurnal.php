@@ -32,13 +32,22 @@ class Jurnal extends BaseController
             return view('jurnal/khusus', $data);
         }
 
-        foreach ($this->GiatJurnalmodel->findAll() as $giat) {
-            $durasi[$giat['id']] = $this->Jurnalmodel->where('giatId', $giat['id'])->selectSum('tanggal')->first()['tanggal'];
+
+
+
+        $giatJurnal = $this->GiatJurnalmodel->findAll();
+
+        // Hitung jumlah jurnal untuk setiap kegiatan khusus
+        $jurnalCount = [];
+        foreach ($giatJurnal as $giat) {
+            $jurnalCount[$giat['id']] = $this->Jurnalmodel
+                ->where('giatId', $giat['id'])
+                ->countAllResults();
         }
 
         $data = [
             // hitung durasi jurnal berdasarkan giatjurnal
-            'durasi' => $durasi,
+            'jurnalCount' => $jurnalCount,
             'jurnal' => $this->Jurnalmodel->where('giatId', '1')->orderBy('tanggal', 'desc')->findAll(),
             'giatJurnal' => $this->GiatJurnalmodel->where('id !=', '1')->findAll(),
         ];

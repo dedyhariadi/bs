@@ -10,6 +10,8 @@
 
     <?= anchor('tcm', '< back', ['class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-5']); ?>
 
+    <a href="/tcm/historyPenempatan" class="btn btn-primary mb-3">History Penempatan</a>
+
     <!-- TCM Information Card -->
     <div class="card mt-4">
         <div class="card-header">
