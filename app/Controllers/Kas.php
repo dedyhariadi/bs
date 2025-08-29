@@ -20,7 +20,7 @@ class Kas extends BaseController
     public function index()
     {
 
-        if ($this->request->getvar()) {
+        if ($this->request->getPost()) {
             $this->kasModel->insert([
                 'tanggal' => simpanTanggal($this->request->getPost('tanggal')),
                 'keterangan' => $this->request->getPost('uraian'),
