@@ -49,7 +49,7 @@ class Kas extends BaseController
         $kas = $this->kasModel->find($id);
 
         if ($this->request->getPost()) {
-        
+
             if ($this->kasModel->update($id, [
                 'tanggal' => simpanTanggal($this->request->getPost('tanggal')),
                 'keterangan' => $this->request->getPost('uraian'),
@@ -58,16 +58,15 @@ class Kas extends BaseController
             ])) {
                 return redirect()->to('/kas')->with('success', 'Transaksi berhasil diubah.');
             } else {
-                echo 'gagal';
-                echo d($this->kasModel->errors());
+                dd($this->kasModel->errors());
             }
         }
-        
+
         $data = [
             'title' => 'Edit Kas',
             'kas' => $kas,
         ];
-        
+
         return view('kas', $data);
     }
 }

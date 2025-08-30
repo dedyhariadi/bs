@@ -10,6 +10,10 @@ function formatRupiah(el) {
   }
 
   rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
+  // Hapus 0 di depan
+  if (rupiah.startsWith("0")) {
+    rupiah = rupiah.replace(/^0+/, "");
+  }
   el.value = rupiah ? "Rp " + rupiah : "";
 }
 

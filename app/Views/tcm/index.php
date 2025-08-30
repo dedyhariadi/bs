@@ -125,25 +125,11 @@
                                     endforeach;
                                     ?>
 
-                                    <tr>
-                                        <th scope="row"></th>
-                                        <td colspan="4">
-                                            <?= anchor('#addTambahTcmModal', 'Tambah Data', [
-                                                'class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover',
-                                                'data-bs-toggle' => 'modal'
-                                            ]); ?>
 
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>

@@ -247,7 +247,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary" onclick="var radios = this.form.elements['jenisTransaksi']; for(var i=0; i<radios.length; i++){ if(radios[i].checked) return true; } alert('Pilih jenis transaksi'); return false;">Simpan</button>
                 </div>
                 <?= form_close(); ?>
             </div>

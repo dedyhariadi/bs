@@ -67,7 +67,6 @@ class Tcm extends BaseController
 
     public function tambah()
     {
-
         $data = [
             'jenisId' => $this->request->getPost('jenisId'),
             'status' => $this->request->getPost('status'),
