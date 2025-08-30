@@ -196,7 +196,7 @@
                 </div>
                 <br>
                 <label for="jumlah" class="form-label">Jumlah</label>
-                <input class="form-control form-control-lg" type="text" id="jumlah" name="jumlah">
+                <input class="form-control form-control-lg" type="text" id="jumlah" name="jumlah" onkeyup="formatRupiah(this)">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -243,7 +243,7 @@
                     </div>
                     <br>
                     <label for="jumlah" class="form-label">Jumlah</label>
-                    <input class="form-control form-control-lg" type="text" id="jumlah" name="jumlah" value="<?= $k['pemasukan'] > 0 ? $k['pemasukan'] : $k['pengeluaran']; ?>">
+                    <input class="form-control form-control-lg" type="text" id="jumlah" name="jumlah" value="<?= 'Rp ' . number_format($k['pemasukan'] > 0 ? $k['pemasukan'] : $k['pengeluaran'], 0, ",", "."); ?>" onkeyup="formatRupiah(this)">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

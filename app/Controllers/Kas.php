@@ -24,14 +24,14 @@ class Kas extends BaseController
             $this->kasModel->insert([
                 'tanggal' => simpanTanggal($this->request->getPost('tanggal')),
                 'keterangan' => $this->request->getPost('uraian'),
-                'pemasukan' => $this->request->getPost('jenisTransaksi') === 'pemasukan' ? $this->request->getPost('jumlah') : 0,
-                'pengeluaran' => $this->request->getPost('jenisTransaksi') === 'pengeluaran' ? $this->request->getPost('jumlah') : 0,
+                'pemasukan' => $this->request->getPost('jenisTransaksi') === 'pemasukan' ? preg_replace('/[^\d]/', '', $this->request->getPost('jumlah')) : 0,
+                'pengeluaran' => $this->request->getPost('jenisTransaksi') === 'pengeluaran' ? preg_replace('/[^\d]/', '', $this->request->getPost('jumlah')) : 0,
             ]);
             session()->setFlashdata('success', 'Transaksi berhasil ditambahkan.');
         }
         $data = [
             'title' => 'Kas',
-            'kas' => $this->kasModel->findAll(),
+            'kas' => $this->kasModel->orderBy('tanggal', 'ASC')->findAll(),
             'masukan' => $this->request->getVar(),
         ];
 
@@ -48,21 +48,26 @@ class Kas extends BaseController
     {
         $kas = $this->kasModel->find($id);
 
-        if ($this->request->getVar()) {
-            $this->kasModel->update($id, [
-                'tanggal' => simpanTanggal($this->request->getVar('tanggal')),
-                'keterangan' => $this->request->getVar('uraian'),
-                'pemasukan' => $this->request->getVar('jenisTransaksi') === 'pemasukan' ? $this->request->getVar('jumlah') : 0,
-                'pengeluaran' => $this->request->getVar('jenisTransaksi') === 'pengeluaran' ? $this->request->getVar('jumlah') : 0,
-            ]);
-            return redirect()->to('/kas')->with('success', 'Transaksi berhasil diubah.');
+        if ($this->request->getPost()) {
+        
+            if ($this->kasModel->update($id, [
+                'tanggal' => simpanTanggal($this->request->getPost('tanggal')),
+                'keterangan' => $this->request->getPost('uraian'),
+                'pemasukan' => $this->request->getPost('jenisTransaksi') === 'pemasukan' ? preg_replace('/[^\d]/', '', $this->request->getPost('jumlah')) : 0,
+                'pengeluaran' => $this->request->getPost('jenisTransaksi') === 'pengeluaran' ? preg_replace('/[^\d]/', '', $this->request->getPost('jumlah')) : 0,
+            ])) {
+                return redirect()->to('/kas')->with('success', 'Transaksi berhasil diubah.');
+            } else {
+                echo 'gagal';
+                echo d($this->kasModel->errors());
+            }
         }
-
+        
         $data = [
             'title' => 'Edit Kas',
             'kas' => $kas,
         ];
-
+        
         return view('kas', $data);
     }
 }
