@@ -52,3 +52,11 @@ $routes->post('jurnal/tambahGiat', 'Jurnal::tambahGiat');
 $routes->post('jurnal/editGiat/(:num)', 'Jurnal::editGiat/$1');
 $routes->delete('jurnal/hapusGiat/(:num)', 'Jurnal::hapusGiat/$1');
 $routes->get('jurnal/khusus/(:num)', 'Jurnal::index/$1');
+
+// Routes untuk TcmController (baru)
+$routes->get('/tcm-dashboard', 'TcmController::index');
+$routes->get('/tcm-dashboard/create', 'TcmController::create');
+$routes->post('/tcm-dashboard/store', 'TcmController::store');
+$routes->get('/tcm-dashboard/edit/(:num)', 'TcmController::edit/$1');
+$routes->post('/tcm-dashboard/update/(:num)', 'TcmController::update/$1');
+$routes->delete('/tcm-dashboard/delete/(:num)', 'TcmController::delete/$1');

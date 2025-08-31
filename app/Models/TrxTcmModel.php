@@ -68,4 +68,15 @@ class TrxTcmModel extends Model
             ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
             ->findAll();
     }
+
+    /**
+     * Update posisi TCM
+     * @param int $tcmId
+     * @param int $posisiId
+     * @return bool
+     */
+    public function updatePosisi($tcmId, $posisiId)
+    {
+        return $this->where('tcmId', $tcmId)->set(['posisiId' => $posisiId])->update();
+    }
 }
