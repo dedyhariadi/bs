@@ -8,51 +8,20 @@ class Tcm extends Migration
 {
     public function up()
     {
-        // tabel kas
-        $this->forge->addField([
-            'id' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-                'auto_increment' => true,
-            ],
-            'tanggal' => [
-                'type' => 'DATE',
-                'null' => false,
-            ],
-            'keterangan' => [
-                'type' => 'VARCHAR',
-                'constraint' => 255,
-                'null' => false,
-            ],
-            'pemasukan' => [
-                'type' => 'int',
-                'constraint' => '11',
-                'null' => true,
-            ],
-            'pengeluaran' => [
-                'type' => 'DECIMAL',
-                'constraint' => '11',
-                'null' => true,
-            ],
-        ]);
+        // Hapus tabel kas karena tidak relevan dengan inventaris TCM
 
-        $this->forge->addKey('id', true);
-        $this->forge->createTable('kas');
-
-
-        // TCM
         // Tabel 1: jenis
         $this->forge->addField([
             'id'        => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'nama'  => ['type' => 'VARCHAR', 'constraint' => 150],
-            'file' => ['type' => 'VARCHAR', 'constraint' => 200, 'null' => true],
+            'nama'      => ['type' => 'VARCHAR', 'constraint' => 150],
+            'file'      => ['type' => 'VARCHAR', 'constraint' => 200, 'null' => true],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('jenis');
 
+        // Kurangi data dummy: hanya 3 record sebagai contoh
         $data = [
             [
                 'nama' => 'Zoka Sed Jammer',
@@ -67,52 +36,21 @@ class Tcm extends Migration
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'nama' => 'Zoka Sed Exercise',
-                'file' => 'tcm5.pdf',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
                 'nama' => 'Mobile Acoustic Jammer',
                 'file' => 'tcm4.pdf',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
-
-            [
-                'nama' => 'Mobile Acoustic Decoy',
-                'file' => 'tcm8.pdf',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'nama' => 'Low Sinking Acoustic Jammer',
-                'file' => 'tcm10.pdf',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'nama' => 'Low Sinking Acoustic Decoy',
-                'file' => 'tcm11.pdf',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-
-
         ];
-
-        // Insert data into the jenis table
         $this->db->table('jenis')->insertBatch($data);
-
-
 
         // Tabel 2: tcm
         $this->forge->addField([
             'id'          => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'jenisId'    => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
+            'jenisId'     => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
             'status'      => ['type' => 'ENUM', 'constraint' => ['Aktif', 'Fired', 'Eternal Patrol'], 'default' => 'Aktif'],
-            'partNumber' => ['type' => 'VARCHAR', 'constraint' => 100],
-            'serialNumber'   => ['type' => 'VARCHAR', 'constraint' => 100],
+            'partNumber'  => ['type' => 'VARCHAR', 'constraint' => 100],
+            'serialNumber' => ['type' => 'VARCHAR', 'constraint' => 100],
             'created_at'  => ['type' => 'DATETIME', 'null' => true],
             'updated_at'  => ['type' => 'DATETIME', 'null' => true],
         ]);
@@ -120,7 +58,7 @@ class Tcm extends Migration
         $this->forge->addForeignKey('jenisId', 'jenis', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('tcm');
 
-
+        // Kurangi data dummy: hanya 3 record
         $this->db->table('tcm')->insertBatch([
             [
                 'jenisId' => 1,
@@ -139,120 +77,14 @@ class Tcm extends Migration
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'jenisId' => 1,
-                'status' => 'Aktif',
-                'partNumber' => '5845-9841-0020',
-                'serialNumber' => '000003',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Aktif',
-                'partNumber' => '5845-9841-0020',
-                'serialNumber' => '000004',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Aktif',
-                'partNumber' => '5845-9841-0020',
-                'serialNumber' => '000005',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Aktif',
-                'partNumber' => '5845-9841-0020',
-                'serialNumber' => '000006',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
+                'jenisId' => 2,
                 'status' => 'Fired',
-                'partNumber' => '5845-9841-0020',
-                'serialNumber' => '000007',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Fired',
-                'partNumber' => '5845-9841-0020',
-                'serialNumber' => '000008',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Fired',
-                'partNumber' => '5845-9841-0030',
-                'serialNumber' => '000001',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Fired',
-                'partNumber' => '5845-9841-0030',
-                'serialNumber' => '000002',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Aktif',
                 'partNumber' => '5845-9841-0030',
                 'serialNumber' => '000003',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Aktif',
-                'partNumber' => '5845-9841-0030',
-                'serialNumber' => '000004',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Aktif',
-                'partNumber' => '5845-9841-0030',
-                'serialNumber' => '000005',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Aktif',
-                'partNumber' => '5845-9841-0030',
-                'serialNumber' => '000006',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Aktif',
-                'partNumber' => '5845-9841-0030',
-                'serialNumber' => '000007',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'jenisId' => 1,
-                'status' => 'Aktif',
-                'partNumber' => '5845-9841-0030',
-                'serialNumber' => '000008',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
         ]);
-
-
 
         // Tabel 3: surat
         $this->forge->addField([
@@ -260,7 +92,7 @@ class Tcm extends Migration
             'noSurat'   => ['type' => 'VARCHAR', 'constraint' => 100],
             'pejabat'   => ['type' => 'VARCHAR', 'constraint' => 200],
             'perihal'   => ['type' => 'TEXT'],
-            'tglSurat' => ['type' => 'DATETIME', 'null' => true],
+            'tglSurat'  => ['type' => 'DATETIME', 'null' => true],
             'filePdf'   => ['type' => 'VARCHAR', 'constraint' => 200, 'null' => true],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
@@ -268,6 +100,7 @@ class Tcm extends Migration
         $this->forge->addKey('id', true);
         $this->forge->createTable('surat');
 
+        // Kurangi data dummy: hanya 2 record
         $data = [
             [
                 'noSurat' => 'Sprin/70/I/2021',
@@ -281,7 +114,7 @@ class Tcm extends Migration
             [
                 'noSurat' => 'Sprin/67/X/2023',
                 'pejabat' => 'Kadissenlekal',
-                'perihal' => 'Surat Perintah PMB',
+                'perihal' => 'Surat Perintah Transfer',
                 'tglSurat' => '2023-10-13 00:00:00',
                 'filePdf' => 'surat2.pdf',
                 'created_at' => date('Y-m-d H:i:s'),
@@ -294,14 +127,15 @@ class Tcm extends Migration
         // Tabel 4: satkai
         $this->forge->addField([
             'id'        => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'satkai'      => ['type' => 'VARCHAR', 'constraint' => 100],
-            'jenis'      => ['type' => 'ENUM', 'constraint' => ['Arsenal', 'Surface Ship', 'Submarines'], 'default' => 'Arsenal'],
-            'created_at'  => ['type' => 'DATETIME', 'null' => true],
-            'updated_at'  => ['type' => 'DATETIME', 'null' => true],
+            'satkai'    => ['type' => 'VARCHAR', 'constraint' => 100],
+            'jenis'     => ['type' => 'ENUM', 'constraint' => ['Arsenal', 'Surface Ship', 'Submarines'], 'default' => 'Arsenal'],
+            'created_at' => ['type' => 'DATETIME', 'null' => true],
+            'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('satkai');
 
+        // Kurangi data dummy: hanya 3 record
         $data = [
             [
                 'satkai' => 'Arsenal Gd. 05',
@@ -321,50 +155,10 @@ class Tcm extends Migration
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
-            [
-                'satkai' => 'KRI SIM-367',
-                'jenis' => 'Surface Ship',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'satkai' => 'KRI Cakra-401',
-                'jenis' => 'Submarines',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'satkai' => 'KRI Nanggala-402',
-                'jenis' => 'Submarines',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'satkai' => 'KRI Nagapasa-403',
-                'jenis' => 'Submarines',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'satkai' => 'KRI Ardadedali-404',
-                'jenis' => 'Submarines',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'satkai' => 'KRI Alugoro-405',
-                'jenis' => 'Submarines',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-
         ];
 
         // Insert data into the satkai table
         $this->db->table('satkai')->insertBatch($data);
-
-
-
 
         // Tabel 5: Kegiatan
         $this->forge->addField([
@@ -380,9 +174,12 @@ class Tcm extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('suratId', 'surat', 'id', 'CASCADE', 'CASCADE');
+        // Tambah foreign key untuk transferDariId dan transferKeId ke satkai
+        $this->forge->addForeignKey('transferDariId', 'satkai', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('transferKeId', 'satkai', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('kegiatan');
 
-
+        // Kurangi data dummy: hanya 2 record
         $data = [
             [
                 'jenisGiat' => 'Barang Masuk',
@@ -395,26 +192,15 @@ class Tcm extends Migration
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'jenisGiat' => 'Barang Masuk',
-                'suratId' => 1,
-                'transferDariId' => 1,
-                'transferKeId' => 2,
-                'tglPelaksanaan' => '2023-10-13 00:00:00',
-                'keterangan' => 'Kegiatan penerimaan barang masuk dari Arsenal Gd. 05 ke Arsenal Gd. 91',
+                'jenisGiat' => 'Barang Keluar',
+                'suratId' => 2,
+                'transferDariId' => 2,
+                'transferKeId' => 3,
+                'tglPelaksanaan' => '2023-10-15 00:00:00',
+                'keterangan' => 'Kegiatan pengeluaran barang dari Arsenal Gd. 91 ke KRI REM-331',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
-            [
-                'jenisGiat' => 'Barang Masuk',
-                'suratId' => 1,
-                'transferDariId' => 1,
-                'transferKeId' => 2,
-                'tglPelaksanaan' => '2023-10-13 00:00:00',
-                'keterangan' => 'Kegiatan penerimaan barang masuk dari Arsenal Gd. 05 ke Arsenal Gd. 91',
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-
         ];
         // Insert data into the kegiatan table
         $this->db->table('kegiatan')->insertBatch($data);
@@ -422,9 +208,9 @@ class Tcm extends Migration
         // Tabel 6: trxTcm
         $this->forge->addField([
             'id'        => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
-            'kegiatanId'   => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
-            'tcmId'   => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
-            'posisiId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
+            'kegiatanId' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
+            'tcmId'     => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true],
+            'posisiId'  => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
             'created_at' => ['type' => 'DATETIME', 'null' => true],
             'updated_at' => ['type' => 'DATETIME', 'null' => true],
         ]);
@@ -434,157 +220,42 @@ class Tcm extends Migration
         $this->forge->addForeignKey('posisiId', 'satkai', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('trxTcm');
 
+        // Kurangi data dummy: hanya 3 record
         $data = [
             [
-                'kegiatanId' => 3,
+                'kegiatanId' => 1,
                 'tcmId' => 1,
                 'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'kegiatanId' => 3,
+                'kegiatanId' => 1,
                 'tcmId' => 2,
                 'posisiId' => 1,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'kegiatanId' => 3,
+                'kegiatanId' => 2,
                 'tcmId' => 3,
-                'posisiId' => 1,
+                'posisiId' => 3,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 4,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 5,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 6,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 7,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 8,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 9,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 10,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 11,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 12,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 13,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 14,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 15,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-            [
-                'kegiatanId' => 3,
-                'tcmId' => 16,
-                'posisiId' => 1,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ],
-
         ];
         // Insert data into the trxTcm table
         $this->db->table('trxtcm')->insertBatch($data);
-
-      
-        
     }
-
-
 
     public function down()
     {
-        // Drop foreign keys first
-        // $this->forge->dropForeignKey('trxTcm', 'trxtcm_kegiatanId_foreign');
-        // $this->forge->dropForeignKey('trxTcm', 'trxtcm_tcmId_foreign');
-        // $this->forge->dropForeignKey('trxTcm', 'trxtcm_posisiId_foreign');
-        // $this->forge->dropForeignKey('kegiatan', 'kegiatan_suratId_foreign');
-        // $this->forge->dropForeignKey('tcm', 'tcm_jenisId_foreign');
-        // // $this->forge->dropForeignKey('satkai', 'satkai_id_foreign');
-        // $this->forge->dropForeignKey('jenis', 'jenis_id_foreign');
-        // $this->forge->dropForeignKey('surat', 'surat_id_foreign');
-        // $this->forge->dropForeignKey('kegiatan', 'kegiatan_transferDariId_foreign');
-        // $this->forge->dropForeignKey('kegiatan', 'kegiatan_transferKeId_foreign');
-        // $this->forge->dropForeignKey('kas', 'kas_id_foreign');
-
-
-
-        // Drop tables in reverse order
+        // Drop tables in reverse order (foreign keys will be dropped automatically with true)
         $this->forge->dropTable('trxTcm', true);
         $this->forge->dropTable('kegiatan', true);
         $this->forge->dropTable('satkai', true);
         $this->forge->dropTable('surat', true);
         $this->forge->dropTable('tcm', true);
         $this->forge->dropTable('jenis', true);
-        $this->forge->dropTable('kas', true);
     }
 }
-
-
-
