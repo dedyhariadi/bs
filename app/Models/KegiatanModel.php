@@ -9,8 +9,14 @@ class KegiatanModel extends Model
     protected $table = 'kegiatan';
     protected $primaryKey = 'id';
     protected $allowedFields = [
-        'jenisGiat', 'suratId', 'transferDariId', 'transferKeId',
-        'tglPelaksanaan', 'keterangan', 'created_at', 'updated_at'
+        'jenisGiat',
+        'suratId',
+        'transferDariId',
+        'transferKeId',
+        'tglPelaksanaan',
+        'keterangan',
+        'created_at',
+        'updated_at'
     ];
     protected $useTimestamps = true;
     protected $returnType = 'array';
@@ -23,9 +29,9 @@ class KegiatanModel extends Model
         $builder = $this->select('kegiatan.*, 
                                   surat.noSurat, surat.pejabat, surat.perihal,
                                   dari.satkai AS dari_satkai, ke.satkai AS ke_satkai')
-                        ->join('surat', 'surat.id = kegiatan.suratId', 'left')
-                        ->join('satkai AS dari', 'dari.id = kegiatan.transferDariId', 'left')
-                        ->join('satkai AS ke', 'ke.id = kegiatan.transferKeId', 'left');
+            ->join('surat', 'surat.id = kegiatan.suratId', 'left')
+            ->join('satkai AS dari', 'dari.id = kegiatan.transferDariId', 'left')
+            ->join('satkai AS ke', 'ke.id = kegiatan.transferKeId', 'left');
 
         if ($id) {
             return $builder->where('kegiatan.id', $id)->first();
@@ -40,9 +46,9 @@ class KegiatanModel extends Model
     public function getWithTcmCount()
     {
         return $this->select('kegiatan.*, COUNT(trxTcm.id) AS countTcm')
-                    ->join('trxTcm', 'trxTcm.kegiatanId = kegiatan.id', 'left')
-                    ->groupBy('kegiatan.id')
-                    ->findAll();
+            ->join('trxTcm', 'trxTcm.kegiatanId = kegiatan.id', 'left')
+            ->groupBy('kegiatan.id')
+            ->findAll();
     }
 
     /**

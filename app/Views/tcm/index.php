@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>TCM Management - Index</title>
 </head>
+
 <body>
     <h1>TCM Management Dashboard</h1>
 
@@ -60,4 +62,5 @@
 
     <a href="/tcm-dashboard/create">Tambah Kegiatan Baru</a>
 </body>
+
 </html>
