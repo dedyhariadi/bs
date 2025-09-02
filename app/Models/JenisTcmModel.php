@@ -12,14 +12,7 @@ class JenisTcmModel extends Model
   protected $useTimestamps = true;
   protected $returnType = 'array';
 
-  /**
-   * Get all jenis TCM
-   * @return array
-   */
-  public function getAll()
-  {
-    return $this->findAll();
-  }
+  
 
   /**
    * Get jenis TCM by ID

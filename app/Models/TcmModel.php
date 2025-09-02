@@ -40,4 +40,15 @@ class TcmModel extends Model
     {
         return $this->where('serialNumber', $serialNumber)->first();
     }
+
+    /**
+     * Get TCM items by jenis ID with jenis details
+     */
+    public function getTcmByJenis($jenisId)
+    {
+        return $this->select('tcm.*, jenistcm.nama as jenis_nama')
+            ->join('jenistcm', 'jenistcm.id = tcm.jenisId')
+            ->where('tcm.jenisId', $jenisId)
+            ->findAll();
+    }
 }

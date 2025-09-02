@@ -3,15 +3,19 @@
 namespace App\Controllers;
 
 use App\Models\JenisTcmModel;
+use App\Models\TcmModel;
+
 use CodeIgniter\HTTP\ResponseInterface;
 
 class JenisTcmController extends BaseController
 {
   protected $jenisTcmModel;
+  protected $tcmModel;
 
   public function __construct()
   {
     $this->jenisTcmModel = new JenisTcmModel();
+    $this->tcmModel = new TcmModel();
   }
 
 
@@ -42,18 +46,6 @@ class JenisTcmController extends BaseController
     }
   }
 
-  /**
-   * Form edit jenis TCM
-   * @param int $id
-   */
-  public function edit($id)
-  {
-    $data['jenis'] = $this->jenisTcmModel->getById($id);
-    if (!$data['jenis']) {
-      throw new \CodeIgniter\Exceptions\PageNotFoundException('Jenis TCM tidak ditemukan');
-    }
-    return view('jenis_tcm/edit', $data);
-  }
 
   /**
    * Update jenis TCM
@@ -76,7 +68,7 @@ class JenisTcmController extends BaseController
     ];
 
     if ($this->jenisTcmModel->updateJenis($id, $data)) {
-      return redirect()->to('/jenis-tcm')->with('success', 'Jenis TCM berhasil diupdate');
+      return redirect()->to('/tcm')->with('success', 'Jenis TCM berhasil diupdate');
     } else {
       return redirect()->back()->withInput()->with('error', 'Gagal mengupdate jenis TCM');
     }
@@ -86,12 +78,28 @@ class JenisTcmController extends BaseController
    * Hapus jenis TCM
    * @param int $id
    */
-  public function delete($id)
+  public function delete()
   {
+
+    $id = $this->request->getVar('id');
+
+    $nama = $this->jenisTcmModel->find($id)['nama'];
+
     if ($this->jenisTcmModel->deleteJenis($id)) {
-      return redirect()->to('/jenis-tcm')->with('success', 'Jenis TCM berhasil dihapus');
+      return redirect()->to('tcm')->with('success', $nama . ' berhasil dihapus');
     } else {
       return redirect()->back()->with('error', 'Gagal menghapus jenis TCM');
     }
+  }
+
+  public function detail($id)
+  {
+    $data['jenisTcm'] = $this->jenisTcmModel->find($id);
+    if (!$data['jenisTcm']) {
+      throw new \CodeIgniter\Exceptions\PageNotFoundException('Jenis TCM tidak ditemukan');
+    }
+    $data['tcmList'] = $this->tcmModel->getTcmByJenis($id);
+    // Load view detail
+    return view('tcm/rekap/detail', $data);
   }
 }
