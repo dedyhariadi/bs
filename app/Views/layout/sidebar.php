@@ -63,9 +63,39 @@
 
 
 
+             <!-- <li class="nav-item">
+             </li> -->
+
              <li class="nav-item">
-                 <?= anchor('tcm-dashboard', '<i class="bi bi-arrow-counterclockwise"></i> TPO Countermeasure', ['class' => 'nav-link']); ?>
-             </li>
+                 <a class="nav-link" data-bs-toggle="collapse" href="#subMenuTcm" role="button" aria-expanded="false" aria-controls="subMenuTcm">
+                     <i class="nav-icon bi bi-book-half"></i> Torpedo Counter Measure
+                     <i class="bi bi-chevron-right ms-auto dropdown-arrow"></i>
+                 </a>
+                 <div class="collapse" id="subMenuTcm">
+                     <ul class="nav flex-column">
+                         <li class="nav-item">
+                             <?= anchor('tcm', 'Rekapitulasi', ['class' => 'nav-link']); ?>
+                         </li>
+
+                         <li class="nav-item">
+                             <?= anchor('tcm/kegiatan', 'Kegiatan', ['class' => 'nav-link']); ?>
+                         </li>
+
+                         <li class="nav-item">
+                             <?php
+                                $jenisManual = 'alattest';
+                                ?>
+                             <?= anchor('home/manual/' . $jenisManual, 'Surat', ['class' => 'nav-link']); ?>
+                         </li>
+
+                         <li class="nav-item">
+                             <?php
+                                $jenisManual = 'alattest';
+                                ?>
+                             <?= anchor('home/manual/' . $jenisManual, 'Satkai', ['class' => 'nav-link']); ?>
+                         </li>
+                     </ul>
+                 </div>
 
              <li class="nav-item">
                  <?= anchor('kas', '<i class="bi bi-cash-stack"></i> Kas Testbench', ['class' => 'nav-link']); ?>

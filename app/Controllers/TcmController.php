@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\TcmModel;
 use App\Models\TrxTcmModel;
 use App\Models\KegiatanModel;
+use App\Models\JenisTcmModel;
 use CodeIgniter\Controller;
 
 class TcmController extends BaseController
@@ -12,12 +13,14 @@ class TcmController extends BaseController
     protected $tcmModel;
     protected $trxTcmModel;
     protected $kegiatanModel;
+    protected $jenisTcmModel;
 
     public function __construct()
     {
         $this->tcmModel = new TcmModel();
         $this->trxTcmModel = new TrxTcmModel();
         $this->kegiatanModel = new KegiatanModel();
+        $this->jenisTcmModel = new JenisTcmModel();
     }
 
     /**
@@ -30,8 +33,8 @@ class TcmController extends BaseController
 
         // Data untuk rekapitulasi TCM dengan posisi
         $data['rekapTcm'] = $this->trxTcmModel->getAllWithDetails();
-
-        return view('tcm/index', $data);
+        // dd($data);
+        return view('tcm//rekap/index', $data);
     }
 
     /**
@@ -41,6 +44,7 @@ class TcmController extends BaseController
     {
         // Ambil data untuk dropdown
         $data['tcmList'] = $this->tcmModel->getAllWithJenis();
+        $data['jenisList'] = $this->jenisTcmModel->getAll();
         $data['satkaiList'] = $this->getSatkaiList(); // Asumsikan ada model SatkaiModel, atau query manual
 
         return view('tcm/create', $data);
@@ -114,6 +118,7 @@ class TcmController extends BaseController
     {
         $data['kegiatan'] = $this->kegiatanModel->getWithDetails($id);
         $data['tcmList'] = $this->tcmModel->getAllWithJenis();
+        $data['jenisList'] = $this->jenisTcmModel->getAll();
         $data['satkaiList'] = $this->getSatkaiList();
 
         if (!$data['kegiatan']) {

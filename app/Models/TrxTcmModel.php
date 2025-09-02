@@ -8,7 +8,7 @@ class TrxTcmModel extends Model
 {
     protected $table = 'trxTcm';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['kegiatanId', 'tcmId', 'posisiId', 'created_at', 'updated_at'];
+    protected $allowedFields = ['kegiatanId', 'tcmId', 'posisiId', 'kondisi', 'created_at', 'updated_at'];
     protected $useTimestamps = true;
     protected $returnType = 'array';
 
@@ -78,5 +78,26 @@ class TrxTcmModel extends Model
     public function updatePosisi($tcmId, $posisiId)
     {
         return $this->where('tcmId', $tcmId)->set(['posisiId' => $posisiId])->update();
+    }
+
+    /**
+     * Update kondisi TCM berdasarkan trxTcm ID
+     * @param int $trxId
+     * @param string $kondisi
+     * @return bool
+     */
+    public function updateKondisi($trxId, $kondisi)
+    {
+        return $this->update($trxId, ['kondisi' => $kondisi]);
+    }
+
+    /**
+     * Get kondisi berdasarkan trxTcm ID
+     * @param int $trxId
+     * @return array|null
+     */
+    public function getKondisi($trxId)
+    {
+        return $this->select('kondisi')->find($trxId);
     }
 }

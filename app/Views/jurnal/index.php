@@ -51,7 +51,7 @@
                     1. HARIAN
                 </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card">
                         <div class="card-body">
@@ -107,7 +107,7 @@
                     2. KHUSUS
                 </button>
             </h2>
-            <div id="collapseThree" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card">
                         <div class="card-body">
