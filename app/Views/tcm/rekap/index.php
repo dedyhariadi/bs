@@ -106,7 +106,7 @@
                 <div class="modal-body">
                     <?= form_open('tcm/rekap/addJenis'); ?>
                     <div class="mb-5">
-                        <input type="text" class="form-control fs-2" id="jenisTcm" name="jenisTcm" name="nama" required>
+                        <input type="text" class="form-control fs-2" id="jenisTcm" name="nama" required>
                     </div>
                     <div class="text-end">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
