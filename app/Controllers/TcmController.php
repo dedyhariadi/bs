@@ -28,12 +28,19 @@ class TcmController extends BaseController
      */
     public function index()
     {
-        // Data untuk daftar kegiatan dengan jumlah TCM
+
         $data['kegiatan'] = $this->kegiatanModel->getWithTcmCount();
 
-        // Data untuk rekapitulasi TCM dengan posisi
+        // 
         $data['rekapTcm'] = $this->trxTcmModel->getAllWithDetails();
-        // dd($data);
+
+        $data = [
+            'rekapTcm' => $this->trxTcmModel->getAllWithDetails(), //Data untuk rekapitulasi TCM dengan posisi 
+            'kegiatan' => $this->kegiatanModel->getWithTcmCount(), // Data untuk daftar kegiatan dengan jumlah TCM
+            'jenisTcm' => $this->jenisTcmModel->findAll(),
+        ];
+
+
         return view('tcm//rekap/index', $data);
     }
 
