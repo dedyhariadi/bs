@@ -66,17 +66,14 @@
                 <tr class="fs-4">
                   <td scope="row" class="text-center"><?= $index + 1; ?></td>
                   <th class="ps-5 text-uppercase"><?= $item['noSurat']; ?></th>
-                  <td class="text-center"> <?= $item['tglSurat']; ?></td>
+                  <td class="text-start ms-2"> <?= tampilTanggal($item['tglSurat']); ?></td>
                   <td class="text-center"> <?= $item['pejabat']; ?></td>
-                  <td class="text-center"> <?= $item['perihal']; ?></td>
+                  <td class="text-start ms-1"> <?= $item['perihal']; ?></td>
                   <td>
 
                     <?= form_open('tcm/surat/' . $item['id'], '', ['_method' => 'DELETE', 'class' => 'form-control']); ?>
 
-                    <?= anchor('tcm/surat/' . $item['id'], '<i class="bi bi-zoom-in"></i>', ['class' => 'btn btn-outline-success']); ?> &nbsp;
-
-
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editSatkaiModal<?= $item['id']; ?>"> <i class="bi bi-pen-fill"></i>
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editSuratModal<?= $item['id']; ?>"> <i class="bi bi-pen-fill"></i>
                     </button>&nbsp;
 
                     <?= form_button([
@@ -116,18 +113,32 @@
         </div>
         <div class="modal-body">
 
-          <?= form_open('tcm/surat'); ?>
+          <?= form_open_multipart('tcm/surat', ['class' => 'form-control']); ?>
 
           <div class="mb-3">
-            <?= form_label('noSurat', 'noSurat', ['class' => 'form-label']); ?>
+            <?= form_label('No Surat', 'noSurat', ['class' => 'form-label']); ?>
             <?= form_input('noSurat', '', ['class' => 'form-control fs-2', 'required' => 'required', 'autocomplete' => 'off']); ?>
           </div>
 
           <div class="mb-3">
-            <?= form_label('tglSurat', 'Tanggal Surat', ['class' => 'form-label']); ?>
+            <?= form_label('Tanggal Surat', 'tglSurat', ['class' => 'form-label']); ?>
             <?= form_input('tglSurat', '', ['class' => 'form-control fs-2 tanggal-input', 'required' => 'required', 'autocomplete' => 'off']); ?>
           </div>
 
+          <div class="mb-3">
+            <?= form_label('Pejabat', 'pejabat', ['class' => 'form-label']); ?>
+            <?= form_input('pejabat', '', ['class' => 'form-control fs-2', 'required' => 'required', 'autocomplete' => 'off']); ?>
+          </div>
+
+          <div class="form-floating mb-4">
+            <textarea class="form-control fs-3" placeholder="Leave a comment here" id="perihal" style="height: 100px" name="perihal"></textarea>
+            <label for="perihal">Perihal</label>
+          </div>
+
+          <div class="mb-3">
+            <?= form_label('File PDF', 'filePdf', ['class' => 'form-label']); ?>
+            <?= form_upload('filePdf', '', ['class' => 'form-control fs-5', 'autocomplete' => 'off']); ?>
+          </div>
 
           <div class="text-end">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -153,24 +164,34 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <?= form_open('tcm/surat/' . $item['id'], '', ['_method' => 'PUT', 'class' => 'form-control']); ?>
-            <div class="mb-5">
-              <?= form_label('Nama', 'surat', ['class' => 'form-label']); ?>
-              <?= form_input('nama', $item['noSurat'], ['class' => 'form-control fs-2', 'required' => 'required', 'autocomplete' => 'off']); ?>
-            </div>
+
+            <?= form_open_multipart('tcm/surat/' . $item['id'], '', ['class' => 'form-control', '_method' => 'PUT']); ?>
+
             <div class="mb-3">
-              <?php
-              echo form_label('Jenis', 'jenis', ['class' => 'form-label']);
-
-              $pilihan = [
-                'Arsenal' => 'Arsenal',
-                'Surface Ship' => 'Surface Ship',
-                'Submarines' => 'Submarines'
-              ];
-              echo form_dropdown('jenis', $pilihan, '', ['class' => 'form-select fs-2', 'required' => 'required']);
-              ?>
-
+              <?= form_label('No Surat', 'noSurat', ['class' => 'form-label']); ?>
+              <?= form_input('noSurat', $item['noSurat'], ['class' => 'form-control fs-2', 'required' => 'required', 'autocomplete' => 'off']); ?>
             </div>
+
+            <div class="mb-3">
+              <?= form_label('Tanggal Surat', 'tglSurat', ['class' => 'form-label']); ?>
+              <?= form_input('tglSurat', tampilTanggal($item['tglSurat']), ['class' => 'form-control fs-2 tanggal-input', 'required' => 'required', 'autocomplete' => 'off']); ?>
+            </div>
+
+            <div class="mb-3">
+              <?= form_label('Pejabat', 'pejabat', ['class' => 'form-label']); ?>
+              <?= form_input('pejabat', $item['pejabat'], ['class' => 'form-control fs-2', 'required' => 'required', 'autocomplete' => 'off']); ?>
+            </div>
+
+            <div class="form-floating mb-4">
+              <textarea class="form-control fs-3" placeholder="Leave a comment here" id="perihal" style="height: 100px" name="perihal"><?= $item['perihal'] ?></textarea>
+              <label for="perihal">Perihal</label>
+            </div>
+
+            <div class="mb-3">
+              <?= form_label('File PDF', 'filePdf', ['class' => 'form-label']); ?>
+              <?= form_upload('filePdf', '', ['class' => 'form-control fs-5', 'autocomplete' => 'off']); ?>
+            </div>
+
             <div class="text-end">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary">Simpan</button>

@@ -114,14 +114,29 @@
                 </div>
                 <div class="modal-body">
                     <?= form_open('tcm/rekap/addJenis'); ?>
-                    <div class="mb-3">
-                        <label for="jenisGiat" class="form-label">Jenis</label>
-                        <select class="form-select" id="jenisGiat" name="jenisGiat" required>
+
+                    <div class="form-floating mb-3">
+                        <?php
+                        $jenisGiat = [
+                            'Barang Masuk' => 'Barang Masuk',
+                            'PUT' => 'PUT',
+                            'PUS' => 'PUS',
+                            'Barang Keluar' => 'Barang Keluar'
+                        ];
+                        echo form_dropdown('jenis', $jenisGiat, ' ', ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off']);
+                        echo form_label('Jenis', 'jenis', ['class' => 'form-label fs-2']);
+                        ?>
+
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select fs-4" id="jenis" name="jenis" style="height: 90px;" required autocomplete="off">
+                            <option value="">Pilih Jenis</option>
                             <option value="Barang Masuk">Barang Masuk</option>
                             <option value="PUT">PUT</option>
                             <option value="PUS">PUS</option>
                             <option value="Barang Keluar">Barang Keluar</option>
                         </select>
+                        <label for="jenis" class="form-label fs-2">Jenis</label>
                     </div>
                     <div class="row g-3 align-items-center mb-3">
                         <div class="col-auto">

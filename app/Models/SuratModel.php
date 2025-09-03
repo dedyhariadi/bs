@@ -12,24 +12,7 @@ class SuratModel extends Model
   protected $useTimestamps = true;
   protected $returnType = 'array';
 
-  /**
-   * Get all surat
-   * @return array
-   */
-  public function getAll()
-  {
-    return $this->findAll();
-  }
 
-  /**
-   * Get surat by ID
-   * @param int $id
-   * @return array|null
-   */
-  public function getById($id)
-  {
-    return $this->find($id);
-  }
 
   /**
    * Insert new surat
