@@ -35,7 +35,29 @@ $routes->get('jurnal/khusus/(:num)', 'Jurnal::index/$1');
 // tcm
 $routes->get('tcm', 'TcmController::index');
 
+// tcm-rekap
 $routes->post('tcm/rekap/addJenis', 'JenisTcmController::store');
 $routes->post('tcm/rekap/editJenis/(:num)', 'JenisTcmController::update/$1');
 $routes->delete('tcm/rekap/deleteJenisTcm', 'JenisTcmController::delete');
 $routes->get('tcm/rekap/detail/(:num)', 'JenisTcmController::detail/$1');
+
+//tcm-kegiatan
+$routes->get('tcm/kegiatan', 'KegiatanTcmController::index');
+$routes->post('tcm/kegiatan', 'KegiatanTcmController::store');
+$routes->get('tcm/kegiatan/(:num)', 'KegiatanTcmController::show/$1');
+$routes->put('tcm/kegiatan/(:num)', 'KegiatanTcmController::update/$1');
+$routes->delete('tcm/kegiatan/(:num)', 'KegiatanTcmController::delete/$1');
+
+// tcm-satkai
+$routes->get('tcm/satkai', 'SatkaiController::index');
+$routes->post('tcm/satkai', 'SatkaiController::store');
+$routes->get('tcm/satkai/(:num)', 'SatkaiController::show/$1');
+$routes->put('tcm/satkai/(:num)', 'SatkaiController::update/$1');
+$routes->delete('tcm/satkai/(:num)', 'SatkaiController::delete/$1');
+
+//tcm-surat
+$routes->get('tcm/surat', 'SuratController::index');
+$routes->post('tcm/surat', 'SuratController::store');
+$routes->get('tcm/surat/(:num)', 'SuratController::show/$1');
+$routes->put('tcm/surat/(:num)', 'SuratController::update/$1');
+$routes->delete('tcm/surat/(:num)', 'SuratController::delete/$1');

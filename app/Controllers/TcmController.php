@@ -6,6 +6,8 @@ use App\Models\TcmModel;
 use App\Models\TrxTcmModel;
 use App\Models\KegiatanModel;
 use App\Models\JenisTcmModel;
+use App\Models\SatkaiModel;
+use App\Models\SuratModel;
 use CodeIgniter\Controller;
 
 class TcmController extends BaseController
@@ -14,6 +16,8 @@ class TcmController extends BaseController
     protected $trxTcmModel;
     protected $kegiatanModel;
     protected $jenisTcmModel;
+    protected $satkaiModel;
+    protected $suratModel;
 
     public function __construct()
     {
@@ -21,6 +25,8 @@ class TcmController extends BaseController
         $this->trxTcmModel = new TrxTcmModel();
         $this->kegiatanModel = new KegiatanModel();
         $this->jenisTcmModel = new JenisTcmModel();
+        $this->satkaiModel = new SatkaiModel();
+        $this->suratModel = new SuratModel();
     }
 
     /**
@@ -110,12 +116,7 @@ class TcmController extends BaseController
      */
     private function getSatkaiList()
     {
-        // Asumsikan query dari database
-        return [
-            ['id' => 1, 'satkai' => 'Arsenal Gd. 05'],
-            ['id' => 2, 'satkai' => 'Arsenal Gd. 91'],
-            ['id' => 3, 'satkai' => 'KRI REM-331'],
-        ];
+        return $this->satkaiModel->getAll();
     }
 
     /**

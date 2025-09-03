@@ -46,8 +46,10 @@ class TcmModel extends Model
      */
     public function getTcmByJenis($jenisId)
     {
-        return $this->select('tcm.*, jenistcm.nama as jenis_nama')
+        return $this->select('tcm.partNumber AS part_number, tcm.serialNumber AS serial_number, tcm.status, trxTcm.kondisi, satkai.satkai AS posisi')
             ->join('jenistcm', 'jenistcm.id = tcm.jenisId')
+            ->join('trxTcm', 'trxTcm.tcmId = tcm.id', 'left')
+            ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
             ->where('tcm.jenisId', $jenisId)
             ->findAll();
     }

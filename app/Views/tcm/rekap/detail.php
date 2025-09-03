@@ -43,28 +43,34 @@
     <div class="text-center fw-bold fs-2 mt-4 mb-3">
         <?= $jenisTcm['nama']; ?>
     </div>
-
-
+    <div class="fs-3 my-3">
+        <?= anchor('tcm', '< back', ['class' => 'link-success link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover']) ?>
+    </div>
     <div class="row">
         <div class="col-12">
             <table class="table table-hover fs-5" style="background-color:#F7FFF7;">
                 <thead>
                     <tr class="text-center align-middle">
                         <th scope="col" rowspan="2">#</th>
-                        <th scope="col" rowspan="2">ITEM</th>
-                        <th scope="col" rowspan="2">JUMLAH</th>
-                        <th scope="col" colspan="2">POSISI</th>
+                        <th scope="col" rowspan="2">PART NUMBER</th>
+                        <th scope="col" rowspan="2">SERIAL NUMBER</th>
+                        <th scope="col" colspan="2">STATUS</th>
                         <th scope="col" colspan="2">KONDISI</th>
-                        <th scope="col"></th>
+                        <th scope="col">POSISI</th>
                     </tr>
-                    <tr class="text-center align-middle">
-                        <th>ARSENAL</th>
-                        <th>SATKAI</th>
-                        <th>OK</th>
-                        <th>NOT OK</th>
-                        <th></th>
-                    </tr>
-
+                </thead>
+                <tbody>
+                    <?php foreach ($detailTcm as $index => $item): ?>
+                        <tr class="text-center align-middle">
+                            <td><?= $index + 1; ?></td>
+                            <td><?= $item['part_number']; ?></td>
+                            <td><?= $item['serial_number']; ?></td>
+                            <td><?= $item['status']; ?></td>
+                            <td><?= $item['kondisi']; ?></td>
+                            <td><?= $item['posisi']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
             </table>
         </div>
     </div>

@@ -85,14 +85,14 @@
                              <?php
                                 $jenisManual = 'alattest';
                                 ?>
-                             <?= anchor('home/manual/' . $jenisManual, 'Surat', ['class' => 'nav-link']); ?>
+                             <?= anchor('tcm/surat', 'Surat', ['class' => 'nav-link']); ?>
                          </li>
 
                          <li class="nav-item">
                              <?php
                                 $jenisManual = 'alattest';
                                 ?>
-                             <?= anchor('home/manual/' . $jenisManual, 'Satkai', ['class' => 'nav-link']); ?>
+                             <?= anchor('tcm/satkai', 'Satkai', ['class' => 'nav-link']); ?>
                          </li>
                      </ul>
                  </div>
