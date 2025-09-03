@@ -109,7 +109,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Jenis TCM</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Kegiatan Baru</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -123,21 +123,12 @@
                             'PUS' => 'PUS',
                             'Barang Keluar' => 'Barang Keluar'
                         ];
-                        echo form_dropdown('jenis', $jenisGiat, ' ', ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off']);
-                        echo form_label('Jenis', 'jenis', ['class' => 'form-label fs-2']);
+                        echo form_dropdown('jenis', $jenisGiat, ' ', ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 90px;']);
+                        echo form_label('Jenis', 'jenis', ['class' => 'form-label fs-5']);
                         ?>
 
                     </div>
-                    <div class="form-floating mb-3">
-                        <select class="form-select fs-4" id="jenis" name="jenis" style="height: 90px;" required autocomplete="off">
-                            <option value="">Pilih Jenis</option>
-                            <option value="Barang Masuk">Barang Masuk</option>
-                            <option value="PUT">PUT</option>
-                            <option value="PUS">PUS</option>
-                            <option value="Barang Keluar">Barang Keluar</option>
-                        </select>
-                        <label for="jenis" class="form-label fs-2">Jenis</label>
-                    </div>
+
                     <div class="row g-3 align-items-center mb-3">
                         <div class="col-auto">
                             <label for="surat" class="col-form-label">Surat</label>

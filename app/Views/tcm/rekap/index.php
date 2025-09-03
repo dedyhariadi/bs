@@ -16,7 +16,7 @@
             </div>
             <div class="toast-body">
                 <?= session()->getFlashdata('success'); ?>
-            </div>s
+            </div>
         </div>
 
     <?php elseif (session()->getFlashdata('error')): ?>
