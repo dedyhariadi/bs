@@ -75,7 +75,7 @@
                                 <?= array_column($satkai, 'satkai', 'id')[$item['transferKeId']] ?? ''; ?>
                             </td>
 
-                            <td><?= $item['countTcm'] . ' unit'; ?></td>
+                            <td class="text-center"><?= $item['countTcm'] . ' unit'; ?></td>
                             <td>
 
                                 <?= form_open('tcm/rekap/deleteJenisTcm', '', ['_method' => 'DELETE', 'class' => 'form-control', 'id' => $item['id']]); ?>

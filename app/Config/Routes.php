@@ -33,8 +33,9 @@ $routes->get('jurnal/khusus/(:num)', 'Jurnal::index/$1');
 
 
 // tcm
-$routes->get('tcm', 'Tcm::index');
+$routes->get('tcm', 'TcmController::index');
 $routes->post('tcm', 'TcmController::store');
+$routes->delete('tcm/(:num)', 'TcmController::delete/$1');
 
 // tcm-rekap
 $routes->post('tcm/rekap/addJenis', 'JenisTcmController::store');

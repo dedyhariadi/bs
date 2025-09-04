@@ -67,7 +67,7 @@ class JenisTcmController extends BaseController
       'file' => $this->request->getPost('file'),
     ];
 
-    if ($this->jenisTcmModel->updateJenis($id, $data)) {
+    if ($this->jenisTcmModel->update($id, $data)) {
       return redirect()->to('/tcm')->with('success', 'Jenis TCM berhasil diupdate');
     } else {
       return redirect()->back()->withInput()->with('error', 'Gagal mengupdate jenis TCM');

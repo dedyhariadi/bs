@@ -69,13 +69,12 @@
                         <tr class="fs-4">
                             <td scope="row" class="text-center"><?= $index + 1; ?></td>
                             <th class="ps-5 text-uppercase"><?= $item['nama']; ?></th>
-                            <td class="text-center"> 13 Unit</td>
+                            <td class="text-center"> Unit</td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td>
-
 
 
                                 <?= form_open('tcm/rekap/deleteJenisTcm', '', ['_method' => 'DELETE', 'class' => 'form-control', 'id' => $item['id']]); ?>

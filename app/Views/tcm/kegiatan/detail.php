@@ -109,9 +109,21 @@
                   <td class="text-start"><?= $item['serialNumber']; ?></td>
                   <td class="text-center"><?= $item['kondisi']; ?></td>
                   <td class="text-center">
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#tcmDetailModal<?= $item['id']; ?>">
-                      Detail
-                    </button>
+
+                    <?= form_open('tcm/' . $item['id'], '', ['_method' => 'DELETE', 'class' => 'form-control', 'kegiatanId' => $kegiatan['id']]); ?>
+
+
+                    <?= form_button([
+                      'class'   => 'btn btn-outline-danger d-inline',
+                      'type'    => 'submit',
+                      'content' => '<i class="bi bi-x-lg"></i>',
+                      'onclick' => "return confirm('Apakah anda yakin menghapus ini?');"
+                    ]); ?>
+
+                    <?= form_close(); ?>
+
+
+
                   </td>
                 </tr>
               <?php endforeach; ?>

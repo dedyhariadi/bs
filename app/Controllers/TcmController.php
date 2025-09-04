@@ -55,6 +55,10 @@ class TcmController extends BaseController
      */
     public function store()
     {
+        // hanya izinkan POST
+        if ($this->request->getMethod() !== 'POST') {
+            return $this->response->setStatusCode(405, 'Method Not Allowed');
+        }
 
 
         $data = [
@@ -91,13 +95,30 @@ class TcmController extends BaseController
 
         session()->setFlashdata('success', 'Data TCM berhasil disimpan.');
         return redirect()->to('tcm/kegiatan/' . $this->request->getPost('kegiatanId'));
+    }
 
+    /**
+     * Delete TCM by ID
+     */
+    public function delete($id)
+    {
+        // hanya izinkan DELETE
+        if ($this->request->getMethod() !== 'DELETE') {
+            return $this->response->setStatusCode(405, 'Method Not Allowed');
+        }
 
-        // dd($this->request->getPost(), $this->request->getMethod());
-        // Update posisi TCM pada TcmModel jika diperlukan
-        // if ($posisi) {
-        //     $this->tcmModel->updatePosisi($kegiatanId, $posisi);
-        // }
+        // cari TCM berdasarkan ID
+        $tcm = $this->tcmModel->find($id);
+        if (!$tcm) {
+            return $this->response->setStatusCode(404, 'TCM not found');
+        }
 
+        // hapus TCM
+        if (!$this->tcmModel->delete($id)) {
+            return $this->response->setStatusCode(500, 'Failed to delete TCM');
+        }
+
+        session()->setFlashdata('success', 'SN ' . $tcm['serialNumber'] . ' berhasil dihapus.');
+        return redirect()->to('tcm/kegiatan/' . $this->request->getPost('kegiatanId'));
     }
 }
