@@ -53,4 +53,17 @@ class TcmModel extends Model
             ->where('tcm.jenisId', $jenisId)
             ->findAll();
     }
+
+    /**
+     * Get TCM items by kegiatan ID with related details
+     */
+    public function getTcmByKegiatanId($kegiatanId)
+    {
+        return $this->select('tcm.*, jenistcm.nama as jenisTcm, trxTcm.kondisi, satkai.satkai as posisi')
+            ->join('jenistcm', 'jenistcm.id = tcm.jenisId')
+            ->join('trxTcm', 'trxTcm.tcmId = tcm.id', 'left')
+            ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
+            ->where('trxTcm.kegiatanId', $kegiatanId)
+            ->findAll();
+    }
 }

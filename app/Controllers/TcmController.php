@@ -51,142 +51,40 @@ class TcmController extends BaseController
     }
 
     /**
-     * Form untuk create kegiatan baru
-     */
-    public function create()
-    {
-        // Ambil data untuk dropdown
-        $data['tcmList'] = $this->tcmModel->getAllWithJenis();
-        $data['jenisList'] = $this->jenisTcmModel->getAll();
-        $data['satkaiList'] = $this->getSatkaiList(); // Asumsikan ada model SatkaiModel, atau query manual
-
-        return view('tcm/create', $data);
-    }
-
-    /**
      * Store kegiatan baru dan update posisi TCM
      */
     public function store()
     {
-        $rules = [
-            'jenisGiat' => 'required',
-            'suratId' => 'required|integer',
-            'transferDariId' => 'required|integer',
-            'transferKeId' => 'required|integer',
-            'tcmIds' => 'required', // Array of TCM IDs
+
+
+
+        $data = [
+            'jenisId' => $this->request->getPost('jenisTcm'),
+            'status' => 'AKTIF',
+            'partNumber' => $this->request->getPost('partNumber'),
+            'serialNumber' => $this->request->getPost('serialNumber'),
         ];
 
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        $kondisi = $this->request->getPost('kondisi');
+
+        // simpan menggunakan model
+        $insertId = $this->tcmModel->insert($data);
+
+        if ($insertId === false) {
+            // jika validasi/model gagal, kembalikan beserta input dan error
+            session()->setFlashdata('errors', $this->tcmModel->errors());
+            return redirect()->back()->withInput();
         }
 
-        // Insert kegiatan
-        $kegiatanData = [
-            'jenisGiat' => $this->request->getPost('jenisGiat'),
-            'suratId' => $this->request->getPost('suratId'),
-            'transferDariId' => $this->request->getPost('transferDariId'),
-            'transferKeId' => $this->request->getPost('transferKeId'),
-            'tglPelaksanaan' => $this->request->getPost('tglPelaksanaan'),
-            'keterangan' => $this->request->getPost('keterangan'),
-        ];
+        session()->setFlashdata('success', 'Data TCM berhasil disimpan.');
+        return redirect()->to('tcm/kegiatan/' . $this->request->getPost('kegiatanId'));
 
-        // Asumsikan ada KegiatanModel untuk insert
-        $kegiatanId = $this->kegiatanModel->insert($kegiatanData);
 
-        if (!$kegiatanId) {
-            return redirect()->back()->withInput()->with('error', 'Gagal menyimpan kegiatan');
-        }
+        // dd($this->request->getPost(), $this->request->getMethod());
+        // Update posisi TCM pada TcmModel jika diperlukan
+        // if ($posisi) {
+        //     $this->tcmModel->updatePosisi($kegiatanId, $posisi);
+        // }
 
-        // Insert trxTcm untuk setiap TCM
-        $tcmIds = $this->request->getPost('tcmIds');
-        foreach ($tcmIds as $tcmId) {
-            $trxData = [
-                'kegiatanId' => $kegiatanId,
-                'tcmId' => $tcmId,
-                'posisiId' => $kegiatanData['transferKeId'],
-            ];
-            $this->trxTcmModel->insert($trxData);
-        }
-
-        return redirect()->to('/tcm-dashboard')->with('success', 'Kegiatan berhasil ditambahkan');
-    }
-
-    /**
-     * Helper: Get satkai list
-     */
-    private function getSatkaiList()
-    {
-        return $this->satkaiModel->getAll();
-    }
-
-    /**
-     * Edit kegiatan
-     */
-    public function edit($id)
-    {
-        $data['kegiatan'] = $this->kegiatanModel->getWithDetails($id);
-        $data['tcmList'] = $this->tcmModel->getAllWithJenis();
-        $data['jenisList'] = $this->jenisTcmModel->getAll();
-        $data['satkaiList'] = $this->getSatkaiList();
-
-        if (!$data['kegiatan']) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException('Kegiatan tidak ditemukan');
-        }
-
-        return view('tcm/edit', $data);
-    }
-
-    /**
-     * Update kegiatan
-     */
-    public function update($id)
-    {
-        $rules = [
-            'jenisGiat' => 'required',
-            'suratId' => 'required|integer',
-            'transferDariId' => 'required|integer',
-            'transferKeId' => 'required|integer',
-            'tcmIds' => 'required',
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
-
-        $kegiatanData = [
-            'jenisGiat' => $this->request->getPost('jenisGiat'),
-            'suratId' => $this->request->getPost('suratId'),
-            'transferDariId' => $this->request->getPost('transferDariId'),
-            'transferKeId' => $this->request->getPost('transferKeId'),
-            'tglPelaksanaan' => $this->request->getPost('tglPelaksanaan'),
-            'keterangan' => $this->request->getPost('keterangan'),
-        ];
-
-        $this->kegiatanModel->update($id, $kegiatanData);
-
-        // Delete trxTcm lama untuk kegiatan ini
-        $this->trxTcmModel->where('kegiatanId', $id)->delete();
-
-        // Insert trxTcm baru berdasarkan tcmIds yang dipilih
-        $tcmIds = $this->request->getPost('tcmIds');
-        foreach ($tcmIds as $tcmId) {
-            $trxData = [
-                'kegiatanId' => $id,
-                'tcmId' => $tcmId,
-                'posisiId' => $kegiatanData['transferKeId'],
-            ];
-            $this->trxTcmModel->insert($trxData);
-        }
-
-        return redirect()->to('/tcm-dashboard')->with('success', 'Kegiatan berhasil diupdate');
-    }
-
-    /**
-     * Delete kegiatan
-     */
-    public function delete($id)
-    {
-        $this->kegiatanModel->delete($id);
-        return redirect()->to('/tcm-dashboard')->with('success', 'Kegiatan berhasil dihapus');
     }
 }

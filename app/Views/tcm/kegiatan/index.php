@@ -16,7 +16,7 @@
             </div>
             <div class="toast-body">
                 <?= session()->getFlashdata('success'); ?>
-            </div>s
+            </div>
         </div>
 
     <?php elseif (session()->getFlashdata('error')): ?>
@@ -50,23 +50,32 @@
             <table class="table table-hover fs-5" style="background-color:#F7FFF7;">
                 <thead>
                     <tr class="text-center align-middle">
-                        <th scope="col" rowspan="2">#</th>
-                        <th scope="col" rowspan="2">TGL PELAKSANAAN</th>
-                        <th scope="col" rowspan="2">JENIS</th>
-                        <th scope="col" colspan="2">TRANSFER KE</th>
-                        <th scope="col" colspan="2">JUMLAH</th>
+                        <th scope="col">#</th>
+                        <th scope="col">TGL PELAKSANAAN</th>
+                        <th scope="col">JENIS</th>
+                        <th scope="col">TRANSFER DARI</th>
+                        <th scope="col">TRANSFER KE</th>
+                        <th scope="col">JUMLAH</th>
                         <th scope="col"></th>
                     </tr>
 
                 <tbody>
+                    <?php
+
+                    ?>
                     <?php foreach ($kegiatan as $index => $item): ?>
                         <tr class="fs-4">
                             <td scope="row" class="text-center"><?= $index + 1; ?></td>
-                            <th class="ps-5 text-uppercase"><?= $item['tglPelaksanaan']; ?></th>
+                            <td class="ps-5 text-uppercase"><?= anchor('tcm/kegiatan/' . $item['id'], tampilTanggal($item['tglPelaksanaan']), ['class' => 'link-success ']); ?></td>
                             <td class="text-center"> <?= $item['jenisGiat']; ?></td>
-                            <td><?= $item['transferKeId']; ?></td>
-                            <td><?= $item['countTcm']; ?></td>
+                            <td>
+                                <?= array_column($satkai, 'satkai', 'id')[$item['transferDariId']] ?? ''; ?>
+                            </td>
+                            <td>
+                                <?= array_column($satkai, 'satkai', 'id')[$item['transferKeId']] ?? ''; ?>
+                            </td>
 
+                            <td><?= $item['countTcm'] . ' unit'; ?></td>
                             <td>
 
                                 <?= form_open('tcm/rekap/deleteJenisTcm', '', ['_method' => 'DELETE', 'class' => 'form-control', 'id' => $item['id']]); ?>
@@ -113,7 +122,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <?= form_open('tcm/rekap/addJenis'); ?>
+                    <?= form_open('tcm/kegiatan'); ?>
 
                     <div class="form-floating mb-3">
                         <?php
@@ -128,37 +137,27 @@
                         ?>
                     </div>
 
-                    <div class="row g-3 align-items-center mb-3">
-                        <div class="col-auto">
-                            <label for="surat" class="col-form-label">Surat</label>
-                        </div>
-                        <div class="col-auto">
-                            <input type="text" id="surat" class="form-control" aria-describedby="tambah">
-                        </div>
-                        <div class="col-auto">
-                            <span id="tambah" class="form-text">
-                                add
-                            </span>
-                        </div>
+                    <div class="form-floating mb-3">
+                        <?php
+                        echo form_dropdown('surat', array_column($surat, 'noSurat', 'id'), ' ', ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                        echo form_label('Surat', 'surat', ['class' => 'form-label fs-5']);
+                        ?>
                     </div>
                     <div class="form-floating mb-3">
                         <?php
                         echo form_dropdown('transferDari', array_column($satkai, 'satkai', 'id'), ' ', ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
-                        echo form_label('Transfer Dari', 'transferDari', ['class' => 'form-label fs-5']);
+                        echo form_label('Transfer <span class="text-danger fw-bold fs-3">Dari</span>', 'transferDari', ['class' => 'form-label fs-5']);
                         ?>
                     </div>
                     <div class="form-floating mb-3">
                         <?php
                         echo form_dropdown('transferKe', array_column($satkai, 'satkai', 'id'), ' ', ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
-                        echo form_label('Transfer Ke', 'transferKe', ['class' => 'form-label fs-5']);
+                        echo form_label('Transfer <span class="text-success fw-bold fs-3">Ke</span>', 'transferKe', ['class' => 'form-label fs-5']);
                         ?>
                     </div>
                     <div class="form-floating mb-3">
-                        <!-- <label for="tanggal" class="form-label">Tanggal</label>
-                        <input type="text" class="form-control tanggal-input" id="tanggal" name="tanggal" required autocomplete="off"> -->
-
                         <?php
-                        echo form_input('tglPelaksanaan', ' ', ['class' => 'form-select fs-2 tanggal-input', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                        echo form_input('tglPelaksanaan', ' ', ['class' => 'form-select fs-2 tanggal-input', 'required' => 'true', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
                         echo form_label('Tanggal Pelaksanaan', 'tglPelaksanaan', ['class' => 'form-label fs-5']);
                         ?>
                     </div>
@@ -190,14 +189,54 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <?= form_open('tcm/rekap/editJenis/' . $item['id']); ?>
-                        <div class="mb-5">
-                            <input type="text" class="form-control fs-2" id="editJenisNama" name="nama" value="<?= $item['tglPelaksanaan']; ?>" required autocomplete="off">
+                        <?= form_open('tcm/kegiatan/' . $item['id'], '', ['class' => 'form-control', '_method' => 'PUT']); ?>
+
+                        <div class="form-floating mb-3">
+                            <?php
+                            $jenisGiat = [
+                                'Barang Masuk' => 'Barang Masuk',
+                                'PUT' => 'PUT',
+                                'PUS' => 'PUS',
+                                'Barang Keluar' => 'Barang Keluar'
+                            ];
+                            echo form_dropdown('jenis', $jenisGiat, $item['jenisGiat'], ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                            echo form_label('Jenis Kegiatan', 'jenis', ['class' => 'form-label fs-5']);
+                            ?>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <?php
+                            echo form_dropdown('surat', array_column($surat, 'noSurat', 'id'), $item['suratId'], ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                            echo form_label('Surat', 'surat', ['class' => 'form-label fs-5']);
+                            ?>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <?php
+                            echo form_dropdown('transferDari', array_column($satkai, 'satkai', 'id'), $item['transferDariId'], ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                            echo form_label('Transfer <span class="text-danger fw-bold fs-3">Dari</span>', 'transferDari', ['class' => 'form-label fs-5']);
+                            ?>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <?php
+                            echo form_dropdown('transferKe', array_column($satkai, 'satkai', 'id'), $item['transferKeId'], ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                            echo form_label('Transfer <span class="text-success fw-bold fs-3">Ke</span>', 'transferKe', ['class' => 'form-label fs-5']);
+                            ?>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <?php
+                            echo form_input('tglPelaksanaan', tampilTanggal($item['tglPelaksanaan']), ['class' => 'form-select fs-2 tanggal-input', 'required' => 'true', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                            echo form_label('Tanggal Pelaksanaan', 'tglPelaksanaan', ['class' => 'form-label fs-5']);
+                            ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="keterangan" class="form-label">Keterangan</label>
+                            <textarea class="form-control fs-2" id="keterangan" name="keterangan" rows="2" autocomplete="off"><?= esc($item['keterangan']) ?></textarea>
                         </div>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
+
                         <?= form_close(); ?>
                     </div>
                 </div>
