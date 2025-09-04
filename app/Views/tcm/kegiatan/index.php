@@ -123,10 +123,9 @@
                             'PUS' => 'PUS',
                             'Barang Keluar' => 'Barang Keluar'
                         ];
-                        echo form_dropdown('jenis', $jenisGiat, ' ', ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 90px;']);
-                        echo form_label('Jenis', 'jenis', ['class' => 'form-label fs-5']);
+                        echo form_dropdown('jenis', $jenisGiat, ' ', ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                        echo form_label('Jenis Kegiatan', 'jenis', ['class' => 'form-label fs-5']);
                         ?>
-
                     </div>
 
                     <div class="row g-3 align-items-center mb-3">
@@ -142,29 +141,30 @@
                             </span>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="transferDari" class="form-label">Transfer Dari</label>
-                        <select class="form-select" id="transferDari" name="transferDari" required>
-                            <option value="1">Opsi 1</option>
-                            <option value="2">Opsi 2</option>
-                            <option value="3">Opsi 3</option>
-                        </select>
+                    <div class="form-floating mb-3">
+                        <?php
+                        echo form_dropdown('transferDari', array_column($satkai, 'satkai', 'id'), ' ', ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                        echo form_label('Transfer Dari', 'transferDari', ['class' => 'form-label fs-5']);
+                        ?>
                     </div>
-                    <div class="mb-3">
-                        <label for="transferKe" class="form-label">Transfer Ke</label>
-                        <select class="form-select" id="transferKe" name="transferKe" required>
-                            <option value="1">Opsi 1</option>
-                            <option value="2">Opsi 2</option>
-                            <option value="3">Opsi 3</option>
-                        </select>
+                    <div class="form-floating mb-3">
+                        <?php
+                        echo form_dropdown('transferKe', array_column($satkai, 'satkai', 'id'), ' ', ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                        echo form_label('Transfer Ke', 'transferKe', ['class' => 'form-label fs-5']);
+                        ?>
                     </div>
-                    <div class="mb-3">
-                        <label for="tanggal" class="form-label">Tanggal</label>
-                        <input type="text" class="form-control tanggal-input" id="tanggal" name="tanggal" required autocomplete="off">
+                    <div class="form-floating mb-3">
+                        <!-- <label for="tanggal" class="form-label">Tanggal</label>
+                        <input type="text" class="form-control tanggal-input" id="tanggal" name="tanggal" required autocomplete="off"> -->
+
+                        <?php
+                        echo form_input('tglPelaksanaan', ' ', ['class' => 'form-select fs-2 tanggal-input', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
+                        echo form_label('Tanggal Pelaksanaan', 'tglPelaksanaan', ['class' => 'form-label fs-5']);
+                        ?>
                     </div>
                     <div class="mb-3">
                         <label for="keterangan" class="form-label">Keterangan</label>
-                        <textarea class="form-control" id="keterangan" name="keterangan" rows="3" autocomplete="off"></textarea>
+                        <textarea class="form-control fs-2" id="keterangan" name="keterangan" rows="2" autocomplete="off"></textarea>
                     </div>
                     <div class="text-end">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
