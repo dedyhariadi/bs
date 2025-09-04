@@ -118,6 +118,11 @@ class TcmController extends BaseController
             return $this->response->setStatusCode(500, 'Failed to delete TCM');
         }
 
+        // hapus TCM
+        if (!$this->trxTcmModel->delete($this->request->getVar('trxtcmId'))) {
+            return $this->response->setStatusCode(500, 'Failed to delete TCM');
+        }
+
         session()->setFlashdata('success', 'SN ' . $tcm['serialNumber'] . ' berhasil dihapus.');
         return redirect()->to('tcm/kegiatan/' . $this->request->getPost('kegiatanId'));
     }

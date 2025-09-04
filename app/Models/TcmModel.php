@@ -59,7 +59,7 @@ class TcmModel extends Model
      */
     public function getTcmByKegiatanId($kegiatanId)
     {
-        return $this->select('tcm.*, jenistcm.nama as jenisTcm, trxTcm.kondisi, satkai.satkai as posisi')
+        return $this->select('tcm.*, jenistcm.nama as jenisTcm, trxTcm.kondisi, satkai.satkai as posisi, trxTcm.id as idTrxTcm')
             ->join('jenistcm', 'jenistcm.id = tcm.jenisId')
             ->join('trxTcm', 'trxTcm.tcmId = tcm.id', 'left')
             ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')

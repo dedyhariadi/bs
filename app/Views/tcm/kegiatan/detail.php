@@ -110,7 +110,7 @@
                   <td class="text-center"><?= $item['kondisi']; ?></td>
                   <td class="text-center">
 
-                    <?= form_open('tcm/' . $item['id'], '', ['_method' => 'DELETE', 'class' => 'form-control', 'kegiatanId' => $kegiatan['id']]); ?>
+                    <?= form_open('tcm/' . $item['id'], '', ['_method' => 'DELETE', 'class' => 'form-control', 'kegiatanId' => $kegiatan['id'], 'trxtcmId' => $item['idTrxTcm']]); ?>
 
 
                     <?= form_button([
