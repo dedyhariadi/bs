@@ -57,7 +57,6 @@ class TcmController extends BaseController
     {
 
 
-
         $data = [
             'jenisId' => $this->request->getPost('jenisTcm'),
             'status' => 'AKTIF',
@@ -73,6 +72,20 @@ class TcmController extends BaseController
         if ($insertId === false) {
             // jika validasi/model gagal, kembalikan beserta input dan error
             session()->setFlashdata('errors', $this->tcmModel->errors());
+            return redirect()->back()->withInput();
+        }
+        $datatrxTcm = [
+            'tcmId' => $insertId,
+            'kegiatanId' => $this->request->getPost('kegiatanId'),
+            'posisiId' => $this->request->getPost('posisiId'),
+            'kondisi' => $kondisi,
+        ];
+
+        $insertId = $this->trxTcmModel->insert($datatrxTcm);
+
+        if ($insertId === false) {
+            // jika validasi/model gagal, kembalikan beserta input dan error
+            session()->setFlashdata('errors', $this->trxTcmModel->errors());
             return redirect()->back()->withInput();
         }
 

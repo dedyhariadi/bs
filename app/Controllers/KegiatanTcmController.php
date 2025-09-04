@@ -131,7 +131,6 @@ class KegiatanTcmController extends BaseController
             'tcm' => $this->tcmModel->getTcmByKegiatanId($id)
         ];
 
-        dd($data);
         return view('tcm/kegiatan/detail', $data);
     }
 }

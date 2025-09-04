@@ -156,7 +156,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <?= form_open('tcm', '', ['kegiatanId' => $kegiatan['id']]); ?>
+          <?= form_open('tcm', '', ['kegiatanId' => $kegiatan['id'], 'posisiId' => $kegiatan['transferKeId']]); ?>
 
           <div class="form-floating mb-5">
             <?php
