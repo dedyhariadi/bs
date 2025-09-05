@@ -193,12 +193,19 @@
 
                         <div class="form-floating mb-3">
                             <?php
-                            $jenisGiat = [
-                                'Barang Masuk' => 'Barang Masuk',
-                                'PUT' => 'PUT',
-                                'PUS' => 'PUS',
-                                'Barang Keluar' => 'Barang Keluar'
-                            ];
+                            if ($item['jenisGiat'] == 'Barang Masuk') {
+                                $jenisGiat = [
+                                    'Barang Masuk' => 'Barang Masuk',
+                                ];
+                            } else {
+                                $jenisGiat = [
+                                    'PUT' => 'PUT',
+                                    'PUS' => 'PUS',
+                                    'Barang Keluar' => 'Barang Keluar'
+                                ];
+                            }
+
+
                             echo form_dropdown('jenis', $jenisGiat, $item['jenisGiat'], ['class' => 'form-select fs-2', 'required' => 'required', 'autocomplete' => 'off', 'style' => 'height: 80px;']);
                             echo form_label('Jenis Kegiatan', 'jenis', ['class' => 'form-label fs-5']);
                             ?>

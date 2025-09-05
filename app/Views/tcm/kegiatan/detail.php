@@ -130,9 +130,20 @@
               <tr>
                 <th scope="row"></th>
                 <td class="text-start pt-4 ps-5 fw-bold" colspan="7">
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTcmModal">
-                    Add TCM
-                  </button>
+
+                  <?php
+
+                  if ($kegiatan['jenisGiat'] == "Barang Masuk") {
+                  ?>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTcmModal">
+                      Add TCM
+                    </button>
+                  <?php } else { ?>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addTrxTcmModal">
+                      Add TCM
+                    </button>
+                  <?php } ?>
+
                 </td>
               </tr>
             </tbody>
