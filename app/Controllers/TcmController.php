@@ -60,41 +60,46 @@ class TcmController extends BaseController
             return $this->response->setStatusCode(405, 'Method Not Allowed');
         }
 
+        if ($this->request->getVar('jenisGiat') == 'barangMasuk') {
+            // kegiatan barang masuk
+            $data = [
+                'jenisId' => $this->request->getPost('jenisTcm'),
+                'status' => 'AKTIF',
+                'partNumber' => $this->request->getPost('partNumber'),
+                'serialNumber' => $this->request->getPost('serialNumber'),
+            ];
 
-        $data = [
-            'jenisId' => $this->request->getPost('jenisTcm'),
-            'status' => 'AKTIF',
-            'partNumber' => $this->request->getPost('partNumber'),
-            'serialNumber' => $this->request->getPost('serialNumber'),
-        ];
+            $kondisi = $this->request->getPost('kondisi');
 
-        $kondisi = $this->request->getPost('kondisi');
+            // simpan menggunakan model
+            $insertId = $this->tcmModel->insert($data);
 
-        // simpan menggunakan model
-        $insertId = $this->tcmModel->insert($data);
+            if ($insertId === false) {
+                // jika validasi/model gagal, kembalikan beserta input dan error
+                session()->setFlashdata('errors', $this->tcmModel->errors());
+                return redirect()->back()->withInput();
+            }
+            $datatrxTcm = [
+                'tcmId' => $insertId,
+                'kegiatanId' => $this->request->getPost('kegiatanId'),
+                'posisiId' => $this->request->getPost('posisiId'),
+                'kondisi' => $kondisi,
+            ];
 
-        if ($insertId === false) {
-            // jika validasi/model gagal, kembalikan beserta input dan error
-            session()->setFlashdata('errors', $this->tcmModel->errors());
-            return redirect()->back()->withInput();
+            $insertId = $this->trxTcmModel->insert($datatrxTcm);
+
+            if ($insertId === false) {
+                // jika validasi/model gagal, kembalikan beserta input dan error
+                session()->setFlashdata('errors', $this->trxTcmModel->errors());
+                return redirect()->back()->withInput();
+            }
+
+            session()->setFlashdata('success', 'Data TCM berhasil disimpan.');
+            return redirect()->to('tcm/kegiatan/' . $this->request->getPost('kegiatanId'));
+        } else {
+            // kegiatan selain barang masuk
+            dd($this->request->getVar());
         }
-        $datatrxTcm = [
-            'tcmId' => $insertId,
-            'kegiatanId' => $this->request->getPost('kegiatanId'),
-            'posisiId' => $this->request->getPost('posisiId'),
-            'kondisi' => $kondisi,
-        ];
-
-        $insertId = $this->trxTcmModel->insert($datatrxTcm);
-
-        if ($insertId === false) {
-            // jika validasi/model gagal, kembalikan beserta input dan error
-            session()->setFlashdata('errors', $this->trxTcmModel->errors());
-            return redirect()->back()->withInput();
-        }
-
-        session()->setFlashdata('success', 'Data TCM berhasil disimpan.');
-        return redirect()->to('tcm/kegiatan/' . $this->request->getPost('kegiatanId'));
     }
 
     /**

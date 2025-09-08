@@ -119,6 +119,7 @@ class KegiatanTcmController extends BaseController
     public function show($id)
     {
         $kegiatan = $this->kegiatanModel->find($id);
+
         if (!$kegiatan) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Kegiatan tidak ditemukan');
         }
@@ -128,8 +129,10 @@ class KegiatanTcmController extends BaseController
             'satkai' => $this->satkaiModel->findAll(),
             'surat' => $this->suratModel->findAll(),
             'jenisTcm' => $this->jenisTcmModel->findAll(),
-            'tcm' => $this->tcmModel->getTcmByKegiatanId($id)
+            'tcm' => $this->tcmModel->getTcmByKegiatanId($id),
+            'tcmByPosisi' => $this->trxTcmModel->getItemsByLocation($kegiatan['transferDariId']),
         ];
+        // dd($data['tcmByPosisi']);
 
         return view('tcm/kegiatan/detail', $data);
     }

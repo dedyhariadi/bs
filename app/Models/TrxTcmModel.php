@@ -32,10 +32,10 @@ class TrxTcmModel extends Model
      */
     public function getItemsByLocation($lokasi)
     {
-        return $this->select('trxTcm.*, tcm.serialNumber, tcm.status, tcm.partNumber, satkai.satkai AS lokasi')
+        return $this->select('trxTcm.*, tcm.serialNumber, tcm.status, tcm.partNumber,tcm.jenisId, satkai.satkai AS lokasi')
             ->join('tcm', 'tcm.id = trxTcm.tcmId')
             ->join('satkai', 'satkai.id = trxTcm.posisiId')
-            ->where('satkai.satkai', $lokasi)
+            ->where('trxTcm.posisiId', $lokasi)
             ->findAll();
     }
 

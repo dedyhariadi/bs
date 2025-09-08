@@ -170,7 +170,7 @@
   <?php
   } ?>
 
-  <!-- Add Jenis Modal -->
+  <!-- Add Tcm Barang Masuk Modal -->
   <div class="modal modal-lg" id="addTcmModal" tabindex="-1" aria-labelledby="addTcmModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -179,7 +179,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <?= form_open('tcm', '', ['kegiatanId' => $kegiatan['id'], 'posisiId' => $kegiatan['transferKeId']]); ?>
+          <?= form_open('tcm', '', ['kegiatanId' => $kegiatan['id'], 'posisiId' => $kegiatan['transferKeId'], 'jenisGiat' => 'barangMasuk']); ?>
 
           <div class="form-floating mb-5">
             <?php
@@ -212,6 +212,83 @@
           </div>
 
           <div class="text-end">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+
+          <?= form_close(); ?>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Add Tcm Selain Barang Masuk Modal -->
+  <div class="modal modal-lg" id="addTrxTcmModal" tabindex="-1" aria-labelledby="addTrxTcmModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addTrxTcmModal">TCM Baru</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <?= form_open('tcm', '', ['kegiatanId' => $kegiatan['id'], 'posisiId' => $kegiatan['transferKeId'], 'jenisGiat' => 'nonBarangMasuk']); ?>
+
+          <div class="card">
+            <div class="card-body">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Jenis</th>
+                    <th scope="col">Part Number</th>
+                    <th scope="col">Serial Number</th>
+                    <th scope="col" class="text-center">Kondisi</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <?php
+                  foreach ($tcmByPosisi as $index => $item) :
+                  ?>
+                    <tr>
+                      <th scope="row"><?= $index + 1; ?></th>
+                      <td>
+                        <?php
+                        foreach ($jenisTcm as $j):
+                          echo ($item['jenisId'] == $j['id']) ? $j['nama'] : '';
+                        endforeach;
+                        ?>
+                      </td>
+                      <td><?= $item['partNumber']; ?></td>
+                      <td><?= $item['serialNumber']; ?></td>
+                      <td>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="kondisi<?= $item['id'] ?>" value="OK" id="radioDefault1<?= $item['id'] ?>" <?= $item['kondisi'] == 'OK' ? 'checked' : '' ?>>
+                          <label class="form-check-label" for="radioDefault1<?= $item['id'] ?>">
+                            OK
+                          </label>
+                        </div>
+                        <div class="form-check-inline">
+                          <input class="form-check-input" type="radio" name="kondisi<?= $item['id'] ?>" value="NOT OK" id="radioDefault2<?= $item['id'] ?>" <?= $item['kondisi'] !== 'OK' ? 'checked' : '' ?>>
+                          <label class="form-check-label" for="radioDefault2<?= $item['id'] ?>">
+                            NOT OK
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" name="pilih<?= $item['id'] ?>">
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="text-end mt-3">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
