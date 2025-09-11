@@ -278,7 +278,7 @@
                       </td>
                       <td>
                         <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" name="pilih<?= $item['id'] ?>">
+                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" name="pilih[]" value="<?= $item['id'] ?>">
                         </div>
                       </td>
                     </tr>

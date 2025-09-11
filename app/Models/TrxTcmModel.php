@@ -30,14 +30,32 @@ class TrxTcmModel extends Model
      * @param string $lokasi
      * @return array
      */
+
+
+
+
+    /**
+     * Get all TCM items at a specific location (only latest per tcmId)
+     * @param string $lokasi
+     * @return array
+     */
     public function getItemsByLocation($lokasi)
     {
-        return $this->select('trxTcm.*, tcm.serialNumber, tcm.status, tcm.partNumber,tcm.jenisId, satkai.satkai AS lokasi')
+        // Query untuk ambil record terbaru per tcmId berdasarkan updated_at
+        $subquery = $this->db->table($this->table)
+            ->select('tcmId, MAX(updated_at) as latest_updated')
+            ->where('posisiId', $lokasi)
+            ->groupBy('tcmId');
+
+        return $this->select('trxTcm.*, tcm.serialNumber, tcm.status, tcm.partNumber, tcm.jenisId, satkai.satkai AS lokasi')
             ->join('tcm', 'tcm.id = trxTcm.tcmId')
             ->join('satkai', 'satkai.id = trxTcm.posisiId')
+            ->join('(' . $subquery->getCompiledSelect() . ') as latest_trx', 'latest_trx.tcmId = trxTcm.tcmId AND latest_trx.latest_updated = trxTcm.updated_at')
             ->where('trxTcm.posisiId', $lokasi)
             ->findAll();
     }
+
+
 
     /**
      * Get transfer history of a TCM item

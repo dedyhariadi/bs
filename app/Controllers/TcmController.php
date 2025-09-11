@@ -97,8 +97,28 @@ class TcmController extends BaseController
             session()->setFlashdata('success', 'Data TCM berhasil disimpan.');
             return redirect()->to('tcm/kegiatan/' . $this->request->getPost('kegiatanId'));
         } else {
-            // kegiatan selain barang masuk
-            dd($this->request->getVar());
+            $selectedIds = $this->request->getPost('pilih'); // Array id yang dipilih
+            $jenisGiat = $this->request->getPost('jenisGiat');
+            $kegiatanId = $this->request->getPost('kegiatanId');
+            $posisiId = $this->request->getPost('posisiId');
+
+            if ($jenisGiat == 'nonBarangMasuk' && is_array($selectedIds)) {
+                foreach ($selectedIds as $tcmId) {
+                    // Ambil kondisi untuk tcmId ini
+                    $kondisi = $this->request->getPost('kondisi' . $tcmId) ?? 'OK';
+
+                    // Insert ke trxTcm
+                    $dataTrx = [
+                        'tcmId' => $tcmId,
+                        'kegiatanId' => $kegiatanId,
+                        'posisiId' => $posisiId,
+                        'kondisi' => $kondisi,
+                    ];
+                    $this->trxTcmModel->insert($dataTrx);
+                }
+                session()->setFlashdata('success', 'Data TCM berhasil disimpan.');
+                return redirect()->to('tcm/kegiatan/' . $kegiatanId);
+            }
         }
     }
 
