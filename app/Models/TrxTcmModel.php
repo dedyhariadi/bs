@@ -44,7 +44,6 @@ class TrxTcmModel extends Model
         // Query untuk ambil record terbaru per tcmId berdasarkan updated_at
         $subquery = $this->db->table($this->table)
             ->select('tcmId, MAX(updated_at) as latest_updated')
-            ->where('posisiId', $lokasi)
             ->groupBy('tcmId');
 
         return $this->select('trxTcm.*, tcm.serialNumber, tcm.status, tcm.partNumber, tcm.jenisId, satkai.satkai AS lokasi')
