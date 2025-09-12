@@ -48,7 +48,7 @@ class TrxTcmModel extends Model
 
         return $this->select('trxTcm.*, tcm.serialNumber, tcm.status, tcm.partNumber, tcm.jenisId, satkai.satkai AS lokasi')
             ->join('tcm', 'tcm.id = trxTcm.tcmId')
-            ->join('satkai', 'satkai.id = trxTcm.posisiId')
+            ->join('satkai', 'satkai.id =   trxTcm.posisiId')
             ->join('(' . $subquery->getCompiledSelect() . ') as latest_trx', 'latest_trx.tcmId = trxTcm.tcmId AND latest_trx.latest_updated = trxTcm.updated_at')
             ->where('trxTcm.posisiId', $lokasi)
             ->findAll();

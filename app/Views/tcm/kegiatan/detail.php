@@ -249,6 +249,8 @@
                 </thead>
                 <tbody class="table-group-divider">
                   <?php
+                  $jumlahTcmByPosisi = count($tcmByPosisi);
+                  echo $jumlahTcmByPosisi > 0 ? '' : '<tr><td colspan="6" class="text-start text-primary text-uppercase">Tidak ada TCM yang tersedia di ' . array_column($satkai, 'satkai', 'id')[$kegiatan['transferDariId']] . '</td></tr>';
                   foreach ($tcmByPosisi as $index => $item) :
                   ?>
                     <tr>
@@ -303,5 +305,7 @@
 </main>
 
 
-
+<script>
+  window.existingTcmIds = <?= json_encode(array_column($tcm, 'id')); ?>;
+</script>
 <?= $this->endSection(); ?>

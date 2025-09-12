@@ -51,4 +51,28 @@ document.addEventListener("DOMContentLoaded", function () {
     var toast = new bootstrap.Toast(toastEl);
     toast.show();
   });
+
+  const form = document.querySelector('form[action*="tcm"]'); // Target form dengan action 'tcm'
+  if (!form) return;
+
+  form.addEventListener("submit", function (e) {
+    const selectedTcmIds = Array.from(
+      document.querySelectorAll('input[name="pilih[]"]:checked')
+    ).map((cb) => cb.value);
+    const existingTcmIds = window.existingTcmIds || []; // Array tcmid yang sudah ada, di-pass dari PHP
+
+    // Cek duplikat
+    const duplicates = selectedTcmIds.filter((id) =>
+      existingTcmIds.includes(id)
+    );
+    if (duplicates.length > 0) {
+      e.preventDefault();
+      alert(
+        `TCM ID berikut sudah ada di kegiatan ini: ${duplicates.join(", ")}`
+      );
+      return false;
+    }
+
+    // Jika valid, lanjut submit
+  });
 });
