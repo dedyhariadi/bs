@@ -67,13 +67,14 @@
                   <th class="ps-5 text-uppercase"><?= $item['satkai']; ?></th>
                   <td class="text-center">
                     <?php
+                    $jumlahTcm = 0;
                     foreach ($satkaiFill as $fill) {
                       if ($fill['id'] == $item['id']) {
-                        echo $fill['tcmCount'];
-                      } else {
-                        echo '0';
+                        $jumlahTcm = $fill['tcmCount'];
+                        break;
                       }
                     }
+                    echo $jumlahTcm;
                     ?>
                     &nbsp;Unit</td>
                   <td>
