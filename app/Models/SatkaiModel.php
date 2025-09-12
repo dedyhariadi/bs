@@ -80,9 +80,15 @@ class SatkaiModel extends Model
    */
   public function getTcmCountsPerSatkai()
   {
+
+    $subquery = $this->db->table('trxTcm')
+      ->select('tcmId, MAX(updated_at) as latest_updated')
+      ->groupBy('tcmId');
+
     $builder = $this->db->table($this->table . ' s');
-    $builder->select('s.id AS id, s.satkai, s.jenis, COUNT(trx.id) AS tcmCount');
+    $builder->select('s.id AS id, s.satkai, s.jenis, COUNT(DISTINCT trx.tcmId) AS tcmCount');
     $builder->join('trxTcm trx', 'trx.posisiId = s.id', 'left');
+    $builder->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.updated_at = latest.latest_updated', 'inner');
     $builder->groupBy('s.id, s.satkai, s.jenis');
     return $builder->get()->getResultArray();
   }

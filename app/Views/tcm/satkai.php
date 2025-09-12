@@ -65,7 +65,17 @@
                 <tr class="fs-4">
                   <td scope="row" class="text-center"><?= $index + 1; ?></td>
                   <th class="ps-5 text-uppercase"><?= $item['satkai']; ?></th>
-                  <td class="text-center"> <?= $item['tcmCount']; ?>&nbsp;Unit</td>
+                  <td class="text-center">
+                    <?php
+                    foreach ($satkaiFill as $fill) {
+                      if ($fill['id'] == $item['id']) {
+                        echo $fill['tcmCount'];
+                      } else {
+                        echo '0';
+                      }
+                    }
+                    ?>
+                    &nbsp;Unit</td>
                   <td>
 
                     <?= form_open('tcm/satkai/' . $item['id'], '', ['_method' => 'DELETE', 'class' => 'form-control']); ?>

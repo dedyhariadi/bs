@@ -17,7 +17,12 @@ class SatkaiController extends BaseController
 
     public function index()
     {
-        $data['satkai'] = $this->satkaiModel->getTcmCountsPerSatkai();
+        $data = [
+            'satkaiFill' => $this->satkaiModel->getTcmCountsPerSatkai(),
+            'satkai' => $this->satkaiModel->findAll(),
+        ];
+
+        // dd($data['satkaiFill']);
         return view('tcm/satkai', $data);
     }
 
