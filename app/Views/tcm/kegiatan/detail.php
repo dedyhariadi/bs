@@ -9,7 +9,7 @@
 
   <!-- awal toast (informasi sukses dari halaman sebelumnya) -->
   <?php if (session()->getFlashdata('success')): ?>
-    <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast position-fixed bottom-50 end-50 p-0" data-bs-delay="2000" role="alert" aria-live="polite" aria-atomic="true">
       <div class="toast-header bg-success text-white">
         <strong class="me-auto">Sukses</strong>
         <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
