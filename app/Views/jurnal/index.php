@@ -193,92 +193,6 @@
         </div>
     </div>
 
-    <!-- Kalender -->
-    <div class="mt-4">
-        <h3 class="h3">Kalender Jurnal</h3>
-        <div class="card">
-            <div class="card-body">
-                <?php
-                $bulan = date('m');
-                $tahun = date('Y');
-                $hariIni = date('d');
-                $bulanNama = date('F', mktime(0, 0, 0, $bulan, 1, $tahun));
-                $hariPertama = date('w', mktime(0, 0, 0, $bulan, 1, $tahun));
-                $hariTerakhir = date('t', mktime(0, 0, 0, $bulan, 1, $tahun));
-                ?>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="mb-0"><?php echo $bulanNama . ' ' . $tahun; ?></h4>
-                    <div>
-                        <button class="btn btn-outline-primary btn-sm" onclick="ubahBulan(-1)">Sebelumnya</button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="ubahBulan(1)">Selanjutnya</button>
-                    </div>
-                </div>
-                <table class="table table-bordered text-center">
-                    <thead>
-                        <tr>
-                            <th>Minggu</th>
-                            <th>Senin</th>
-                            <th>Selasa</th>
-                            <th>Rabu</th>
-                            <th>Kamis</th>
-                            <th>Jumat</th>
-                            <th>Sabtu</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $hari = 1;
-                        $minggu = 0;
-                        while ($hari <= $hariTerakhir) {
-                            echo '<tr>';
-                            for ($i = 0; $i < 7; $i++) {
-                                if ($minggu == 0 && $i < $hariPertama) {
-                                    echo '<td></td>';
-                                } elseif ($hari > $hariTerakhir) {
-                                    echo '<td></td>';
-                                } else {
-                                    $tanggal = sprintf('%04d-%02d-%02d', $tahun, $bulan, $hari);
-                                    $adaJurnal = false;
-                                    foreach ($jurnal as $j) {
-                                        if ($j['tanggal'] == $tanggal) {
-                                            $adaJurnal = true;
-                                            break;
-                                        }
-                                    }
-                                    $class = ($hari == $hariIni) ? 'bg-primary text-white' : '';
-                                    if ($adaJurnal) {
-                                        $class .= ' bg-success text-white';
-                                    }
-                                    echo '<td class="' . $class . '">';
-                                    echo '<a href="' . site_url('jurnal/tambah?tanggal=' . $tanggal) . '" class="text-decoration-none">' . $hari . '</a>';
-                                    echo '</td>';
-                                    $hari++;
-                                }
-                            }
-                            echo '</tr>';
-                            $minggu++;
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <script>
-    function ubahBulan(offset) {
-        const url = new URL(window.location);
-        const bulan = parseInt(url.searchParams.get('bulan') || new Date().getMonth() + 1);
-        const tahun = parseInt(url.searchParams.get('tahun') || new Date().getFullYear());
-        const newBulan = bulan + offset;
-        const newTahun = newBulan > 12 ? tahun + 1 : (newBulan < 1 ? tahun - 1 : tahun);
-        const finalBulan = newBulan > 12 ? 1 : (newBulan < 1 ? 12 : newBulan);
-        url.searchParams.set('bulan', finalBulan);
-        url.searchParams.set('tahun', newTahun);
-        window.location.href = url.toString();
-    }
-    </script>
-
     <!-- Modal jurnal Baru -->
     <div class="modal modal-lg" id="addJurnalModal" tabindex="-1" aria-labelledby="addJurnalModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -303,11 +217,10 @@
                         <input type="file" class="form-control" id="foto" name="foto">
                     </div>
 
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan</button>
+                    <button type="submit" class="btn btn-success">Simpan perubahan</button>
                 </div>
                 <?= form_close(); ?>
             </div>
@@ -371,4 +284,6 @@
         </div>
     <?php endforeach; ?>
 </main>
+
+
 <?= $this->endSection(); ?>

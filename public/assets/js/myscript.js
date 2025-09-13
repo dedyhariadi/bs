@@ -17,14 +17,6 @@ function formatRupiah(el) {
   el.value = rupiah ? "Rp " + rupiah : "";
 }
 
-// Fungsi untuk menangani submit form dan mencegah double-click
-  function handleFormSubmit(event) {
-    const submitButton = event.target.querySelector('button[type="submit"]');
-    if (submitButton) {
-      submitButton.disabled = true; // Disable tombol
-      submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...'; // Tambah spinner dan ubah teks
-    }
-  }
 
 $(document).ready(function () {
   //datepicker

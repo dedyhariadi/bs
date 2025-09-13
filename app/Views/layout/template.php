@@ -54,6 +54,36 @@
 
     <!-- skripku -->
     <?= script_tag('assets/js/myscript.js'); ?>
+
+    <script>
+        // Fungsi global untuk menangani semua form submit dan mencegah double-click
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Script global loaded'); // Tambahkan ini untuk cek
+            document.addEventListener('submit', function(event) {
+                console.log('Form submitted:', event.target); // Tambahkan ini untuk cek submit
+                const form = event.target;
+                const submitButton = form.querySelector('button[type="submit"]');
+                if (submitButton) {
+                    console.log('Button found, disabling...'); // Tambahkan ini
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...';
+                }
+            });
+
+            // Opsional: Reset tombol jika modal ditutup tanpa submit (untuk UX)
+            document.addEventListener('hidden.bs.modal', function(event) {
+                const modal = event.target;
+                const form = modal.querySelector('form');
+                if (form) {
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = 'Simpan'; // Reset teks
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

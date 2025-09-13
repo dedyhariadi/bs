@@ -309,33 +309,5 @@
 </main>
 
 
-<script>
-  
 
-  // Tambahkan event listener ke form di modal pertama (addTcmModal)
-  const addTcmForm = document.querySelector('#addTcmModal form');
-  if (addTcmForm) {
-    addTcmForm.addEventListener('submit', handleFormSubmit);
-  }
-
-  // Tambahkan event listener ke form di modal kedua (addTrxTcmModal)
-  const addTrxTcmForm = document.querySelector('#addTrxTcmModal form');
-  if (addTrxTcmForm) {
-    addTrxTcmForm.addEventListener('submit', handleFormSubmit);
-  }
-
-  // Opsional: Reset tombol jika modal ditutup tanpa submit (untuk UX)
-  document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('hidden.bs.modal', function() {
-      const form = modal.querySelector('form');
-      if (form) {
-        const submitButton = form.querySelector('button[type="submit"]');
-        if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.innerHTML = 'Simpan'; // Reset teks
-        }
-      }
-    });
-  });
-</script>
 <?= $this->endSection(); ?>
