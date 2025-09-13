@@ -127,6 +127,8 @@ class TcmController extends BaseController
      */
     public function delete($id)
     {
+
+        // dd($this->request->getVar());
         // hanya izinkan DELETE
         if ($this->request->getMethod() !== 'DELETE') {
             return $this->response->setStatusCode(405, 'Method Not Allowed');
@@ -138,14 +140,18 @@ class TcmController extends BaseController
             return $this->response->setStatusCode(404, 'TCM not found');
         }
 
-        // hapus TCM
-        if (!$this->tcmModel->delete($id)) {
-            return $this->response->setStatusCode(500, 'Failed to delete TCM');
+
+        // jika barang masuk
+        if ($this->request->getVar('jenisGiat') === 'barangMasuk') {
+            // hapus TCM
+            if (!$this->tcmModel->delete($id)) {
+                return $this->response->setStatusCode(500, 'Failed to delete TCM');
+            }
         }
 
-        // hapus TCM
+        // hapus TCM di trxtcm
         if (!$this->trxTcmModel->delete($this->request->getVar('trxtcmId'))) {
-            return $this->response->setStatusCode(500, 'Failed to delete TCM');
+            return $this->response->setStatusCode(500, 'Failed to delete TCM di trxtcm');
         }
 
         session()->setFlashdata('success', 'SN ' . $tcm['serialNumber'] . ' berhasil dihapus.');
