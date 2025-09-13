@@ -160,97 +160,140 @@
         </div>
     </div>
 
-    <!-- Modal jurnal Baru -->
-    <div class="modal modal-lg" id="addJurnalModal" tabindex="-1" aria-labelledby="addJurnalModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addJurnalModalLabel">Tambah Jurnal Baru</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <?= form_open_multipart('jurnal/tambah', '', ['giatId' => '1']); ?>
-                    <div class="mb-3">
-                        <label for="tanggal" class="form-label">Tanggal</label>
-                        <input type="text" class="fs-3 form-control tanggal-input" id="tanggal" name="tanggal" autocomplete="off" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="kegiatan" class="form-label">Kegiatan</label>
-                        <textarea class="form-control fs-3" id="kegiatan" name="kegiatan" rows="7" required></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="foto" class="form-label">Foto</label>
-                        <input type="file" class="form-control" id="foto" name="foto">
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan perubahan</button>
-                </div>
-                <?= form_close(); ?>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Modal Giat Jurnal Baru -->
-    <div class="modal modal-lg" id="addKegiatanModal" tabindex="-1" aria-labelledby="addKegiatanModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addKegiatanModalLabel">Tambah Kegiatan Baru</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <?= form_open('jurnal/tambahGiat', '', ['giatId' => '1']); ?>
-
-                    <div class="mb-3">
-                        <label for="kegiatan" class="form-label">Kegiatan</label>
-                        <textarea class="form-control fs-3" id="kegiatan" name="kegiatan" rows="7"></textarea>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-success">Simpan</button>
-                </div>
-                <?= form_close(); ?>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Edit Kegiatan  -->
-    <?php
-    foreach ($giatJurnal as $indeks => $j) :
-        $modalId = 'editGiatJurnalModal' . $indeks;
-    ?>
-        <div class="modal modal-lg" id="<?= $modalId; ?>" tabindex="-1" aria-labelledby="editGiatJurnalModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editGiatJurnalModalLabel">Tambah Kegiatan Baru</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <?= form_open('jurnal/editGiat/' . $j['id'], '', ['giatId' => '1']); ?>
-
-                        <div class="mb-3">
-                            <label for="kegiatan" class="form-label">Kegiatan</label>
-                            <textarea class="form-control fs-3" id="kegiatan" name="kegiatan" rows="7"><?= $j['kegiatan']; ?></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                    </div>
-                    <?= form_close(); ?>
-                </div>
-            </div>
-        </div>
-    <?php endforeach; ?>
 </main>
+
+<!-- Modal jurnal Baru -->
+<div class="modal modal-lg" id="addJurnalModal" tabindex="-1" aria-labelledby="addJurnalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addJurnalModalLabel">Tambah Jurnal Baru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?= form_open_multipart('jurnal/tambah', '', ['giatId' => '1']); ?>
+                <div class="mb-3">
+                    <label for="tanggal" class="form-label">Tanggal</label>
+                    <input type="text" class="fs-3 form-control tanggal-input" id="tanggal" name="tanggal" autocomplete="off" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="kegiatan" class="form-label">Kegiatan</label>
+                    <textarea class="form-control fs-3" id="kegiatan" name="kegiatan" rows="7" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Foto</label>
+                    <input type="file" class="form-control" id="foto" name="foto">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-success">Simpan perubahan</button>
+            </div>
+            <?= form_close(); ?>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Giat Jurnal Baru -->
+<div class="modal modal-lg" id="addKegiatanModal" tabindex="-1" aria-labelledby="addKegiatanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addKegiatanModalLabel">Tambah Kegiatan Baru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?= form_open('jurnal/tambahGiat', '', ['giatId' => '1']); ?>
+
+                <div class="mb-3">
+                    <label for="kegiatan" class="form-label">Kegiatan</label>
+                    <textarea class="form-control fs-3" id="kegiatan" name="kegiatan" rows="7"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-success">Simpan</button>
+            </div>
+            <?= form_close(); ?>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Kegiatan  -->
+<?php
+foreach ($giatJurnal as $indeks => $j) :
+    $modalId = 'editGiatJurnalModal' . $indeks;
+?>
+    <div class="modal modal-lg" id="<?= $modalId; ?>" tabindex="-1" aria-labelledby="editGiatJurnalModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editGiatJurnalModalLabel">Tambah Kegiatan Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <?= form_open('jurnal/editGiat/' . $j['id'], '', ['giatId' => '1']); ?>
+
+                    <div class="mb-3">
+                        <label for="kegiatan" class="form-label">Kegiatan</label>
+                        <textarea class="form-control fs-3" id="kegiatan" name="kegiatan" rows="7"><?= $j['kegiatan']; ?></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                <?= form_close(); ?>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+
+<script>
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     // Inisialisasi accordion jika diperlukan
+    //     var accordion = document.getElementById('accordionExample');
+    //     if (accordion) {
+    //         // Bootstrap accordion sudah otomatis, tapi pastikan
+    //         console.log('Accordion initialized');
+    //     }
+
+    //     // Inisialisasi modal jika diperlukan
+    //     var addJurnalModal = document.getElementById('addJurnalModal');
+    //     if (addJurnalModal) {
+    //         var modal = new bootstrap.Modal(addJurnalModal);
+    //         console.log('Modal initialized');
+    //     }
+
+    //     // Jika ada script spinner/backdrop, pastikan elemen ada
+    //     var spinnerButtons = document.querySelectorAll('button[type="submit"]');
+    //     spinnerButtons.forEach(function(button) {
+    //         button.addEventListener('click', function() {
+    //             if (button.form) {
+    //                 button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+    //                 button.disabled = true;
+    //             }
+    //         });
+    //     });
+
+    //     // Reset spinner saat modal ditutup
+    //     var modals = document.querySelectorAll('.modal');
+    //     modals.forEach(function(modal) {
+    //         modal.addEventListener('hidden.bs.modal', function() {
+    //             var buttons = modal.querySelectorAll('button[type="submit"]');
+    //             buttons.forEach(function(button) {
+    //                 button.innerHTML = button.dataset.originalText || 'Simpan';
+    //                 button.disabled = false;
+    //             });
+    //         });
+    //     });
+    // });
+</script>
 
 
 <?= $this->endSection(); ?>

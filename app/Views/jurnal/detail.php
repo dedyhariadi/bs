@@ -5,6 +5,41 @@
 <main class="col-md-9 col-lg-10 px-md-4 main-content fs-4">
 
 
+    <!-- awal toast (informasi sukses dari halaman sebelumnya) -->
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">Sukses</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('success'); ?>
+            </div>
+        </div>
+    <?php elseif (session()->getFlashdata('hapus')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Berhasil</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('hapus'); ?>
+            </div>
+        </div>
+    <?php elseif (session()->getFlashdata('error')): ?>
+        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Gagal</strong>
+                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <?= session()->getFlashdata('error'); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <!-- akhir toast -->
+
 
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
@@ -100,32 +135,3 @@
         </div>
 
         <?= $this->endSection(); ?>
-
-<!-- Dark backdrop for toast focus -->
-<div id="toast-backdrop" class="position-fixed top-0 start-0 w-100 h-100 bg-dark opacity-50 d-none" style="z-index: 1040;"></div>
-
-<script>
-// Handle toast backdrop
-document.addEventListener('DOMContentLoaded', function() {
-    const toastElement = document.querySelector('.toast');
-    const backdrop = document.getElementById('toast-backdrop');
-    
-    if (toastElement) {
-        // Show backdrop when toast is shown
-        toastElement.addEventListener('show.bs.toast', function() {
-            backdrop.classList.remove('d-none');
-        });
-        
-        // Hide backdrop when toast is hidden
-        toastElement.addEventListener('hidden.bs.toast', function() {
-            backdrop.classList.add('d-none');
-        });
-        
-        // Auto-hide toast after 5 seconds and hide backdrop
-        setTimeout(function() {
-            const bsToast = new bootstrap.Toast(toastElement);
-            bsToast.hide();
-        }, 5000);
-    }
-});
-</script>
