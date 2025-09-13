@@ -7,33 +7,6 @@
 <main class="col-md-9 col-lg-10 px-md-4 main-content">
 
 
-    <!-- awal toast (informasi sukses dari halaman sebelumnya) -->
-    <?php if (session()->getFlashdata('success')): ?>
-        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header bg-success text-white">
-                <strong class="me-auto">Sukses</strong>
-                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                <?= session()->getFlashdata('success'); ?>
-            </div>
-        </div>
-
-    <?php elseif (session()->getFlashdata('error')): ?>
-        <div class="toast align-items-center border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header bg-danger text-white">
-                <strong class="me-auto">Gagal</strong>
-                <button type="button" class="btn-close btn-close-white ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                <?= session()->getFlashdata('error'); ?>
-            </div>
-        </div>
-    <?php endif; ?>
-
-    <!-- akhir toast -->
-
-
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
         <h1 class="h2">Torpedo Countermeasure</h1>
     </div>
@@ -78,9 +51,9 @@
                             <td class="text-center"><?= $item['countTcm'] . ' unit'; ?></td>
                             <td>
 
-                                <?= form_open('tcm/rekap/deleteJenisTcm', '', ['_method' => 'DELETE', 'class' => 'form-control', 'id' => $item['id']]); ?>
+                                <?= form_open('tcm/kegiatan/' . $item['id'], '', ['_method' => 'DELETE', 'class' => 'form-control', 'id' => $item['id']]); ?>
 
-                                <?= anchor('tcm/rekap/detail/' . $item['id'], '<i class="bi bi-zoom-in"></i>', ['class' => 'btn btn-outline-success']); ?> &nbsp;
+                                <?= anchor('tcm/kegiatan/' . $item['id'], '<i class="bi bi-zoom-in"></i>', ['class' => 'btn btn-outline-success']); ?> &nbsp;
 
 
                                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editJenisModal<?= $item['id']; ?>"> <i class="bi bi-pen-fill"></i>

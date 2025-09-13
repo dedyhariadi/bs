@@ -107,7 +107,7 @@ class KegiatanTcmController extends BaseController
         }
 
         // hapus menggunakan model
-        if (!$this->kegiatanModel->delete($id)) {
+        if (!$this->kegiatanModel->delete($id) && $this->trxTcmModel->where('kegiatanId', $id)->delete()) {
             session()->setFlashdata('errors', $this->kegiatanModel->errors());
             return redirect()->back();
         }

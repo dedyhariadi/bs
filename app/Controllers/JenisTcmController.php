@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\JenisTcmModel;
 use App\Models\TcmModel;
 
+
 use CodeIgniter\HTTP\ResponseInterface;
 
 class JenisTcmController extends BaseController
@@ -83,9 +84,10 @@ class JenisTcmController extends BaseController
 
     $id = $this->request->getVar('id');
 
-    $nama = $this->jenisTcmModel->find($id)['nama'];
+    $nama = $this->jenisTcmModel->find($id)['nama'];;
 
-    if ($this->jenisTcmModel->deleteJenis($id)) {
+    if ($this->jenisTcmModel->delete($id)) {
+
       return redirect()->to('tcm')->with('success', $nama . ' berhasil dihapus');
     } else {
       return redirect()->back()->with('error', 'Gagal menghapus jenis TCM');
