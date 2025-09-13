@@ -17,6 +17,15 @@ function formatRupiah(el) {
   el.value = rupiah ? "Rp " + rupiah : "";
 }
 
+// Fungsi untuk menangani submit form dan mencegah double-click
+  function handleFormSubmit(event) {
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    if (submitButton) {
+      submitButton.disabled = true; // Disable tombol
+      submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...'; // Tambah spinner dan ubah teks
+    }
+  }
+
 $(document).ready(function () {
   //datepicker
   $(".tanggal-input").datepicker({
@@ -51,45 +60,4 @@ document.addEventListener("DOMContentLoaded", function () {
     var toast = new bootstrap.Toast(toastEl);
     toast.show();
   });
-
-  const form = document.querySelector('form[action*="tcm"]'); // Target form dengan action 'tcm'
-  if (!form) return;
-
-  form.addEventListener("submit", function (e) {
-    const selectedTcmIds = Array.from(
-      document.querySelectorAll('input[name="pilih[]"]:checked')
-    ).map((cb) => cb.value);
-    const existingTcmIds = window.existingTcmIds || []; // Array tcmid yang sudah ada, di-pass dari PHP
-
-    // Cek duplikat
-    const duplicates = selectedTcmIds.filter((id) =>
-      existingTcmIds.includes(id)
-    );
-    if (duplicates.length > 0) {
-      e.preventDefault();
-      alert(
-        `TCM ID berikut sudah ada di kegiatan ini: ${duplicates.join(", ")}`
-      );
-      return false;
-    }
-
-    // Jika valid, lanjut submit
-
-const toast = new bootstrap.Toast(document.getElementById('myToast'));
-const backdrop = document.getElementById('toast-backdrop');
-
-// Saat toast show, tampilkan backdrop
-document.getElementById('myToast').addEventListener('show.bs.toast', function () {
-    backdrop.style.display = 'block';
-});
-
-// Saat toast hide, sembunyikan backdrop
-document.getElementById('myToast').addEventListener('hidden.bs.toast', function () {
-    backdrop.style.display = 'none';
-});
-
-// Trigger toast
-toast.show();
-  });
-
 });
