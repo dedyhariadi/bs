@@ -174,6 +174,33 @@
 
 </main>
 
+<!-- Dark backdrop for toast focus -->
+<div id="toast-backdrop" class="position-fixed top-0 start-0 w-100 h-100 bg-dark opacity-50 d-none" style="z-index: 1040;"></div>
 
+<script>
+    // Handle toast backdrop
+    document.addEventListener('DOMContentLoaded', function() {
+        const toastElement = document.querySelector('.toast');
+        const backdrop = document.getElementById('toast-backdrop');
+
+        if (toastElement) {
+            // Show backdrop when toast is shown
+            toastElement.addEventListener('show.bs.toast', function() {
+                backdrop.classList.remove('d-none');
+            });
+
+            // Hide backdrop when toast is hidden
+            toastElement.addEventListener('hidden.bs.toast', function() {
+                backdrop.classList.add('d-none');
+            });
+
+            // Auto-hide toast after 5 seconds and hide backdrop
+            setTimeout(function() {
+                const bsToast = new bootstrap.Toast(toastElement);
+                bsToast.hide();
+            }, 5000);
+        }
+    });
+</script>
 
 <?= $this->endSection(); ?>

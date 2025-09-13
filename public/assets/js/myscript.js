@@ -74,5 +74,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Jika valid, lanjut submit
+
+const toast = new bootstrap.Toast(document.getElementById('myToast'));
+const backdrop = document.getElementById('toast-backdrop');
+
+// Saat toast show, tampilkan backdrop
+document.getElementById('myToast').addEventListener('show.bs.toast', function () {
+    backdrop.style.display = 'block';
+});
+
+// Saat toast hide, sembunyikan backdrop
+document.getElementById('myToast').addEventListener('hidden.bs.toast', function () {
+    backdrop.style.display = 'none';
+});
+
+// Trigger toast
+toast.show();
   });
+
 });
