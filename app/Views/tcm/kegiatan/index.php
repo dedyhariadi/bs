@@ -217,6 +217,27 @@
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
 
+
+                        <script>
+                            document.getElementById('editJenisModal<?= $item['id']; ?>').querySelector('form').addEventListener('submit', function(e) {
+                                const dari = this.elements['transferDari'].value;
+                                const ke = this.elements['transferKe'].value;
+                                if (dari === ke) {
+                                    e.preventDefault();
+                                    alert('Transfer Dari dan Transfer Ke harus berbeda!');
+                                }
+                            });
+
+                            document.getElementById('exampleModal').querySelector('form').addEventListener('submit', function(e) {
+                                const dari = this.elements['transferDari'].value;
+                                const ke = this.elements['transferKe'].value;
+                                if (dari === ke) {
+                                    e.preventDefault();
+                                    alert('Transfer Dari dan Transfer Ke harus berbeda!');
+                                }
+                            });
+                        </script>
+
                         <?= form_close(); ?>
                     </div>
                 </div>

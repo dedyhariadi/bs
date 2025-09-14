@@ -40,7 +40,7 @@ class JenisTcmController extends BaseController
     }
 
 
-    if ($this->jenisTcmModel->insertJenis($data)) {
+    if ($this->jenisTcmModel->save($data)) {
       return redirect()->to('/tcm')->with('success', 'Jenis TCM berhasil ditambahkan');
     } else {
       return redirect()->back()->withInput()->with('error', 'Gagal menambahkan jenis TCM');
