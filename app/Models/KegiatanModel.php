@@ -48,6 +48,7 @@ class KegiatanModel extends Model
         return $this->select('kegiatan.*, COUNT(trxTcm.id) AS countTcm')
             ->join('trxTcm', 'trxTcm.kegiatanId = kegiatan.id', 'left')
             ->groupBy('kegiatan.id')
+            ->orderBy('kegiatan.tglPelaksanaan', 'ASC')
             ->findAll();
     }
 

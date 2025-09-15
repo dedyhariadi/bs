@@ -60,6 +60,8 @@ class TcmController extends BaseController
             return $this->response->setStatusCode(405, 'Method Not Allowed');
         }
 
+        $kegiatanId = $this->request->getPost('kegiatanId');
+
         if ($this->request->getVar('jenisGiat') == 'barangMasuk') {
             // kegiatan barang masuk
             $data = [
@@ -81,7 +83,7 @@ class TcmController extends BaseController
             }
             $datatrxTcm = [
                 'tcmId' => $insertId,
-                'kegiatanId' => $this->request->getPost('kegiatanId'),
+                'kegiatanId' => $kegiatanId,
                 'posisiId' => $this->request->getPost('posisiId'),
                 'kondisi' => $kondisi,
             ];
@@ -99,8 +101,8 @@ class TcmController extends BaseController
         } else {
             $selectedIds = $this->request->getPost('pilih'); // Array id yang dipilih
             $jenisGiat = $this->request->getPost('jenisGiat');
-            $kegiatanId = $this->request->getPost('kegiatanId');
             $posisiId = $this->request->getPost('posisiId');
+
 
             if ($jenisGiat == 'nonBarangMasuk' && is_array($selectedIds)) {
                 foreach ($selectedIds as $tcmId) {
@@ -117,9 +119,9 @@ class TcmController extends BaseController
                     $this->trxTcmModel->insert($dataTrx);
                 }
                 session()->setFlashdata('success', 'Data TCM berhasil disimpan.');
-                return redirect()->to('tcm/kegiatan/' . $kegiatanId);
             }
         }
+        return redirect()->to('tcm/kegiatan/' . $kegiatanId);
     }
 
     /**

@@ -164,12 +164,12 @@
 
 
           <div class="form-floating mb-5">
-            <?= form_input('partNumber', '', ['class' => 'form-control fs-3', 'id' => 'partNumber', 'placeholder' => 'Part Number', 'style' => 'height:80px']) ?>
+            <?= form_input('partNumber', '', ['class' => 'form-control fs-3', 'id' => 'partNumber', 'placeholder' => 'Part Number', 'style' => 'height:80px', 'required' => 'required']) ?>
             <?= form_label('Part Number', 'partNumber'); ?>
           </div>
 
           <div class="form-floating mb-5">
-            <?= form_input('serialNumber', '', ['class' => 'form-control fs-3', 'style' => 'height: 80px;', 'id' => 'serialNumber', 'placeholder' => 'Serial Number']) ?>
+            <?= form_input('serialNumber', '', ['class' => 'form-control fs-3', 'style' => 'height: 80px;', 'id' => 'serialNumber', 'placeholder' => 'Serial Number', 'required' => 'required']) ?>
             <?= form_label('Serial Number', 'serialNumber', ['class' => 'form-label',]); ?>
           </div>
 
