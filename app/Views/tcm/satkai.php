@@ -173,6 +173,88 @@
   endforeach;
   ?>
 
+  <!-- List TCM tiap Satkai Modal -->
+
+  <?php
+  foreach ($satkai as $item):
+  ?>
+    <div class="modal modal-lg" id="addTrxTcmModal" tabindex="-1" aria-labelledby="addTrxTcmModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addTrxTcmModal">List TCM</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <div class="card">
+              <div class="card-body">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Jenis</th>
+                      <th scope="col">Part Number</th>
+                      <th scope="col">Serial Number</th>
+                      <th scope="col" class="text-center">Kondisi</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <?php
+                    $jumlahTcmByPosisi = count($tcmIds);
+                    echo $jumlahTcmByPosisi > 0 ? '' : '<tr><td colspan="6" class="text-start text-primary text-uppercase">Tidak ada TCM yang tersedia di ' . $item['satkai'] . '</td></tr>';
+                    foreach ($tcmIds as $index => $itemTcm) :
+                    ?>
+                      <tr>
+                        <th scope="row"><?= $index + 1; ?></th>
+                        <td>
+                          <?php
+                          foreach ($jenisTcm as $j):
+                            echo ($item['jenisId'] == $j['id']) ? $j['nama'] : '';
+                          endforeach;
+                          ?>
+                        </td>
+                        <td><?= $item['partNumber']; ?></td>
+                        <td><?= $item['serialNumber']; ?></td>
+                        <td>
+                          <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="kondisi<?= $item['id'] ?>" value="OK" id="radioDefault1<?= $item['id'] ?>" <?= $item['kondisi'] == 'OK' ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="radioDefault1<?= $item['id'] ?>">
+                              OK
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="kondisi<?= $item['id'] ?>" value="NOT OK" id="radioDefault2<?= $item['id'] ?>" <?= $item['kondisi'] !== 'OK' ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="radioDefault2<?= $item['id'] ?>">
+                              NOT OK
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" name="pilih[]" value="<?= $item['tcmId'] ?>">
+                          </div>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="text-end mt-3">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <!-- <button type="submit" class="btn btn-primary">Simpan</button> -->
+            </div>
+
+            <?= form_close(); ?>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <?php endforeach; ?>
+
 </main>
 
 

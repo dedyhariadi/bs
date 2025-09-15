@@ -4,15 +4,18 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SatkaiModel;
+use App\Models\JenisTcmModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class SatkaiController extends BaseController
 {
     protected $satkaiModel;
+    protected $jenisTcmModel;
 
     public function __construct()
     {
         $this->satkaiModel = new SatkaiModel();
+        $this->jenisTcmModel = new JenisTcmModel();
     }
 
     public function index()
@@ -20,9 +23,13 @@ class SatkaiController extends BaseController
         $data = [
             'satkaiFill' => $this->satkaiModel->getTcmCountsPerSatkai(),
             'satkai' => $this->satkaiModel->findAll(),
+            'listTcmBySatkai' => $this->satkaiModel->getTcmCountsWithDetails(),
+            'jenisTcm' => $this->jenisTcmModel->findAll(),
         ];
 
-        // dd($data['satkaiFill']);
+
+
+        dd($data);
         return view('tcm/satkai', $data);
     }
 

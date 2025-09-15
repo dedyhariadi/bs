@@ -12,57 +12,6 @@ class SatkaiModel extends Model
   protected $useTimestamps = true;
   protected $returnType = 'array';
 
-  /**
-   * Get all satkai
-   * @return array
-   */
-  public function getAll()
-  {
-    return $this->findAll();
-  }
-
-  /**
-   * Get satkai by ID
-   * @param int $id
-   * @return array|null
-   */
-  public function getById($id)
-  {
-    return $this->find($id);
-  }
-
-  /**
-   * Insert new satkai
-   * @param array $data
-   * @return int|string
-   */
-  public function insertSatkai($data)
-  {
-    return $this->insert($data);
-  }
-
-  /**
-   * Update satkai
-   * @param int $id
-   * @param array $data
-   * @return bool
-   */
-
-
-  public function updateSatkai($id, $data)
-  {
-    return $this->update($id, $data);
-  }
-
-  /**
-   * Delete satkai
-   * @param int $id
-   * @return bool
-   */
-  public function deleteSatkai($id)
-  {
-    return $this->delete($id);
-  }
 
   /**
    * Get satkai by jenis
@@ -81,15 +30,84 @@ class SatkaiModel extends Model
   public function getTcmCountsPerSatkai()
   {
 
+
     $subquery = $this->db->table('trxTcm')
-      ->select('tcmId, MAX(updated_at) as latest_updated')
+      ->select('tcmId, MAX(updated_at) as latest_updated, kondisi')
       ->groupBy('tcmId');
 
     $builder = $this->db->table($this->table . ' s');
-    $builder->select('s.id AS id, s.satkai, s.jenis, COUNT(DISTINCT trx.tcmId) AS tcmCount');
+    $builder->select('s.id AS id, s.satkai, s.jenis, COUNT(DISTINCT trx.tcmId) AS tcmCount, GROUP_CONCAT(DISTINCT trx.tcmId) AS tcmIds, trx.posisiId as posisiId');  // Tambah GROUP_CONCAT untuk daftar tcmId
     $builder->join('trxTcm trx', 'trx.posisiId = s.id', 'left');
     $builder->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.updated_at = latest.latest_updated', 'inner');
     $builder->groupBy('s.id, s.satkai, s.jenis');
     return $builder->get()->getResultArray();
+
+
+    return $results;
+  }
+
+
+
+
+  /**
+   * Menghasilkan jumlah TCM di tiap satkai beserta details TCM
+   * @return array
+   */
+  public function getTcmCountsWithDetails()
+  {
+    $data = $this->getTcmCountsPerSatkai();  // Panggil method existing
+
+    // Pisahkan tcmIds menjadi array
+    foreach ($data as &$row) {
+      $row['tcmIds'] = $row['tcmIds'] ? explode(',', $row['tcmIds']) : [];
+    }
+
+    // Kumpulkan semua tcmIds unik
+    $allTcmIds = [];
+    foreach ($data as $row) {
+      $allTcmIds = array_merge($allTcmIds, $row['tcmIds']);
+    }
+    $allTcmIds = array_unique($allTcmIds);
+
+    // Fetch details for all tcmIds dengan join jenisTcm dan trxTcm untuk kondisi terakhir
+    $tcmDetails = [];
+    if (!empty($allTcmIds)) {
+      // Subquery untuk ambil posisi terakhir per tcmId
+      $subquery = $this->db->table('trxTcm')
+        ->select('tcmId, posisiId, MAX(updated_at) as latest_updated')
+        ->whereIn('tcmId', $allTcmIds)
+        ->groupBy('tcmId');
+
+      $tcmDetailsQuery = $this->db->table('tcm')
+        ->select('tcm.id, jenisTcm.nama AS jenisTCM, tcm.partNumber, tcm.serialNumber')
+        ->join('jenistcm', 'jenistcm.id = tcm.jenisId', 'left')
+        ->join('(' . $subquery->getCompiledSelect() . ') sub', 'sub.tcmId = tcm.id', 'left')
+        ->whereIn('tcm.id', $allTcmIds)
+        ->get()
+        ->getResultArray();
+
+      // Index by id
+      foreach ($tcmDetailsQuery as $detail) {
+        $tcmDetails[$detail['id']] = $detail;
+      }
+    }
+
+    // Replace tcmIds dengan details
+    foreach ($data as &$row) {
+      $row['tcmDetails'] = [];
+      foreach ($row['tcmIds'] as $tcmId) {
+        if (isset($tcmDetails[$tcmId])) {
+          $row['tcmDetails'][] = [
+            'jenisTCM' => $tcmDetails[$tcmId]['jenisTCM'],
+            'partNumber' => $tcmDetails[$tcmId]['partNumber'],
+            'serialNumber' => $tcmDetails[$tcmId]['serialNumber'],
+            // 'kondisi' => $tcmDetails[$tcmId]['kondisi']
+          ];
+        }
+      }
+      unset($row['tcmIds']);
+    }
+
+    return $data;
   }
 }
