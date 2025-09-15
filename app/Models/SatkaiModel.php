@@ -67,22 +67,15 @@ class SatkaiModel extends Model
     foreach ($data as $row) {
       $allTcmIds = array_merge($allTcmIds, $row['tcmIds']);
     }
+
     $allTcmIds = array_unique($allTcmIds);
 
-    // Fetch details for all tcmIds dengan join jenisTcm dan trxTcm untuk kondisi terakhir
+
     $tcmDetails = [];
     if (!empty($allTcmIds)) {
-      // Subquery untuk ambil posisi terakhir per tcmId
-      $subquery = $this->db->table('trxTcm')
-        ->select('tcmId, posisiId, MAX(updated_at) as latest_updated')
-        ->whereIn('tcmId', $allTcmIds)
-        ->groupBy('tcmId');
-
       $tcmDetailsQuery = $this->db->table('tcm')
-        ->select('tcm.id, jenisTcm.nama AS jenisTCM, tcm.partNumber, tcm.serialNumber')
-        ->join('jenistcm', 'jenistcm.id = tcm.jenisId', 'left')
-        ->join('(' . $subquery->getCompiledSelect() . ') sub', 'sub.tcmId = tcm.id', 'left')
-        ->whereIn('tcm.id', $allTcmIds)
+        ->select('id, jenisId, partNumber, serialNumber')
+        ->whereIn('id', $allTcmIds)
         ->get()
         ->getResultArray();
 
@@ -98,16 +91,14 @@ class SatkaiModel extends Model
       foreach ($row['tcmIds'] as $tcmId) {
         if (isset($tcmDetails[$tcmId])) {
           $row['tcmDetails'][] = [
-            'jenisTCM' => $tcmDetails[$tcmId]['jenisTCM'],
+            'jenisTCM' => $tcmDetails[$tcmId]['jenisId'],
             'partNumber' => $tcmDetails[$tcmId]['partNumber'],
             'serialNumber' => $tcmDetails[$tcmId]['serialNumber'],
-            // 'kondisi' => $tcmDetails[$tcmId]['kondisi']
           ];
         }
       }
       unset($row['tcmIds']);
     }
-
     return $data;
   }
 }
