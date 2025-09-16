@@ -26,13 +26,9 @@ class SatkaiController extends BaseController
             'listTcmBySatkai' => $this->satkaiModel->getTcmCountsWithDetails(),
             'jenisTcm' => $this->jenisTcmModel->findAll(),
         ];
-
-
-
-        dd($data);
+        // dd($data);
         return view('tcm/satkai', $data);
     }
-
     public function store(): ResponseInterface
     {
 

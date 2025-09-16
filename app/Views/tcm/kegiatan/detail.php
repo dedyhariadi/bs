@@ -240,14 +240,14 @@
                       <td><?= $item['serialNumber']; ?></td>
                       <td>
                         <div class="form-check-inline">
-                          <input class="form-check-input" type="radio" name="kondisi<?= $item['id'] ?>" value="OK" id="radioDefault1<?= $item['id'] ?>" <?= $item['kondisi'] == 'OK' ? 'checked' : '' ?>>
-                          <label class="form-check-label" for="radioDefault1<?= $item['id'] ?>">
+                          <input class="form-check-input" type="radio" name="kondisi<?= $item['tcmId'] ?>" value="OK" id="radioDefault1<?= $item['tcmId'] ?>" <?= $item['kondisi'] == 'OK' ? 'checked' : '' ?>>
+                          <label class="form-check-label" for="radioDefault1<?= $item['tcmId'] ?>">
                             OK
                           </label>
                         </div>
                         <div class="form-check-inline">
-                          <input class="form-check-input" type="radio" name="kondisi<?= $item['id'] ?>" value="NOT OK" id="radioDefault2<?= $item['id'] ?>" <?= $item['kondisi'] !== 'OK' ? 'checked' : '' ?>>
-                          <label class="form-check-label" for="radioDefault2<?= $item['id'] ?>">
+                          <input class="form-check-input" type="radio" name="kondisi<?= $item['tcmId'] ?>" value="NOT OK" id="radioDefault2<?= $item['tcmId'] ?>" <?= $item['kondisi'] !== 'OK' ? 'checked' : '' ?>>
+                          <label class="form-check-label" for="radioDefault2<?= $item['tcmId'] ?>">
                             NOT OK
                           </label>
                         </div>

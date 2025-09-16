@@ -121,6 +121,7 @@ class TcmController extends BaseController
                 session()->setFlashdata('success', 'Data TCM berhasil disimpan.');
             }
         }
+        // dd($this->request->getVar(), $dataTrx);
         return redirect()->to('tcm/kegiatan/' . $kegiatanId);
     }
 

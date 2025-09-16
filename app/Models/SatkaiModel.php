@@ -41,8 +41,6 @@ class SatkaiModel extends Model
     $builder->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.updated_at = latest.latest_updated', 'inner');
     $builder->groupBy('s.id, s.satkai, s.jenis');
     return $builder->get()->getResultArray();
-
-
     return $results;
   }
 
@@ -58,24 +56,20 @@ class SatkaiModel extends Model
     $data = $this->getTcmCountsPerSatkai();  // Panggil method existing
 
     // Pisahkan tcmIds menjadi array
+    $allTcmIds = [];
     foreach ($data as &$row) {
       $row['tcmIds'] = $row['tcmIds'] ? explode(',', $row['tcmIds']) : [];
-    }
-
-    // Kumpulkan semua tcmIds unik
-    $allTcmIds = [];
-    foreach ($data as $row) {
       $allTcmIds = array_merge($allTcmIds, $row['tcmIds']);
     }
-
     $allTcmIds = array_unique($allTcmIds);
 
-
+    // Fetch details for all tcmIds dengan join jenisTcm
     $tcmDetails = [];
     if (!empty($allTcmIds)) {
       $tcmDetailsQuery = $this->db->table('tcm')
-        ->select('id, jenisId, partNumber, serialNumber')
-        ->whereIn('id', $allTcmIds)
+        ->select('tcm.id, jenisTcm.nama AS jenisTCM, tcm.partNumber, tcm.serialNumber, tcm.status AS kondisi')
+        ->join('jenistcm', 'jenistcm.id = tcm.jenisId', 'left')
+        ->whereIn('tcm.id', $allTcmIds)
         ->get()
         ->getResultArray();
 
@@ -85,20 +79,47 @@ class SatkaiModel extends Model
       }
     }
 
-    // Replace tcmIds dengan details
+    // Fetch kondisi dan id dari trxTcm berdasarkan max(updated_at) per tcmId
+    $tcmKondisi = [];
+    if (!empty($allTcmIds)) {
+      // Subquery untuk ambil id record dengan updated_at terbaru per tcmId
+      $subquery = $this->db->table('trxTcm')
+        ->select('tcmId, MAX(updated_at) as latest_updated')
+        ->whereIn('tcmId', $allTcmIds)
+        ->groupBy('tcmId');
+
+      // Query utama untuk ambil kondisi dan id berdasarkan subquery
+      $tcmKondisiQuery = $this->db->table('trxTcm trx')
+        ->select('trx.tcmId, trx.kondisi, trx.id, latest.tcmId')
+        ->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.updated_at = latest.latest_updated', 'inner')
+        ->whereIn('trx.tcmId', $allTcmIds)
+        ->get()
+        ->getResultArray();
+
+      // Index by tcmId
+      foreach ($tcmKondisiQuery as $kondisi) {
+        $tcmKondisi[$kondisi['tcmId']] = $kondisi;
+      }
+    }
+
+    // Replace tcmIds dengan details, termasuk kondisi dari trxTcm
     foreach ($data as &$row) {
       $row['tcmDetails'] = [];
       foreach ($row['tcmIds'] as $tcmId) {
         if (isset($tcmDetails[$tcmId])) {
           $row['tcmDetails'][] = [
-            'jenisTCM' => $tcmDetails[$tcmId]['jenisId'],
+            'jenisTCM' => $tcmDetails[$tcmId]['jenisTCM'],
             'partNumber' => $tcmDetails[$tcmId]['partNumber'],
             'serialNumber' => $tcmDetails[$tcmId]['serialNumber'],
+            'kondisi' => isset($tcmKondisi[$tcmId]) ? $tcmKondisi[$tcmId]['kondisi'] : $tcmDetails[$tcmId]['kondisi'],  // Prioritas kondisi dari trxTcm
+            'trxId' => isset($tcmKondisi[$tcmId]) ? $tcmKondisi[$tcmId]['id'] : null,  // Tambah trxId jika perlu
+            'tcmId' => $tcmId
           ];
         }
       }
       unset($row['tcmIds']);
     }
+
     return $data;
   }
 }
