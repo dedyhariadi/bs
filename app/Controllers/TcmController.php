@@ -44,9 +44,11 @@ class TcmController extends BaseController
             'rekapTcm' => $this->trxTcmModel->getAllWithDetails(), //Data untuk rekapitulasi TCM dengan posisi 
             'kegiatan' => $this->kegiatanModel->getWithTcmCount(), // Data untuk daftar kegiatan dengan jumlah TCM
             'jenisTcm' => $this->jenisTcmModel->findAll(),
+            'jenisTcmCount' => $this->tcmModel->getJenisTcmCounts(),
+            'jumlahTcmByJenisSatkai' => $this->tcmModel->getTcmCountsPerJenisSatkai(),
         ];
 
-
+        // dd($data);
         return view('tcm//rekap/index', $data);
     }
 

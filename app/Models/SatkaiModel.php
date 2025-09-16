@@ -122,4 +122,34 @@ class SatkaiModel extends Model
 
     return $data;
   }
+
+
+  public function getJenisTcmCounts()
+  {
+    $data = $this->getTcmCountsWithDetails();  // Ambil data satkai dengan details
+
+    $jenisCounts = [];
+    foreach ($data as $satkai) {
+      if (isset($satkai['tcmDetails']) && is_array($satkai['tcmDetails'])) {
+        foreach ($satkai['tcmDetails'] as $tcm) {
+          $jenis = $tcm['jenisTCM'] ?? 'Unknown';  // Gunakan 'Unknown' jika null
+          if (!isset($jenisCounts[$jenis])) {
+            $jenisCounts[$jenis] = 0;
+          }
+          $jenisCounts[$jenis]++;
+        }
+      }
+    }
+
+    // Konversi ke array indexed untuk output
+    $result = [];
+    foreach ($jenisCounts as $jenis => $count) {
+      $result[] = [
+        'jenisTCM' => $jenis,
+        'count' => $count
+      ];
+    }
+
+    return $result;
+  }
 }

@@ -42,8 +42,27 @@
                         <tr class="fs-4">
                             <td scope="row" class="text-center"><?= $index + 1; ?></td>
                             <th class="ps-5 text-uppercase"><?= $item['nama']; ?></th>
-                            <td class="text-center"> Unit</td>
-                            <td></td>
+                            <td class="text-center">
+                                <?php
+                                $cetak = 0;
+                                foreach ($jenisTcmCount as $itemTcmCount):
+                                    if ($itemTcmCount['jenisId'] === $item['id']) :
+                                        $cetak = $itemTcmCount['count'];
+                                    endif;
+                                endforeach;
+                                echo $cetak;
+                                ?>
+                                &nbsp;Unit
+                            </td>
+                            <td>
+<?php 
+foreach ($jumlahTcmByJenisSatkai as $itemJumlah):
+    if ($itemJumlah['jenisId'] === $item['id']) :
+        echo $itemJumlah['jenis'] . ' (' . $itemJumlah['tcmCount'] . ')';
+    endif;
+?>
+
+                            </td>
                             <td></td>
                             <td></td>
                             <td></td>

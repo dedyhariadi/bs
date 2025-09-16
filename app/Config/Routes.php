@@ -33,9 +33,11 @@ $routes->get('jurnal/khusus/(:num)', 'Jurnal::index/$1');
 
 
 // tcm
-$routes->get('tcm', 'TcmController::index');
-$routes->post('tcm', 'TcmController::store');
-$routes->delete('tcm/(:num)', 'TcmController::delete/$1');
+$routes->get('tcm', 'TcmController::index'); //index untuk rekapitulasi TCM
+
+
+$routes->post('tcm', 'TcmController::store'); // Menyimpan data TCM baru di detail kegiatan
+$routes->delete('tcm/(:num)', 'TcmController::delete/$1'); // Menghapus data TCM berdasarkan ID di detail kegiatan
 
 // tcm-rekap
 $routes->post('tcm/rekap/addJenis', 'JenisTcmController::store');
