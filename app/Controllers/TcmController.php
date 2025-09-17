@@ -109,6 +109,12 @@ class TcmController extends BaseController
             if ($jenisGiat == 'nonBarangMasuk' && is_array($selectedIds)) {
                 foreach ($selectedIds as $tcmId) {
                     // Ambil kondisi untuk tcmId ini
+                    // Check if tcmId is already associated with this kegiatanId
+                    $existing = $this->trxTcmModel->where('tcmId', $tcmId)->where('kegiatanId', $kegiatanId)->first();
+                    if ($existing) {
+                        session()->setFlashdata('error', 'Data TCM sudah ada.');
+                        return redirect()->to('tcm/kegiatan/' . $kegiatanId);
+                    }
                     $kondisi = $this->request->getPost('kondisi' . $tcmId) ?? 'OK';
 
                     // Insert ke trxTcm

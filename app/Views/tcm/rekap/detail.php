@@ -35,11 +35,11 @@
                                 <th scope="col">STATUS</th>
                                 <th scope="col">KONDISI</th>
                                 <th scope="col">POSISI</th>
+                                <th scope="col">HISTORY</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-
 
                             foreach ($detailTcm as $index => $item): ?>
                                 <tr class="text-center align-middle">
@@ -51,6 +51,11 @@
                                     <td><?= $item['status']; ?></td>
                                     <td><?= $item['kondisi_terakhir']; ?></td>
                                     <td><?= $item['posisi_terakhir']; ?></td>
+                                    <td>
+
+
+                                        <?= anchor('', '<i class="bi bi-zoom-in"></i>', ['class' => 'btn btn-outline-success', 'data-bs-toggle' => 'modal', 'data-bs-target' => '#historyTcmModal' . $item['tcmId']]) ?>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -109,7 +114,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <div class="card bg-danger text-white">
+                                <div class="card bg-info text-dark">
                                     <div class="card-header">
                                         Kondisi Terakhir:
                                     </div>
@@ -120,7 +125,11 @@
                             </div>
                         </div>
 
-
+                        <div class="row">
+                            <div class="col fw-bold fs-5 text-start mt-3">
+                                History Penempatan TCM
+                            </div>
+                        </div>
                         <div class="card">
                             <div class="card-body">
                                 <table class="table table-hover">
