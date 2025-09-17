@@ -91,23 +91,46 @@ class TcmModel extends Model
             ->getResultArray();
     }
 
-    public function getTcmCountsPerJenisSatkai()
+
+    public function getTcmWithLatestTrx($id = null)
     {
-        // Subquery untuk ambil posisi terakhir per tcmId
         $subquery = $this->db->table('trxTcm')
             ->select('tcmId, MAX(updated_at) as latest_updated')
-            ->groupBy('tcmId');
+            ->groupBy('tcmId')
+            ->getCompiledSelect();
 
-        $builder = $this->db->table('satkai s');
-        $builder->select('s.jenis, jenistcm.nama AS jenisTcm, 
-                      COUNT(DISTINCT trx.tcmId) AS tcmCount,
-                      COUNT(CASE WHEN trx.kondisi = "OK" THEN 1 END) AS countOK,
-                      COUNT(CASE WHEN trx.kondisi = "NOT OK" THEN 1 END) AS countNotOK, jenistcm.id as jenisId');  // Tambah countOK dan countNotOK berdasarkan kondisi dari trx
-        $builder->join('trxTcm trx', 'trx.posisiId = s.id', 'left');
-        $builder->join('tcm', 'tcm.id = trx.tcmId', 'left');  // Join dengan tcm untuk akses jenisId
-        $builder->join('jenistcm', 'jenistcm.id = tcm.jenisId', 'left');  // Join dengan jenistcm untuk nama jenisTcm
-        $builder->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.updated_at = latest.latest_updated', 'inner');
-        $builder->groupBy('s.jenis, jenistcm.nama');  // Group by jenis satkai dan jenisTcm
-        return $builder->get()->getResultArray();
+        if ($id === null) {
+            return $this->select('tcm.id as tcmId, jenistcm.nama as jenisTcm, tcm.partNumber, tcm.serialNumber, satkai.satkai as posisi_terakhir, trxTcm.kondisi as kondisi_terakhir, satkai.jenis as jenis_satkai, trxTcm.id as trxTcmId,jenistcm.id as jenisTcmId')
+                ->join('jenistcm', 'jenistcm.id = tcm.jenisId')
+                ->join('trxTcm', 'trxTcm.tcmId = tcm.id')
+                ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
+                ->join("($subquery) as latest", 'trxTcm.tcmId = latest.tcmId AND trxTcm.updated_at = latest.latest_updated', 'inner')
+                ->findAll();
+        } else {
+            return $this->select('tcm.id as tcmId, jenistcm.nama as jenisTcm, tcm.partNumber, tcm.serialNumber, satkai.satkai as posisi_terakhir, trxTcm.kondisi as kondisi_terakhir, satkai.jenis as jenis_satkai, trxTcm.id as trxTcmId,jenistcm.id as jenisTcmId, tcm.status as status')
+                ->join('jenistcm', 'jenistcm.id = tcm.jenisId')
+                ->join('trxTcm', 'trxTcm.tcmId = tcm.id')
+                ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
+                ->join("($subquery) as latest", 'trxTcm.tcmId = latest.tcmId AND trxTcm.updated_at = latest.latest_updated', 'inner')
+                ->where('jenistcm.id', $id)
+                ->findAll();
+        }
+    }
+
+    /**
+     * Get trxTcm records by jenisId with related details
+     */
+    public function getTrxTcmByJenisId($jenisId)
+    {
+        return $this->db->table('trxTcm')
+            ->select('trxTcm.*, tcm.partNumber, tcm.serialNumber, jenistcm.nama as jenis_nama, satkai.satkai as posisi,kegiatan.tglpelaksanaan as tgl_pelaksanaan,jenistcm.id as jenisTcmId')
+            ->join('tcm', 'tcm.id = trxTcm.tcmId')
+            ->join('jenistcm', 'jenistcm.id = tcm.jenisId')
+            ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
+            ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId')
+            ->where('tcm.jenisId', $jenisId)
+            ->orderBy('kegiatan.tglPelaksanaan')
+            ->get()
+            ->getResultArray();
     }
 }

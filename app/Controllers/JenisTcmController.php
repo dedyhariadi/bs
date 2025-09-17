@@ -100,7 +100,13 @@ class JenisTcmController extends BaseController
     if (!$data['jenisTcm']) {
       throw new \CodeIgniter\Exceptions\PageNotFoundException('Jenis TCM tidak ditemukan');
     }
-    $data['detailTcm'] = $this->tcmModel->getTcmByJenis($id);
+    $data = [
+      'jenisTcm' => $this->jenisTcmModel->find($id),
+      'detailTcm' => $this->tcmModel->getTcmWithLatestTrx($id),
+      'historyTcm' => $this->tcmModel->getTrxTcmByJenisId($id),
+    ];
+
+    // dd($data);
     // Load view detail
     return view('tcm/rekap/detail', $data);
   }

@@ -45,7 +45,7 @@ class TcmController extends BaseController
             'kegiatan' => $this->kegiatanModel->getWithTcmCount(), // Data untuk daftar kegiatan dengan jumlah TCM
             'jenisTcm' => $this->jenisTcmModel->findAll(),
             'jenisTcmCount' => $this->tcmModel->getJenisTcmCounts(),
-            'jumlahTcmByJenisSatkai' => $this->tcmModel->getTcmCountsPerJenisSatkai(),
+            'getTcmWithLatestTrx' => $this->tcmModel->getTcmWithLatestTrx(),
         ];
 
         // dd($data);

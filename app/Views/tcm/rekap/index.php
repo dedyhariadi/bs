@@ -41,7 +41,9 @@
                     <?php foreach ($jenisTcm as $index => $item): ?>
                         <tr class="fs-4">
                             <td scope="row" class="text-center"><?= $index + 1; ?></td>
-                            <th class="ps-5 text-uppercase"><?= $item['nama']; ?></th>
+                            <th class="ps-5 text-uppercase">
+                                <?= anchor('tcm/rekap/detail/' . $item['id'], $item['nama'], ['class' => 'link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-4']); ?>
+                            </th>
                             <td class="text-center">
                                 <?php
                                 $cetak = 0;
@@ -54,18 +56,55 @@
                                 ?>
                                 &nbsp;Unit
                             </td>
-                            <td>
-<?php 
-foreach ($jumlahTcmByJenisSatkai as $itemJumlah):
-    if ($itemJumlah['jenisId'] === $item['id']) :
-        echo $itemJumlah['jenis'] . ' (' . $itemJumlah['tcmCount'] . ')';
-    endif;
-?>
+                            <td class="text-center">
+                                <?php
+                                $jmlTcm = 0;
+                                foreach ($getTcmWithLatestTrx as $tcmItem):
+                                    if ($tcmItem['jenis_satkai'] === 'Arsenal' && $tcmItem['jenisTcmId'] === $item['id']) :
+                                        $jmlTcm++;
+                                    endif;
+                                endforeach;
+                                echo $jmlTcm . ' Unit';
+                                ?>
+                            </td>
+
+                            <td class="text-center">
+                                <?php
+                                $jmlTcm = 0;
+                                foreach ($getTcmWithLatestTrx as $tcmItem):
+                                    if ($tcmItem['jenis_satkai'] !== 'Arsenal' && $tcmItem['jenisTcmId'] === $item['id']) :
+                                        $jmlTcm++;
+                                    endif;
+                                endforeach;
+                                echo $jmlTcm . ' Unit';
+                                ?>
 
                             </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-center">
+                                <?php
+                                $jmlTcm = 0;
+                                foreach ($getTcmWithLatestTrx as $tcmItem):
+                                    if ($tcmItem['kondisi_terakhir'] === 'OK' && $tcmItem['jenisTcmId'] === $item['id']) :
+                                        $jmlTcm++;
+                                    endif;
+                                endforeach;
+                                echo $jmlTcm . ' Unit';
+                                ?>
+
+                            </td>
+                            <td class="text-center">
+
+                                <?php
+                                $jmlTcm = 0;
+                                foreach ($getTcmWithLatestTrx as $tcmItem):
+                                    if ($tcmItem['kondisi_terakhir'] !== 'OK' && $tcmItem['jenisTcmId'] === $item['id']) :
+                                        $jmlTcm++;
+                                    endif;
+                                endforeach;
+                                echo $jmlTcm . ' Unit';
+                                ?>
+
+                            </td>
                             <td>
 
 
@@ -159,40 +198,9 @@ foreach ($jumlahTcmByJenisSatkai as $itemJumlah):
     ?>
 
 
-
-
-
-
-
 </main>
 
-<!-- Dark backdrop for toast focus -->
-<div id="toast-backdrop" class="position-fixed top-0 start-0 w-100 h-100 bg-dark opacity-50 d-none" style="z-index: 1040;"></div>
 
-<script>
-    // Handle toast backdrop
-    document.addEventListener('DOMContentLoaded', function() {
-        const toastElement = document.querySelector('.toast');
-        const backdrop = document.getElementById('toast-backdrop');
 
-        if (toastElement) {
-            // Show backdrop when toast is shown
-            toastElement.addEventListener('show.bs.toast', function() {
-                backdrop.classList.remove('d-none');
-            });
-
-            // Hide backdrop when toast is hidden
-            toastElement.addEventListener('hidden.bs.toast', function() {
-                backdrop.classList.add('d-none');
-            });
-
-            // Auto-hide toast after 5 seconds and hide backdrop
-            setTimeout(function() {
-                const bsToast = new bootstrap.Toast(toastElement);
-                bsToast.hide();
-            }, 5000);
-        }
-    });
-</script>
 
 <?= $this->endSection(); ?>

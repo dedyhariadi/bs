@@ -124,7 +124,10 @@ class SatkaiModel extends Model
   }
 
 
-  public function getJenisTcmCounts()
+
+
+
+  public function getJenisTcmCounts()  //menghitung jumlah tcm berdasarkan jenis
   {
     $data = $this->getTcmCountsWithDetails();  // Ambil data satkai dengan details
 
