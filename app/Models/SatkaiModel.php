@@ -32,13 +32,13 @@ class SatkaiModel extends Model
 
 
     $subquery = $this->db->table('trxTcm')
-      ->select('tcmId, MAX(updated_at) as latest_updated, kondisi')
+      ->select('tcmId, MAX(kegiatanId) as latest_updated, kondisi')
       ->groupBy('tcmId');
 
     $builder = $this->db->table($this->table . ' s');
     $builder->select('s.id AS id, s.satkai, s.jenis, COUNT(DISTINCT trx.tcmId) AS tcmCount, GROUP_CONCAT(DISTINCT trx.tcmId) AS tcmIds, trx.posisiId as posisiId');  // Tambah GROUP_CONCAT untuk daftar tcmId
     $builder->join('trxTcm trx', 'trx.posisiId = s.id', 'left');
-    $builder->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.updated_at = latest.latest_updated', 'inner');
+    $builder->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.kegiatanId = latest.latest_updated', 'inner');
     $builder->groupBy('s.id, s.satkai, s.jenis');
     return $builder->get()->getResultArray();
     return $results;
@@ -82,16 +82,16 @@ class SatkaiModel extends Model
     // Fetch kondisi dan id dari trxTcm berdasarkan max(updated_at) per tcmId
     $tcmKondisi = [];
     if (!empty($allTcmIds)) {
-      // Subquery untuk ambil id record dengan updated_at terbaru per tcmId
+      // Subquery untuk ambil id record dengan kegiatanId terbaru per tcmId
       $subquery = $this->db->table('trxTcm')
-        ->select('tcmId, MAX(updated_at) as latest_updated')
+        ->select('tcmId, MAX(kegiatanId) as latest_updated')
         ->whereIn('tcmId', $allTcmIds)
         ->groupBy('tcmId');
 
       // Query utama untuk ambil kondisi dan id berdasarkan subquery
       $tcmKondisiQuery = $this->db->table('trxTcm trx')
         ->select('trx.tcmId, trx.kondisi, trx.id, latest.tcmId')
-        ->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.updated_at = latest.latest_updated', 'inner')
+        ->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.kegiatanId = latest.latest_updated', 'inner')
         ->whereIn('trx.tcmId', $allTcmIds)
         ->get()
         ->getResultArray();
