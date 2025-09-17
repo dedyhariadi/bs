@@ -35,9 +35,6 @@ $routes->get('jurnal/khusus/(:num)', 'Jurnal::index/$1');
 // tcm
 $routes->get('tcm', 'TcmController::index'); //index untuk rekapitulasi TCM
 
-
-
-
 $routes->post('tcm', 'TcmController::store'); // Menyimpan data TCM baru di detail kegiatan
 $routes->delete('tcm/(:num)', 'TcmController::delete/$1'); // Menghapus data TCM berdasarkan ID di detail kegiatan
 
@@ -67,3 +64,12 @@ $routes->post('tcm/surat', 'SuratController::store');
 $routes->get('tcm/surat/(:num)', 'SuratController::show/$1');
 $routes->put('tcm/surat/(:num)', 'SuratController::update/$1');
 $routes->delete('tcm/surat/(:num)', 'SuratController::delete/$1');
+
+
+
+// spareparts
+$routes->get('spareparts', 'SparepartsController::index');
+$routes->post('spareparts', 'SparepartsController::store');
+$routes->get('spareparts/(:num)', 'SparepartsController::show/$1');
+$routes->put('spareparts/(:num)', 'SparepartsController::update/$1');
+$routes->delete('spareparts/(:num)', 'SparepartsController::delete/$1');

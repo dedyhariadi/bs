@@ -51,10 +51,7 @@
              </li>
 
              <li class="nav-item">
-                 <a href="spareparts" class="nav-link">
-                     <i class="nav-icon bi bi-tools"></i>
-                     Spareparts
-                 </a>
+                 <?= anchor('spareparts', '<i class="nav-icon bi bi-tools"></i>  Spareparts', ['class' => 'nav-link']); ?>
              </li>
 
              <li class="nav-item">
