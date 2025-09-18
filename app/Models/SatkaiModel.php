@@ -32,13 +32,13 @@ class SatkaiModel extends Model
 
 
     $subquery = $this->db->table('trxTcm')
-      ->select('tcmId, MAX(kegiatanId) as latest_updated, kondisi')
+      ->select('tcmId, MAX(updated_at) as latest_updated, kondisi')
       ->groupBy('tcmId');
 
     $builder = $this->db->table($this->table . ' s');
     $builder->select('s.id AS id, s.satkai, s.jenis, COUNT(DISTINCT trx.tcmId) AS tcmCount, GROUP_CONCAT(DISTINCT trx.tcmId) AS tcmIds, trx.posisiId as posisiId');  // Tambah GROUP_CONCAT untuk daftar tcmId
     $builder->join('trxTcm trx', 'trx.posisiId = s.id', 'left');
-    $builder->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.kegiatanId = latest.latest_updated', 'inner');
+    $builder->join('(' . $subquery->getCompiledSelect() . ') latest', 'trx.tcmId = latest.tcmId AND trx.updated_at = latest.latest_updated', 'inner');
     $builder->groupBy('s.id, s.satkai, s.jenis');
     return $builder->get()->getResultArray();
     return $results;

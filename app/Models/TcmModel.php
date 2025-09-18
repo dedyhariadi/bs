@@ -73,9 +73,7 @@ class TcmModel extends Model
 
     public function getJenisTcmCounts()
     {
-        // $subquery = $this->db->table('trxTcm')
-        //     ->select('tcmId, MAX(updated_at) as latest_updated, kondisi')
-        //     ->groupBy('tcmId');
+
 
         $subquery = $this->db->table('trxTcm')
             ->select('tcmId, MAX(updated_at) as latest_updated, kondisi')
