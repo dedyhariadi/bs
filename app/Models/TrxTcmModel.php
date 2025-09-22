@@ -117,4 +117,93 @@ class TrxTcmModel extends Model
     {
         return $this->select('kondisi')->find($trxId);
     }
+
+    /**
+     * Mengambil data TCM grouped by tcmId dengan tglPelaksanaan paling terakhir
+     * @return array
+     */
+    public function getTcmGroupedByTcmIdWithLatestTgl()
+    {
+        // Subquery untuk ambil tglPelaksanaan terakhir per tcmId
+        $subquery = $this->db->table('trxTcm')
+            ->select('trxTcm.tcmId, MAX(kegiatan.tglPelaksanaan) as latest_tgl')
+            ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId')
+            ->groupBy('trxTcm.tcmId');
+
+        return $this->select('trxTcm.tcmId, tcm.serialNumber, tcm.partNumber, tcm.status, trxTcm.kondisi, satkai.satkai AS lokasi, satkai.id AS satkaiId, satkai.jenis AS jenisSatkai, jenistcm.nama AS jenisTCM, sub.latest_tgl')  // Tambah jenistcm.nama AS jenisTcmNama
+            ->join('tcm', 'tcm.id = trxTcm.tcmId')
+            ->join('jenistcm', 'jenistcm.id = tcm.jenisId', 'left')  // Tambah join dengan jenistcm
+            ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
+            ->join('(' . $subquery->getCompiledSelect() . ') sub', 'sub.tcmId = trxTcm.tcmId', 'inner')
+            ->where('kegiatan.tglPelaksanaan = sub.latest_tgl')  // Pastikan hanya ambil record dengan tgl terakhir
+            ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId')  // Join kegiatan untuk akses tglPelaksanaan
+            ->groupBy('trxTcm.tcmId')  // Group by tcmId
+            ->findAll();
+    }
+
+    /**
+     * Count TCM items by location based on results from getTcmGroupedByTcmIdWithLatestTgl()
+     * @return array Associative array with location as key and count as value
+     */
+    public function hitungTcmPerLokasi()
+    {
+        $results = $this->getTcmGroupedByTcmIdWithLatestTgl();
+        $tcmCount = [];
+        $lokasiMap = [];  // Untuk track lokasi yang sudah diproses
+        foreach ($results as $item) {
+            $lokasi = $item['lokasi'];
+            if (!isset($lokasiMap[$lokasi])) {
+                $lokasiMap[$lokasi] = count($tcmCount);  // Index integer
+                $tcmCount[] = [
+                    'tcmCount' => 0,
+                    'satkai' => $item['lokasi'],
+                    'posisiId' => $item['satkaiId'],
+                    'jenisSatkai' => $item['jenisSatkai']
+                ];
+            }
+            $index = $lokasiMap[$lokasi];
+            $tcmCount[$index]['tcmCount']++;
+        }
+        return $tcmCount;
+    }
+
+    /**
+     * Count TCM items by location based on results from getTcmGroupedByTcmIdWithLatestTgl()
+     * @return array Associative array with location as key and array(count, satkaiId, jenisSatkai) as value
+     */
+    public function countTcmByLocation()
+    {
+        $results = $this->getTcmGroupedByTcmIdWithLatestTgl();
+        $counts = [];
+        foreach ($results as $item) {
+            $lokasi = $item['lokasi'];
+            if (!isset($counts[$lokasi])) {
+                $counts[$lokasi] = [
+                    'count' => 0,
+                    'satkaiId' => $item['satkaiId'],
+                    'jenisSatkai' => $item['jenisSatkai']
+                ];
+            }
+            $counts[$lokasi]['count']++;
+        }
+        return $counts;
+    }
+
+    public function tcmByPosisi($transferId = null)
+    {
+        $groupedData = $this->getTcmGroupedByTcmIdWithLatestTgl();
+        $byPosisi = [];
+
+        foreach ($groupedData as $tcmId => $data) {
+            $posisiId = $data['satkaiId'] ?? null;  // Gunakan satkaiId sebagai posisiId
+            if ($posisiId && ($transferId === null || $posisiId == $transferId)) {  // Tambah where berdasarkan transferId
+                if (!isset($byPosisi[$posisiId])) {
+                    $byPosisi[$posisiId] = [];
+                }
+                $byPosisi[$posisiId][] = $data;
+            }
+        }
+
+        return $byPosisi;
+    }
 }

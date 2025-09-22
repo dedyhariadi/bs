@@ -48,8 +48,8 @@
                   <td class="text-center">
                     <?php
                     $jumlahTcm = 0;
-                    foreach ($satkaiFill as $fill) {
-                      if ($fill['id'] == $item['id']) {
+                    foreach ($listTcmBySatkai as $fill) {
+                      if ($fill['posisiId'] == $item['id']) {
                         $jumlahTcm = $fill['tcmCount'];
                         break;
                       }
@@ -202,25 +202,25 @@
                   </thead>
                   <tbody class="table-group-divider">
                     <?php
-                    $found = false;
-                    foreach ($listTcmBySatkai as $tcm):
-                      if ($tcm['satkai'] == $item['satkai'] && count($tcm['tcmDetails']) > 0) {
-                        $found = true;
-                        foreach ($tcm['tcmDetails'] as $index => $tcmDetail) :
+                    $noUrut = 0;
+                    // foreach ($listTcmBySatkai as $tcm):
+                    foreach ($getTcmGroupedByTcmIdWithLatestTgl as $index => $tcmDetail) :
+                      if ($tcmDetail['lokasi'] == $item['satkai']) {
+                        $noUrut++;
                     ?>
-                          <tr>
-                            <th scope="row"><?= $index + 1; ?></th>
-                            <td><?= $tcmDetail['jenisTCM']; ?></td>
-                            <td><?= $tcmDetail['partNumber']; ?></td>
-                            <td><?= $tcmDetail['serialNumber']; ?></td>
-                            <td class="text-center"><?= $tcmDetail['kondisi']; ?></td>
-                          </tr>
+                        <tr>
+                          <th scope="row"><?= $noUrut; ?></th>
+                          <td><?= $tcmDetail['jenisTCM']; ?></td>
+                          <td><?= $tcmDetail['partNumber']; ?></td>
+                          <td><?= $tcmDetail['serialNumber']; ?></td>
+                          <td class="text-center"><?= $tcmDetail['kondisi']; ?></td>
+                        </tr>
                     <?php
-                        endforeach;
+                        // endforeach;
                       }
                     endforeach;
-                    if (!$found) {
-                      echo '<tr><td colspan="5" class="text-center">Tidak ada TCM di ' . $item['satkai'] . '</td></tr>';
+                    if ($noUrut == 0) {
+                      echo '<tr><td colspan="5" class="fst-italic text-center text-danger fw-medium">Tidak ada TCM di ' . $item['satkai'] . '</td></tr>';
                     }
                     ?>
                   </tbody>

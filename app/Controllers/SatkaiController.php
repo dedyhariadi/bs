@@ -5,28 +5,29 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\SatkaiModel;
 use App\Models\JenisTcmModel;
+use App\Models\TrxTcmModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class SatkaiController extends BaseController
 {
     protected $satkaiModel;
     protected $jenisTcmModel;
+    protected $trxTcmModel;
 
     public function __construct()
     {
         $this->satkaiModel = new SatkaiModel();
         $this->jenisTcmModel = new JenisTcmModel();
+        $this->trxTcmModel = new TrxTcmModel();
     }
 
     public function index()
     {
         $data = [
-            'satkaiFill' => $this->satkaiModel->getTcmCountsPerSatkai(),
             'satkai' => $this->satkaiModel->findAll(),
-            'listTcmBySatkai' => $this->satkaiModel->getTcmCountsWithDetails(),
-            'jenisTcm' => $this->jenisTcmModel->findAll(),
+            'getTcmGroupedByTcmIdWithLatestTgl' => $this->trxTcmModel->getTcmGroupedByTcmIdWithLatestTgl(),
+            'listTcmBySatkai' => $this->trxTcmModel->hitungTcmPerLokasi()
         ];
-        // dd($data);
         return view('tcm/satkai', $data);
     }
     public function store(): ResponseInterface
