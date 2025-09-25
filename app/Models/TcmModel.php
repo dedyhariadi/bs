@@ -70,51 +70,6 @@ class TcmModel extends Model
     }
 
 
-
-    public function getJenisTcmCounts()
-    {
-
-
-        $subquery = $this->db->table('trxTcm')
-            ->select('tcmId, MAX(updated_at) as latest_updated, kondisi')
-            ->groupBy('tcmId')
-            ->getCompiledSelect();
-
-        return $this->db->table('tcm')
-            ->select('jenistcm.nama as jenis, COUNT(tcm.id) as count,jenistcm.id as jenisId')
-            ->join('jenistcm', 'jenistcm.id = tcm.jenisId')
-            ->join("($subquery) as latest_trx", 'latest_trx.tcmId = tcm.id')
-            ->groupBy('jenistcm.id')
-            ->get()
-            ->getResultArray();
-    }
-
-
-    public function getTcmWithLatestTrx($id = null)
-    {
-        $subquery = $this->db->table('trxTcm')
-            ->select('tcmId, MAX(updated_at) as latest_updated')
-            ->groupBy('tcmId')
-            ->getCompiledSelect();
-
-        if ($id === null) {
-            return $this->select('tcm.id as tcmId, jenistcm.nama as jenisTcm, tcm.partNumber, tcm.serialNumber, satkai.satkai as posisi_terakhir, trxTcm.kondisi as kondisi_terakhir, satkai.jenis as jenis_satkai, trxTcm.id as trxTcmId,jenistcm.id as jenisTcmId')
-                ->join('jenistcm', 'jenistcm.id = tcm.jenisId')
-                ->join('trxTcm', 'trxTcm.tcmId = tcm.id')
-                ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
-                ->join("($subquery) as latest", 'trxTcm.tcmId = latest.tcmId AND trxTcm.updated_at = latest.latest_updated', 'inner')
-                ->findAll();
-        } else {
-            return $this->select('tcm.id as tcmId, jenistcm.nama as jenisTcm, tcm.partNumber, tcm.serialNumber, satkai.satkai as posisi_terakhir, trxTcm.kondisi as kondisi_terakhir, satkai.jenis as jenis_satkai, trxTcm.id as trxTcmId,jenistcm.id as jenisTcmId, tcm.status as status')
-                ->join('jenistcm', 'jenistcm.id = tcm.jenisId')
-                ->join('trxTcm', 'trxTcm.tcmId = tcm.id')
-                ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
-                ->join("($subquery) as latest", 'trxTcm.tcmId = latest.tcmId AND trxTcm.updated_at = latest.latest_updated', 'inner')
-                ->where('jenistcm.id', $id)
-                ->findAll();
-        }
-    }
-
     /**
      * Get trxTcm records by jenisId with related details
      */

@@ -55,6 +55,38 @@ class TrxTcmModel extends Model
     }
 
 
+    /**
+     * Get all TCM items at a specific location (only latest per tcmId based on MAX(tglPelaksanaan) from kegiatan)
+     * @param int $lokasi
+     * @return array
+     */
+    public function getItemsByLocationWithLatestTgl($lokasi)
+    {
+        // Subquery untuk ambil record terbaru per tcmId berdasarkan MAX(tglPelaksanaan) dari kegiatan
+        $subquery = $this->db->table($this->table)
+            ->select('trxTcm.tcmId, MAX(kegiatan.tglPelaksanaan) as latest_tgl')
+            ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId')
+            ->groupBy('trxTcm.tcmId');
+
+        return $this->select('trxTcm.*, tcm.serialNumber, tcm.status, tcm.partNumber, tcm.jenisId, satkai.satkai AS lokasi, tcm.id as tcmId')
+            ->join('tcm', 'tcm.id = trxTcm.tcmId')
+            ->join('satkai', 'satkai.id = trxTcm.posisiId')
+            ->join('(' . $subquery->getCompiledSelect() . ') as latest_trx', 'latest_trx.tcmId = trxTcm.tcmId')
+            ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId AND kegiatan.tglPelaksanaan = latest_trx.latest_tgl')  // Join untuk match tglPelaksanaan terbaru
+            ->where('trxTcm.posisiId', $lokasi)
+            ->findAll();
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Get transfer history of a TCM item
@@ -122,23 +154,30 @@ class TrxTcmModel extends Model
      * Mengambil data TCM grouped by tcmId dengan tglPelaksanaan paling terakhir
      * @return array
      */
-    public function getTcmGroupedByTcmIdWithLatestTgl()
+    public function getTcmGroupedByTcmIdWithLatestTgl($lokasi = null)
     {
-        // Subquery untuk ambil tglPelaksanaan terakhir per tcmId
+        // Subquery untuk ambil tglPelaksanaan terakhir per tcmId 
         $subquery = $this->db->table('trxTcm')
-            ->select('trxTcm.tcmId, MAX(kegiatan.tglPelaksanaan) as latest_tgl')
+            ->select('trxTcm.tcmId, MAX(kegiatan.tglPelaksanaan) as latest_tgl, trxTcm.id as trxTcmId')
             ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId')
             ->groupBy('trxTcm.tcmId');
 
-        return $this->select('trxTcm.tcmId, tcm.serialNumber, tcm.partNumber, tcm.status, trxTcm.kondisi, satkai.satkai AS lokasi, satkai.id AS satkaiId, satkai.jenis AS jenisSatkai, jenistcm.nama AS jenisTCM, sub.latest_tgl')  // Tambah jenistcm.nama AS jenisTcmNama
+        $query = $this->select('trxTcm.tcmId, tcm.serialNumber, tcm.partNumber, tcm.status, trxTcm.kondisi, satkai.satkai AS lokasi, satkai.id AS satkaiId, satkai.jenis AS jenisSatkai, jenistcm.nama AS jenisTCM, jenistcm.id AS jenisId, sub.latest_tgl,sub.trxTcmId')  // Tambah jenistcm.id AS jenisId
             ->join('tcm', 'tcm.id = trxTcm.tcmId')
             ->join('jenistcm', 'jenistcm.id = tcm.jenisId', 'left')  // Tambah join dengan jenistcm
             ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
             ->join('(' . $subquery->getCompiledSelect() . ') sub', 'sub.tcmId = trxTcm.tcmId', 'inner')
             ->where('kegiatan.tglPelaksanaan = sub.latest_tgl')  // Pastikan hanya ambil record dengan tgl terakhir
             ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId')  // Join kegiatan untuk akses tglPelaksanaan
-            ->groupBy('trxTcm.tcmId')  // Group by tcmId
-            ->findAll();
+            ->groupBy('trxTcm.tcmId');  // Group by tcmId
+
+        // Jika lokasi diberikan, filter berdasarkan posisiId
+        if ($lokasi !== null) {
+            return $query->where('trxTcm.posisiId', $lokasi)
+                ->findAll();
+        }
+
+        return $query->findAll();
     }
 
     /**
@@ -204,6 +243,66 @@ class TrxTcmModel extends Model
             }
         }
 
-        return $byPosisi;
+        // Jika transferId diberikan, return array TCM langsung seperti getItemsByLocation()
+        if ($transferId !== null) {
+            return $byPosisi[$transferId] ?? [];  // Return array TCM untuk posisi tersebut
+        }
+
+        return $byPosisi;  // Jika null, return grouped
+    }
+
+
+    /**
+     * Menghitung jumlah TCM per jenis TCM berdasarkan getTcmGroupedByTcmIdWithLatestTgl()
+     * @return array Array indexed dengan namaJenisTcm, Count, JenisId
+     */
+    public function getJenisTcmCounts()
+    {
+        $results = $this->getTcmGroupedByTcmIdWithLatestTgl();
+        $counts = [];
+
+        foreach ($results as $item) {
+            $jenis = $item['jenisTCM'] ?? 'Unknown';
+            if (!isset($counts[$jenis])) {
+                $counts[$jenis] = [
+                    'jenis' => $jenis,
+                    'count' => 0,
+                    'jenisId' => $item['jenisId'] ?? null
+                ];
+            }
+            $counts[$jenis]['count']++;
+        }
+
+        return array_values($counts);  // Return sebagai array indexed
+    }
+
+
+    /**
+     * Mengambil data TCM grouped by tcmId dengan tglPelaksanaan paling terakhir
+     * @return array
+     */
+    public function getDetailTcmByJenisId($jenisId = null)
+    {
+        // Subquery untuk ambil tglPelaksanaan terakhir per tcmId 
+        $subquery = $this->db->table('trxTcm')
+            ->select('trxTcm.tcmId, MAX(kegiatan.tglPelaksanaan) as latest_tgl, trxTcm.id as trxTcmId')
+            ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId')
+            ->groupBy('trxTcm.tcmId');
+
+        $query = $this->select('trxTcm.tcmId, tcm.serialNumber, tcm.partNumber, tcm.status, trxTcm.kondisi, satkai.satkai AS lokasi, satkai.id AS satkaiId, satkai.jenis AS jenisSatkai, jenistcm.nama AS jenisTCM, jenistcm.id AS jenisId, sub.latest_tgl,sub.trxTcmId')  // Tambah jenistcm.id AS jenisId
+            ->join('tcm', 'tcm.id = trxTcm.tcmId')
+            ->join('jenistcm', 'jenistcm.id = tcm.jenisId', 'left')  // Tambah join dengan jenistcm
+            ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
+            ->join('(' . $subquery->getCompiledSelect() . ') sub', 'sub.tcmId = trxTcm.tcmId', 'inner')
+            ->where('kegiatan.tglPelaksanaan = sub.latest_tgl')  // Pastikan hanya ambil record dengan tgl terakhir
+            ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId')  // Join kegiatan untuk akses tglPelaksanaan
+            ->groupBy('trxTcm.tcmId');  // Group by tcmId
+
+        // Tambah kondisi where jika jenisId diberikan
+        if ($jenisId !== null) {
+            $query->where('jenistcm.id', $jenisId);
+        }
+
+        return $query->findAll();
     }
 }

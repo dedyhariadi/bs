@@ -60,7 +60,7 @@
                                 <?php
                                 $jmlTcm = 0;
                                 foreach ($getTcmWithLatestTrx as $tcmItem):
-                                    if ($tcmItem['jenis_satkai'] === 'Arsenal' && $tcmItem['jenisTcmId'] === $item['id']) :
+                                    if ($tcmItem['jenisSatkai'] === 'Arsenal' && $tcmItem['jenisId'] === $item['id']) :
                                         $jmlTcm++;
                                     endif;
                                 endforeach;
@@ -72,7 +72,7 @@
                                 <?php
                                 $jmlTcm = 0;
                                 foreach ($getTcmWithLatestTrx as $tcmItem):
-                                    if ($tcmItem['jenis_satkai'] !== 'Arsenal' && $tcmItem['jenisTcmId'] === $item['id']) :
+                                    if ($tcmItem['jenisSatkai'] !== 'Arsenal' && $tcmItem['jenisId'] === $item['id']) :
                                         $jmlTcm++;
                                     endif;
                                 endforeach;
@@ -84,7 +84,7 @@
                                 <?php
                                 $jmlTcm = 0;
                                 foreach ($getTcmWithLatestTrx as $tcmItem):
-                                    if ($tcmItem['kondisi_terakhir'] === 'OK' && $tcmItem['jenisTcmId'] === $item['id']) :
+                                    if ($tcmItem['kondisi'] === 'OK' && $tcmItem['jenisId'] === $item['id']) :
                                         $jmlTcm++;
                                     endif;
                                 endforeach;
@@ -97,7 +97,7 @@
                                 <?php
                                 $jmlTcm = 0;
                                 foreach ($getTcmWithLatestTrx as $tcmItem):
-                                    if ($tcmItem['kondisi_terakhir'] !== 'OK' && $tcmItem['jenisTcmId'] === $item['id']) :
+                                    if ($tcmItem['kondisi'] !== 'OK' && $tcmItem['jenisId'] === $item['id']) :
                                         $jmlTcm++;
                                     endif;
                                 endforeach;

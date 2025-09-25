@@ -8,8 +8,6 @@
 
 
 
-
-
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-5 pb-2 mb-3 border-bottom">
         <h1 class="h2">Torpedo Countermeasure</h1>
     </div>
@@ -49,8 +47,8 @@
                                         <?= anchor('', $item['serialNumber'], ['class' => 'link-success link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover', 'data-bs-toggle' => 'modal', 'data-bs-target' => '#historyTcmModal' . $item['tcmId']]) ?>
                                     </td>
                                     <td><?= $item['status']; ?></td>
-                                    <td><?= $item['kondisi_terakhir']; ?></td>
-                                    <td><?= $item['posisi_terakhir']; ?></td>
+                                    <td><?= $item['kondisi']; ?></td>
+                                    <td><?= $item['lokasi']; ?></td>
                                     <td>
 
 
@@ -119,7 +117,7 @@
                                         Kondisi Terakhir:
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title"><?= $item['kondisi_terakhir'] ?></h5>
+                                        <h5 class="card-title"><?= $item['kondisi'] ?></h5>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +136,7 @@
                                             <th scope="col" rowspan="2">#</th>
                                             <th scope="col" colspan="2">TANGGAL</th>
                                             <th scope="col" rowspan="2">DURASI</th>
-                                            <th scope="col" rowspan="2">SATKAI</th>
+                                            <th scope="col" rowspan="2">POSISI</th>
                                             <th scope="col" rowspan="2">KONDISI</th>
                                         </tr>
                                         <tr class="text-center align-middle">

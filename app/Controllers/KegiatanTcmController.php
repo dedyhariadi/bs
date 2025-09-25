@@ -130,9 +130,9 @@ class KegiatanTcmController extends BaseController
             'surat' => $this->suratModel->findAll(),
             'jenisTcm' => $this->jenisTcmModel->findAll(),
             'tcm' => $this->tcmModel->getTcmByKegiatanId($id),
-            'tcmByPosisi' => $this->trxTcmModel->getItemsByLocation($kegiatan['transferDariId']),
-            'tcmByPosisiTglPelaksanaan' => $this->trxTcmModel->tcmByPosisi($kegiatan['transferDariId']),
-            'getTcmGroupedByTcmIdWithLatestTgl' => $this->trxTcmModel->getTcmGroupedByTcmIdWithLatestTgl(),
+            'tcmByPosisi' => $this->trxTcmModel->getTcmGroupedByTcmIdWithLatestTgl($kegiatan['transferDariId']),
+            // 'tcmByPosisiTglPelaksanaan' => $this->trxTcmModel->getTcmGroupedByTcmIdWithLatestTgl($kegiatan['transferDariId']),
+            // 'getTcmGroupedByTcmIdWithLatestTgl' => $this->trxTcmModel->getTcmGroupedByTcmIdWithLatestTgl(),
         ];
         // dd($data);
 

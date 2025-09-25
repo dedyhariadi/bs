@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\JenisTcmModel;
 use App\Models\TcmModel;
+use App\Models\TrxTcmModel;
+
 
 
 use CodeIgniter\HTTP\ResponseInterface;
@@ -12,11 +14,13 @@ class JenisTcmController extends BaseController
 {
   protected $jenisTcmModel;
   protected $tcmModel;
+  protected $trxTcmModel;
 
   public function __construct()
   {
     $this->jenisTcmModel = new JenisTcmModel();
     $this->tcmModel = new TcmModel();
+    $this->trxTcmModel = new TrxTcmModel();
   }
 
 
@@ -102,11 +106,10 @@ class JenisTcmController extends BaseController
     }
     $data = [
       'jenisTcm' => $this->jenisTcmModel->find($id),
-      'detailTcm' => $this->tcmModel->getTcmWithLatestTrx($id),
+      'detailTcm' => $this->trxTcmModel->getDetailTcmByJenisId($id),
       'historyTcm' => $this->tcmModel->getTrxTcmByJenisId($id),
     ];
 
-    // dd($data);
     // Load view detail
     return view('tcm/rekap/detail', $data);
   }
