@@ -226,39 +226,53 @@
                   $jumlahTcmByPosisi = count($tcmByPosisi);
                   echo $jumlahTcmByPosisi > 0 ? '' : '<tr><td colspan="6" class="text-start text-primary text-uppercase">Tidak ada TCM yang tersedia di ' . array_column($satkai, 'satkai', 'id')[$kegiatan['transferDariId']] . '</td></tr>';
                   foreach ($tcmByPosisi as $index => $item) :
+
+                    $alreadyIn = false;
+                    foreach ($tcm as $itemTcm):
+                      if ($itemTcm['tcmId'] == $item['tcmId']) {
+                        $alreadyIn = true;
+                        break;
+                      }
+                    endforeach;
+                    if (!$alreadyIn):
+
                   ?>
-                    <tr>
-                      <th scope="row"><?= $index + 1; ?></th>
-                      <td>
-                        <?php
-                        foreach ($jenisTcm as $j):
-                          echo ($item['jenisId'] == $j['id']) ? $j['nama'] : '';
-                        endforeach;
-                        ?>
-                      </td>
-                      <td><?= $item['partNumber']; ?></td>
-                      <td><?= $item['serialNumber']; ?></td>
-                      <td>
-                        <div class="form-check-inline">
-                          <input class="form-check-input" type="radio" name="kondisi<?= $item['tcmId'] ?>" value="OK" id="radioDefault1<?= $item['tcmId'] ?>" <?= $item['kondisi'] == 'OK' ? 'checked' : '' ?>>
-                          <label class="form-check-label" for="radioDefault1<?= $item['tcmId'] ?>">
-                            OK
-                          </label>
-                        </div>
-                        <div class="form-check-inline">
-                          <input class="form-check-input" type="radio" name="kondisi<?= $item['tcmId'] ?>" value="NOT OK" id="radioDefault2<?= $item['tcmId'] ?>" <?= $item['kondisi'] !== 'OK' ? 'checked' : '' ?>>
-                          <label class="form-check-label" for="radioDefault2<?= $item['tcmId'] ?>">
-                            NOT OK
-                          </label>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" name="pilih[]" value="<?= $item['tcmId'] ?>">
-                        </div>
-                      </td>
-                    </tr>
-                  <?php endforeach; ?>
+                      <tr>
+                        <th scope="row"><?= $index + 1; ?></th>
+                        <td>
+                          <?php
+                          foreach ($jenisTcm as $j):
+                            echo ($item['jenisId'] == $j['id']) ? $j['nama'] : '';
+                          endforeach;
+                          ?>
+                        </td>
+                        <td><?= $item['partNumber']; ?></td>
+                        <td><?= $item['serialNumber']; ?></td>
+                        <td>
+                          <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="kondisi<?= $item['tcmId'] ?>" value="OK" id="radioDefault1<?= $item['tcmId'] ?>" <?= $item['kondisi'] == 'OK' ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="radioDefault1<?= $item['tcmId'] ?>">
+                              OK
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="kondisi<?= $item['tcmId'] ?>" value="NOT OK" id="radioDefault2<?= $item['tcmId'] ?>" <?= $item['kondisi'] !== 'OK' ? 'checked' : '' ?>>
+                            <label class="form-check-label" for="radioDefault2<?= $item['tcmId'] ?>">
+                              NOT OK
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" name="pilih[]" value="<?= $item['tcmId'] ?>">
+                          </div>
+                        </td>
+                      </tr>
+
+                  <?php
+                    endif;
+                  endforeach;
+                  ?>
                 </tbody>
               </table>
             </div>
