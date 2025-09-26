@@ -145,7 +145,7 @@ class TcmController extends BaseController
         }
 
         // cari TCM berdasarkan ID
-        $tcm = $this->tcmModel->find($id);
+        $tcm = $this->tcmModel->getHistoryByTcmId($id);
         if (!$tcm) {
             return $this->response->setStatusCode(404, 'TCM not found');
         }
@@ -157,6 +157,14 @@ class TcmController extends BaseController
             if (!$this->tcmModel->delete($id)) {
                 return $this->response->setStatusCode(500, 'Failed to delete TCM');
             }
+        }
+
+
+        //hapus untuk nonBarangMasuk list dulu daftar trxtcm yang sebelum tglpelaksanaan
+        if ($this->request->getVar('jenisGiat') === 'nonBarangMasuk') {
+            $this->trxTcmModel->where('tcmId', $id)
+                ->where('tglPelaksanaan <', $tcm['tglPelaksanaan'])
+                ->delete();
         }
 
         // hapus TCM di trxtcm

@@ -305,4 +305,23 @@ class TrxTcmModel extends Model
 
         return $query->findAll();
     }
+
+
+    // ...existing code...
+
+    /**
+     * Get history transaksi TCM berdasarkan tcmId, join dengan trxTcm dan kegiatan, diurutkan berdasarkan tglPelaksanaan
+     * @param int $tcmId
+     * @return array
+     */
+    public function getHistoryByTcmId($tcmId)
+    {
+        return $this->db->table('trxTcm')
+            ->select('trxTcm.*, kegiatan.tglPelaksanaan AS tglPelaksanaan, kegiatan.jenisGiat, kegiatan.transferDariId, kegiatan.transferKeId')
+            ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId', 'left')
+            ->where('trxTcm.tcmId', $tcmId)
+            ->orderBy('kegiatan.tglPelaksanaan', 'DESC')  // Urutkan berdasarkan tglPelaksanaan descending
+            ->get()
+            ->getResultArray();
+    }
 }
