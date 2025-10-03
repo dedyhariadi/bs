@@ -145,7 +145,7 @@ class TcmController extends BaseController
         }
 
         // cari TCM berdasarkan ID
-        $tcm = $this->tcmModel->getHistoryByTcmId($id);
+        $tcm = $this->tcmModel->find($id);
         if (!$tcm) {
             return $this->response->setStatusCode(404, 'TCM not found');
         }

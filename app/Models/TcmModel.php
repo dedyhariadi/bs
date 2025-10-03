@@ -86,19 +86,4 @@ class TcmModel extends Model
             ->get()
             ->getResultArray();
     }
-
-    /**
-     * Mengambil history TCM berdasarkan tcmId, join dengan kegiatan, diurutkan berdasarkan tglPelaksanaan
-     * @param int $tcmId
-     * @return array
-     */
-    public function getHistoryByTcmId($tcmId)
-    {
-        return $this->select('trxTcm.*, kegiatan.tglPelaksanaan AS tglPelaksanaan, kegiatan.jenisGiat, satkai.satkai AS lokasi')
-            ->join('kegiatan', 'kegiatan.id = trxTcm.kegiatanId')
-            ->join('satkai', 'satkai.id = trxTcm.posisiId', 'left')
-            ->where('trxTcm.tcmId', $tcmId)
-            ->orderBy('kegiatan.tglPelaksanaan', 'ASC')  // Urutkan berdasarkan tglPelaksanaan ascending
-            ->findAll();
-    }
 }

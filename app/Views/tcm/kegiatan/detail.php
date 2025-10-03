@@ -227,6 +227,7 @@
                   echo $jumlahTcmByPosisi > 0 ? '' : '<tr><td colspan="6" class="text-start text-primary text-uppercase">Tidak ada TCM yang tersedia di ' . array_column($satkai, 'satkai', 'id')[$kegiatan['transferDariId']] . '</td></tr>';
                   foreach ($tcmByPosisi as $index => $item) :
 
+                    // agar tidak menampilkan tcm yang sama dengan yang sudah dimasukkan
                     $alreadyIn = false;
                     foreach ($tcm as $itemTcm):
                       if ($itemTcm['tcmId'] == $item['tcmId']) {
