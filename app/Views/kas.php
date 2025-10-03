@@ -15,8 +15,6 @@
     </button>
     <br><br>
 
-
-
     <div class="row">
         <div class="col-12">
             <table class="table table-hover fs-5" style="background-color:#F7FFF7;">
