@@ -138,7 +138,6 @@ class TcmController extends BaseController
     public function delete($id)
     {
 
-        // dd($this->request->getVar());
         // hanya izinkan DELETE
         if ($this->request->getMethod() !== 'DELETE') {
             return $this->response->setStatusCode(405, 'Method Not Allowed');

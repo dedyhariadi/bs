@@ -14,7 +14,7 @@
                 <h5 class="card-header">Next Activity</h5>
                 <div class="card-body">
                     <h1 class="card-title">Januari 2026</h1>
-                    <p class="card-text">Class E Maintenance.</p>
+                    <p class="card-text">Class E Maintenance. </p>
                     <a href="#" class="btn btn-outline-light">Detail</a>
                 </div>
             </div>
